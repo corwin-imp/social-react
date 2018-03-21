@@ -1,0 +1,31 @@
+.formInp{
+    position: relative;
+}
+.formInp button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #6d6d6d;
+    font-size: 12px;
+    height: 100%;
+}
+.selects > *{
+    display: inline-block;
+}
+.selects > select{
+    width: calc(50% - 50px);
+
+}
+*.act {
+
+    background: #5C94AE !important;
+    color: white;
+}
+*.act * {
+
+    color: white;
+}
+.selects > span{
+    width: 50px;
+    text-align: center;
+}

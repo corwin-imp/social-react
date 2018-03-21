@@ -1,0 +1,90 @@
+
+#itemInfo > * {
+    display: inline-block;
+    vertical-align: top;
+
+}
+.itemContent{
+    padding-right: 10px;
+    width: 45%;
+}
+.itemParams{
+    padding-left: 10px;
+    width: 55%;
+
+}
+.itemParams .part{
+    padding-left: 20px;
+}
+
+.itemParams .title{
+    margin: -10px -10px 10px -20px;
+}
+.itemContent .title{
+    margin: -10px -10px 10px -10px;
+}
+
+#imagePart{
+    background: none;
+}
+
+#imagesPart .picturesItem img{
+    min-height: 160px !important;
+}
+.itemImage{
+    text-align: center;
+}
+.itemImage img{
+    width: 200px;
+}
+#audioPart .audioList{
+    height: 135px;
+    overflow: hidden;
+    padding: 10px 15px;
+}
+#videoPart .video{
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    border-right: 5px solid #f9f9f9;
+}
+#namePart .name{
+    width: 85%;
+    font-size: 25px;
+    vertical-align: middle;
+    display: inline-block;
+}
+#namePart .statusItem{
+    width: 15%;
+    vertical-align: middle;
+    line-height: 25px;
+    text-align: center;
+    color: white;
+    display: inline-block;
+}
+#namePart .statusItem.online{
+    background: #54A79B;
+
+}
+#namePart .statusItem.offline{
+    background: #e1e1e1;
+
+}
+
+.param{
+    line-height: 30px;
+}
+.paramLabel{
+    min-width: 100px;
+
+    color: #86ACBE;
+    display: inline-block;
+}
+#pageProfile .btnZone{
+    display: none;
+}
+
+
+
+
+

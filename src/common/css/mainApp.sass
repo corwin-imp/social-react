@@ -1,0 +1,389 @@
+body
+	margin: 0
+	padding: 0
+	font-family: sans-serif
+
+a
+	color: black !important
+select
+	border-radius: 0 !important
+button
+	border-radius: 0 !important
+button::-moz-focus-outer,
+button::-moz-focus-inner,
+button:focus
+	outline: none !important
+
+
+ul
+	margin: 0
+	list-style-type: none
+
+#mainApp input
+	border-radius: 0
+
+#headApp
+	background: #EBEEF6
+	display: flex
+	position: fixed
+	width: 100%
+	z-index: 10
+	flex-direction: row
+	justify-content: space-between
+	align-items: stretch
+	min-height: 51px
+	border-bottom: 1px solid #77CABE
+	.dropdown.btn-group
+		height: 100%
+		width: calc(100% - 60px)
+	.dropdown-menu
+		border-radius: 0
+
+#footerApp
+	background: #446A7C
+
+#headAppLinks
+	flex-grow: 0.5
+	width: 50%
+	.myProfile
+		background: #518e92
+		height: 100%
+		width: 250px
+		margin-right: 50px
+.searchCont
+	position: relative
+	background: white
+
+.searchCont > .fa
+	position: absolute
+	z-index: 20
+	top: 12px
+	left: 10px
+	color: #ddd
+	font-size: 14px
+
+.searchCont input
+	padding-left: 35px
+
+#searchForm
+	position: relative
+	margin-left: 20px
+	.itemList.simle
+		position: absolute
+		width: 100%
+		border: 1px solid #d1d1d1
+		z-index: 10
+		background: #EBEEF6
+
+#user-menu
+	height: 100%
+	width: 100%
+	box-shadow: none
+	background: none
+	border: none
+	padding: 0
+	color: white
+	font-size: 16px
+
+#personLink
+	width: 60px
+	display: inline-block
+	text-align: center
+	font-size: 25px
+	line-height: 50px
+	height: 100%
+	box-sizing: border-box
+	vertical-align: middle
+	color: white !important
+	text-decoration: none
+	background: #7096A8
+
+#headAppAudio::before
+	content: ''
+	position: absolute
+	top: -3px
+	left: -47px
+	border: 26px solid transparent
+	border-right: 22px solid #54A79B
+	border-bottom: 28px solid #54A79B
+
+#AppContent
+	padding: 20px
+	width: calc(100% - 290px)
+	margin: 20px
+	background: #EBEEF6
+
+#sideApp
+	width: 250px
+	background: #54A79B
+	border-right: 1px solid #77CABE
+	border-top: 7px solid #446A7C
+	padding-top: 15px
+	padding-left: 0px
+
+#headAppAudio
+	position: relative
+	width: 50%
+	background-color: #54A79B
+	.audioPlayer
+		height: 50px
+		background: #54A79B
+	.audioList
+		display: none
+	.centerAudio
+		width: 50%
+	.rightControls
+		width: 30%
+
+#headAppLinks > *
+	display: inline-block
+	vertical-align: middle
+
+#contentApp
+	display: flex
+	padding-top: 51px
+	min-height: 100vh
+
+.sideAppNav
+	padding: 0
+	position: fixed
+	width: 250px
+	border: 1px solid white
+	border-right: none
+	a
+		display: block
+		line-height: 30px
+		color: #385E70 !important
+		text-decoration: none
+		border-bottom: 1px solid aliceblue
+		padding-left: 10px
+		transition: all .3s ease
+		background: rgba(230, 230, 230, 0.35)
+		&:hover
+			background: rgba(230, 230, 230, 0.1)
+
+.title
+	display: block
+	color: white
+	background: #446A7C
+	color: white !important
+	padding-left: 15px
+	line-height: 30px
+	text-decoration: none !important
+	outline: none
+.part
+	background: #f9f9f9
+	padding: 10px
+	margin-bottom: 15px
+.mainPart
+	margin: 0
+	background: #F5F8FF
+	-ms-flex: 1
+	-webkit-box-flex: 1
+	-moz-box-flex: 1
+	-ms-box-flex: 1
+	box-flex: 1
+	margin-right: 30px
+	display: flex
+	width: calc(70% - 30px)
+	padding: 30px
+	flex-direction: column
+	justify-content: flex-start
+	align-content: flex-start
+	align-items: inherit
+
+#profilesPage
+	display: -webkit-box
+.rightSide
+	width: 30%
+	margin-bottom: 0
+	padding: 20px
+	background: #F5F8FF
+	.stickyPart
+		top: 60px
+.stickyPart
+	position: sticky
+	z-index: 20
+
+.fullSearch
+	top: 0
+	.fa
+		top: 20px
+		left: 15px
+		font-size: 14px
+	.form-group
+		display: block
+	#searchForm
+		margin: 0
+	.form-control
+		height: auto
+		line-height: 37px
+		width: 100%
+		background: #EBEEF6
+		display: block
+		font-size: 16px
+.fullSearch + .itemList > .item:first-child
+	border-top: none
+.homeSection
+	border-bottom: 1px solid black
+	padding: 20px 0
+	height: 30%
+	border-radius: 5px
+	margin: 20px 0 15px
+	padding: 25px
+	position: relative
+	display: flex
+	align-items: center
+
+	justify-content: space-around
+.btnSearch
+	margin-left: 3px
+	line-height: 21px
+.btnWarn
+	background: white
+	-webkit-box-shadow: 0px 1px 2px #363636
+	-moz-box-shadow: 0px 1px 2px #363636
+	box-shadow: 0px 1px 2px #363636
+	font-family: Arial
+	color: #d10000
+	border: none
+	font-size: 12px
+	border-radius: 0
+	padding: 5px 20px 5px 20px
+	text-decoration: none
+	&:hover
+		background: #ebebeb
+		text-decoration: none
+
+.btnUpdate, .btnAdd
+	-webkit-box-shadow: 0px 1px 2px #666666
+	-moz-box-shadow: 0px 1px 2px #666666
+	box-shadow: 0px 1px 2px #666666
+	font-family: Arial
+	border-radius: 0
+	color: #446A7C
+	font-size: 12px
+	background: #ffffff
+	padding: 5px 20px 5px 20px
+	text-decoration: none
+
+.btnUpdate:hover, .btnAdd:hover
+	background: #ebebeb
+	text-decoration: none
+
+.switcher button
+	&.on
+		background: blue
+	&.off
+		background: red
+
+.homeSection
+	&:after
+		content: ''
+		display: block
+		width: 100%
+		height: 100%
+		left: 0
+		bottom: 0
+		position: absolute
+		background-color: RGBA(255, 255, 255, 0.25)
+		box-sizing: border-box
+	&:last-child
+		border: none
+	>
+	div
+		display: flex
+		position: relative
+		height: 100%
+		.add
+			flex-direction: column
+			text-align: center
+			height: 100%
+			justify-content: center
+
+.homePage
+	/*	background: rgba(27,162,97,0.2)
+	display: flex
+	justify-content: center
+	flex-direction: column
+
+.add b
+	display: block
+	color: white
+	margin-bottom: 10px
+
+.category_name
+	color: white
+	background: RGBa(98, 88, 82, 0.4)
+	text-align: center
+	border-radius: 3px
+	border-bottom: 2px solid #635953
+	line-height: 30px
+	text-transform: uppercase
+
+.selects a
+	margin-left: 3%
+	border: 2px solid #433E39
+	z-index: 201
+	position: relative
+	display: flex
+	color: white
+	text-transform: uppercase
+	text-decoration: none
+	justify-content: center
+	align-items: center
+	height: 100%
+	width: 300px
+	transition: all ease .4s
+	&:hover
+		background: black
+.btnAuto
+	margin: auto
+	background: #446A7C
+	width: 12em
+	height: 3.5em
+	transition: all .3s ease
+	width: 100%
+
+.btnAuto:hover
+	background: #63899B
+.autoPages
+	margin: 0 auto
+	width: 800px
+	padding: 25px 15px 60px
+	margin-top: 30px
+
+.autoPages header
+	font-size: 20px
+	color: #858585
+	line-height: 40px
+	margin-top: 0
+	margin-bottom: 30px
+.signIn .form-control
+	height: 45px
+	padding: 10px 30px
+.autoLink
+	line-height: 30px
+	display: inline-block
+	text-decoration: none
+	padding: 10px
+	background: #518e92
+	width: 250px
+	text-align: center
+	font-size: 23px
+	color: white !important
+.btnPic
+	background: #5f5f5f
+	padding: 3px 5px
+#headApp .btnZone
+	display: none
+.btnZone
+	color: #54A79B
+	outline: none
+	border: none
+.btnUp.btn
+	margin: 5px auto
+	display: block
+	padding: 5px 35px
+	color: #43697B
+	font-weight: bold

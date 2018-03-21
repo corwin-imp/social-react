@@ -1,0 +1,18 @@
+.addVideo{
+    width: 55%;
+    margin: 0 auto;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.addVideo .title{
+    margin: -10px -10px 10px;
+}
+
+.addVideo .form-control{
+    margin: 10px;
+}
+.addVideo label{
+    padding-right: 10px;
+    color: #86ACBE;
+}
