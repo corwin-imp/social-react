@@ -1,0 +1,155 @@
+#pageAudio .Audio{
+    background: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+.audioPlayer {
+
+    background: #4f6699;
+    width: 100%;
+    height: 50px;
+    position: relative;
+}
+
+.audioPlayer {
+
+    background: #4f6699;
+    width: 100%;
+    padding: 1% 3%;
+    height: 55px;
+    position: relative;
+}
+.audioPlayer > *{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+#pageAudio .audioPlayer{
+    margin-bottom: 15px;
+}
+
+.leftControls {
+
+    width: 20%;
+}
+.audioPlayer .leftControls button{
+    background: none;
+    border: none;
+    vertical-align: middle;
+    display: inline-block;
+    color: white;
+    font-size: 16px;
+}
+.centerAudio{
+    width: 60%;
+    position: relative;
+    text-align: center;
+    color: white;
+
+}
+.rightControls{
+    width: 20%
+}
+.rightControls > *{
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+
+.leftControls > a {
+    text-decoration: none;
+    height: 50px;
+    width: 34px;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 17px 10px;
+    float: left;
+    color: white;
+    cursor: pointer;
+}
+
+.leftControls > a:hover {
+    background-color: #084380;
+    color: #b3b3b3;
+}
+
+.progress {
+    height: 8px;
+    margin: 0;
+    border-radius: 0;
+    position: absolute;
+    right: 0;
+    background: black;
+    cursor: pointer;
+    left: 0;
+    bottom: 0;
+}
+
+.progress > .bar {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top: 2px;
+    bottom: 3px;
+}
+
+.progress > .bar > div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background: white;
+}
+.againBtn{
+    margin-left: 10%;
+    color: white;
+    margin-bottom: 0;
+}
+.volume{
+    color: white;
+    font-size: 10px;
+    float: right;
+    margin-right: 0%;
+
+}
+.time {
+    padding-top: 8%;
+    width: 100px;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+}
+.audioList{
+    padding: 20px 30px;
+    margin-top: 10px;
+    background: rgba(57, 115, 106,0.15);
+}
+.btnZone{
+    margin-bottom: 5px;
+}
+.btnZone .up{
+    padding-right: 5px;
+}
+.audioList li{
+    border-bottom: 1px solid white;
+    line-height: 30px;
+    color: #43697B;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+
+}
+.audioList li .playIt:hover{
+    background: rgba(57, 115, 106,0.15);
+}
+.audioList .playIt{
+    padding: 3px 5px;
+
+}
+.audioList .playIt button{
+    background: transparent;
+    border: none;
+    font-size: 10px;
+}

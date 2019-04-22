@@ -1,0 +1,48 @@
+
+.DevicesPage .deviceLink > *{
+	float: left;
+	display: block;
+}
+.DevicesPage .deviceLink{
+	clear: both;
+}
+.DevicesPage .switcher > *{
+	display: block;
+	height: 90px;
+	background: #2B2622;
+	color: white;
+	border-radius: 0;
+	text-transform: uppercase;
+	width: 100%;
+	font-weight: bold;
+	border: 1px solid #635953;
+}
+
+.DevicesPage .device{
+	display: inline-block;
+	border: 2px solid #635953;
+	border-radius: 2px;
+	margin: 1.2% 1.5%;
+
+
+}
+.DevicesPage .device > *{
+	display: inline-block;
+	vertical-align: top;
+
+}
+.DevicesPage .deviceList{
+	margin: 0 auto;
+
+}
+
+.DevicesPage .deviceName{
+	clear: both;
+	width: 100%;
+	text-align: center;
+	color: white;
+	background: RGBa(98,88,82,0.4);
+	
+
+	line-height: 30px;
+}

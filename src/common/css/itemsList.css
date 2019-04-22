@@ -1,0 +1,158 @@
+.item{
+    border-bottom: 1px solid #d1d1d1;
+    padding: 13px 15px 13px 0;
+    position: relative;
+}
+.item > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+.itemLink{
+    width: 80%;
+}
+.itemButtons{
+    width: 20%;
+}
+.itemButtons *{
+    display: none;
+}
+.itemLink > * {
+
+    display: inline-block;
+    vertical-align: top;
+}
+.itemInfo{
+    margin-left: 60px;
+}
+.imageItem{
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 125px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    -ms-flex-wrap: wrap;
+
+    flex-wrap: wrap;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.itemList .imageItem{
+    float: left;
+    width: 125px;
+}
+.itemList .imageItem img{
+    min-height: 125px;
+    margin: auto;
+
+}
+.imageItem img{
+    height: auto;
+
+}
+.item .status{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 10;
+    border-radius: 2px;
+    width: 15px;
+    border: 0px solid black;
+    height: 15px;
+    background: #3be43b;
+
+}
+.itemList .itemprop{
+    font-size: 16px;
+    color: #6c6c6c;
+}
+.itemName{
+    font-size: 25px;
+}
+.itemButtons * {
+    background: #54A79B;
+}
+
+.itemsSelect .itemSelect{
+    background: #54A79B;
+}
+
+.itemsSelect .itemLink{
+    width: calc(25% - 10px);
+    border-radius: 5px;
+    overflow: hidden;
+    text-align:center;
+    margin: 5px;
+    display: inline-block;
+
+}
+.itemList.itemsSelect .imageItem{
+    height: 60px;
+    float: none;
+    margin: 0 auto;
+    width: 60px;
+}
+.itemList.itemsSelect .imageItem img{
+    min-height: 60px;
+    width: inherit;
+}
+.itemsSelect .itemName{
+    font-size:14px;
+}
+.itemsSelect.itemList{
+    margin-bottom: 20px;
+}
+.itemList.simle .imageItem{
+    width: 40px;
+    height: 40px;
+}
+.itemList.simle .item{
+    padding: 3px 5px 3px 10px;
+    margin-bottom: 0;
+    border: none;
+    border-bottom: 1px solid #d1d1d1;
+}
+.itemList.simple{
+    position: absolute;
+    width: 100%;
+    border: 1px solid #d1d1d1;
+    z-index: 10;
+    background: #EBEEF6;
+}
+.itemList.simle .itemInfo{
+    margin-left: 10px;
+}
+.itemList.simle .itemLink{
+    width: 100%;
+}
+.itemList.simle .itemButtons{
+    display: none;
+}
+.itemList.simle .imageItem img{
+    min-height: 40px;
+}
+.itemList.simle .itemName{
+    font-size: 16px;
+}
+.itemList.simle .itemprop{
+    font-size: 13px;
+}
+.searchCont > .btnSearch{
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 37px;
+    padding: 6px 20px;
+}
+
+
+
+
+
+
+

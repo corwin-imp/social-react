@@ -1,0 +1,75 @@
+.DevicePage .device{
+	display: block;
+	border: 2px solid #635953;
+	border-radius: 2px;
+	margin: 1.2% 1.5%;
+	background-image: url('../images/noize/leather.jpg');
+	overflow: auto;
+
+}
+.params{
+	padding: 3%;
+	float: left;
+}
+.DevicePage .main{
+	display: block;
+	width: 40%;
+	float: left;
+	padding: 0 3%;
+	border-right: 4px solid #635953;
+	margin-bottom: 3%;
+	margin-top: 3%;
+	height: auto;
+	text-align: center;
+}
+.DevicePage .main img{
+	padding-bottom: 20px;
+	width: 80%;
+	border-bottom: 2px solid #635953;
+}
+.DevicePage .power .btn {
+	width: 100%;
+
+}
+.form-control{
+	vertical-align: middle;
+	display: inline-block;
+	width: auto;
+}
+.DevicePage .btnLabel{
+	color: white;
+	background: RGBa(98,88,82,0.4);
+	line-height: 30px;
+	margin: 0 0 15px;
+	padding-left: 10px;
+}
+.DevicePage .choose{
+	margin: 10px 0;
+}
+.DevicePage .power{
+	width: 30%;
+	margin-top: 15px;
+}
+.DevicePage .del_btn{
+	float: right;
+	margin-top: -70px;
+}
+.DevicePage .del_btn .btn{
+	line-height: 55px;
+	background: black;
+	color: #d3d3d3;
+	border: 1px solid #d3d3d3;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+.DevicePage .deviceName{
+	clear: both;
+	width: 100%;
+	text-align: center;
+	color: white;
+	background: RGBa(98,88,82,0.4);
+	line-height: 50px;
+	font-size: 20px;
+
+	line-height: 30px;
+}
