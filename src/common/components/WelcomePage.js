@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { welcomePage } from '../actions/actions'
+import { welcomePage } from '../store/App/actionsApp'
 import { connect } from 'react-redux'
 import { Form, Button } from 'react-bootstrap'
 import FBSignIn from './FBSignIn'
@@ -54,14 +54,14 @@ class WelcomePage extends Component {
          name="username"
          value={this.state.username}
          placeholder="Enter username"
-         onChange={::this.handleChange}
+         onChange={this.handleChange}
          />
          <Link to="/signup">
          <Button
          bsStyle="success"
          style={{width: '100%'}}
          type="submit"
-         onClick={::this.handleSubmit}>
+         onClick={this.handleSubmit}>
          <p style={{margin: '0', padding: '0', fontSize: '1.5em'}}>Sign Up</p>
          </Button>
          </Link>
@@ -99,7 +99,7 @@ class WelcomePage extends Component {
                 name="username"
                 value={this.state.username}
                 placeholder="Enter username"
-                onChange={::this.handleChange}
+                onChange={this.handleChange}
               />
             </div>
             <section style={{ margin: 'auto', width: '12em', height: '3.5em' }}>
@@ -108,7 +108,7 @@ class WelcomePage extends Component {
                   className="btnAuto"
                   variant="success"
                   type="submit"
-                  onClick={::this.handleSubmit}
+                  onClick={this.handleSubmit}
                 >
                   <p style={{ margin: '0', padding: '0', fontSize: '1.5em' }}>
                     Sign Up

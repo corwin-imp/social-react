@@ -10,6 +10,4 @@ export const FAIL = 'FAIL';
 export const APP = 'APP';
 export const AUDIO = 'APP';
 export const CHAT = 'APP';
-export const AUTH = 'APP';
-export const CHAT = 'APP';
-export const APP = 'APP';
+

@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import promiseMiddleware from '../../middleware/promiseMiddleware'
 import DevTools from '../../containers/DevTools'
 import thunk from 'redux-thunk'
-import rootReducer from '..'
+import rootReducer from '../RootReducer'
 
 const finalCreateStore = compose(
   applyMiddleware(thunk, promiseMiddleware),
@@ -14,8 +14,8 @@ function configureStore(initialState) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('..')
+    module.hot.accept('../RootReducer', () => {
+      const nextRootReducer = require('../RootReducer')
       store.replaceReducer(nextRootReducer)
     })
   }

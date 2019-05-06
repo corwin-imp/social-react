@@ -1,11 +1,11 @@
 import React from 'react'
 import Button from './Button'
-import Switcher from './Switcher'
-import Choose from './choose'
+
+
 import List from './List'
 import { Link } from 'react-router-dom'
 import Audio from './Audio'
-import store from '../store/configureStore/configureStore'
+
 import Video from './Video'
 import * as actions from '../store/Audio/actionsAudio'
 import Pictures from './Pictures'

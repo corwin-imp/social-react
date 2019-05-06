@@ -63,7 +63,7 @@ class SignIn extends Component {
           Login to Social
         </header>
         <main style={{ display: 'flex', justifyContent: 'center' }}>
-          <form onSubmit={::this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
             <Input
               label="Username"
               ref="usernameInput"
@@ -71,7 +71,7 @@ class SignIn extends Component {
               name="username"
               placeholder="Enter username"
               value={this.state.username}
-              onChange={::this.handleChange}
+              onChange={this.handleChange}
             />
             <Input
               label="Password"
@@ -80,7 +80,7 @@ class SignIn extends Component {
               name="password"
               placeholder="Enter password"
               value={this.state.password}
-              onChange={::this.handleChange}
+              onChange={this.handleChange}
             />
             <Button
               className="btnAuto"

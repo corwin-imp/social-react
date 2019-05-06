@@ -1,9 +1,11 @@
+import '@babel/polyfill';
 import React from "react";
-import {BrowserRouter as Router} from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "../common/store/configureStore/configureStore";
+import store from "../common/store/configureStore";
 import DevTools from "../common/containers/DevTools";
-import Routes from "../common/routes";
+import {BrowserRouter as Router} from "react-router-dom";
+//import Routes from "../common/routes";
+import Routes from "../common/containers/Routes";
 
 class ProviderWrap extends React.Component  {
   constructor(props) {
@@ -12,13 +14,13 @@ class ProviderWrap extends React.Component  {
   render() {
     return (
       <Provider store={store}>
-        <div style={{ height: "100%" }}>
+
           {process.env.NODE_ENV !== "production" && <DevTools />}
           <Router >
             <Routes />
 
           </Router>
-        </div>
+
       </Provider>
     );
   }

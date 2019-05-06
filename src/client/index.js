@@ -10,11 +10,26 @@ import '../common/css/addVideo.css'
 import '../common/css/audio.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
-
+import { AppContainer } from 'react-hot-loader';
 import ProviderWrap from "./Provider";
 
 const rootElement = document.getElementById('react')
 
-ReactDOM.render(<ProviderWrap />,
-  rootElement
-)
+
+function render(Component) {
+    ReactDOM.hydrate(
+        <AppContainer>
+            <Component />
+        </AppContainer>,
+        document.getElementById('react-root')
+    );
+}
+render(ProviderWrap);
+
+
+if (module.hot) {
+    module.hot.accept('./Provider.js', () => {
+        const NewAppRoot = require('./Provider.js').default;
+        render(NewAppRoot);
+    });
+}

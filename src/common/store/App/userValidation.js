@@ -2,7 +2,7 @@ import {
   LOAD_USERVALIDATION,
   LOAD_USERVALIDATION_SUCCESS,
   LOAD_USERVALIDATION_FAIL,
-} from '../../constants/ActionTypes'
+} from '../Chat/TypesChat'
 
 const initialState = {
   loaded: false,

@@ -1,10 +1,8 @@
 import React from 'react'
 import Button from './Button'
-import Switcher from './Switcher'
-import Choose from './choose'
-import List from './List'
 
-import store from '../store/configureStore/configureStore'
+
+
 import ReactPlayer from 'react-player'
 export default class Video extends React.Component {
   constructor(props) {

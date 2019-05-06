@@ -1,4 +1,4 @@
-import { CHANGE_CHANNEL } from '../../constants/ActionTypes'
+import { CHANGE_CHANNEL } from './TypesChat'
 
 const initialState = {
   name: 'Lobby',

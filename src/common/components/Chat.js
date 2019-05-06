@@ -5,7 +5,7 @@ import MessageListItem from './MessageListItem'
 import Channels from './Channels'
 import ItemsList from './ItemsList'
 import FontAwesome from 'react-fontawesome'
-import * as actions from '../actions/actions'
+import * as actions from '../store/Chat/actions'
 import * as authActions from '../store/Auth/actionsAuth'
 import TypingListItem from './TypingListItem'
 import uuid from 'node-uuid'
@@ -251,7 +251,7 @@ export default class Chat extends Component {
           <MenuItem
             style={{ width: '21rem' }}
             eventKey="4"
-            onSelect={::this.handleSignOut}
+            onSelect={this.handleSignOut}
           >
             Sign out
           </MenuItem>
@@ -264,7 +264,7 @@ export default class Chat extends Component {
           bsSize="small"
           key={1}
           show={this.state.privateChannelModal}
-          onHide={::this.closePrivateChannelModal}
+          onHide={this.closePrivateChannelModal}
         >
           <Modal.Header>{this.state.targetedUser.username}</Modal.Header>
           <Modal.Body>
@@ -285,14 +285,14 @@ export default class Chat extends Component {
         <span style={{ fontSize: '2em' }}>{username}</span>
         <Navbar.Toggle />
         <Navbar.Collapse style={{ maxHeight: '100%' }}>
-          <Button bsStyle="primary" onSelect={::this.handleSignOut}>
+          <Button bsStyle="primary" onSelect={this.handleSignOut}>
             {' '}
             Sign out
           </Button>
           <section style={{ order: '2', marginTop: '1.5em' }}>
             <Channels
               socket={socket}
-              onClick={::this.changeActiveChannel}
+              onClick={this.changeActiveChannel}
               channels={channels}
               messages={messages}
               dispatch={dispatch}
@@ -316,23 +316,23 @@ export default class Chat extends Component {
               type="text"
               hasFeedback
               name="friendName"
-              onFocus={::this.onFocus}
+              onFocus={this.onFocus}
               autoFocus={false}
               placeholder="Find"
               value={this.state.findUser}
-              onChange={::this.handleChange}
+              onChange={this.handleChange}
             />
           </div>
 
           {!this.state.find ? (
             <section className="itemsSection">
               <ItemsList
-                selectItem={::this.selectItem}
+                selectItem={this.selectItem}
                 items={this.props.items}
               />
               <Button
                 className="btnAdd"
-                onClick={::this.createChannel}
+                onClick={this.createChannel}
                 type="button"
               >
                 Messages
@@ -343,7 +343,7 @@ export default class Chat extends Component {
               idActive={idActive}
               username={username}
               socket={socket}
-              onClick={::this.changeActiveChannel}
+              onClick={this.changeActiveChannel}
               channels={channels}
               messages={messages}
               dispatch={dispatch}
@@ -363,7 +363,7 @@ export default class Chat extends Component {
           display: '-webkit-box',
         }}
       >
-        <div onClick={::this.onClFind} className="part mainPart mainChat">
+        <div onClick={this.onClFind} className="part mainPart mainChat">
           <div className="title">{channelName}</div>
           {PrivateMessageModal}
           <ul
@@ -380,7 +380,7 @@ export default class Chat extends Component {
           >
             {filteredMessages.map(message => (
               <MessageListItem
-                handleClickOnUser={::this.handleClickOnUser}
+                handleClickOnUser={this.handleClickOnUser}
                 message={message}
                 key={message.id}
               />
@@ -390,7 +390,7 @@ export default class Chat extends Component {
             socket={socket}
             activeChannel={activeChannel.name}
             user={user}
-            onSave={::this.handleSave}
+            onSave={this.handleSave}
           />
 
           <footer>

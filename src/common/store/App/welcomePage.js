@@ -1,4 +1,4 @@
-import * as types from '../../constants/ActionTypes'
+import * as types from '../Auth/actionsAuth'
 
 const initialState = ''
 export default function welcomePage(state = initialState, action) {

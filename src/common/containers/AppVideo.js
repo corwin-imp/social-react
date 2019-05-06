@@ -3,7 +3,7 @@ import Video from '../components/Video'
 import AddVideo from '../components/AddVideo'
 import * as actions from '../store/Profile/actionsProfile'
 import { connect } from 'react-redux'
-import { initEnvironment } from '../actions/actions'
+
 class AppVideo extends Component {
   constructor(props) {
     super(props)

@@ -1,4 +1,4 @@
-import * as types from "../../constants/ActionTypes";
+import * as types from "./AppTypes";
 import { createActions, createAction, handleActions, combineActions } from 'redux-actions';
 import { createSignalAction } from "../typeSettings";
 

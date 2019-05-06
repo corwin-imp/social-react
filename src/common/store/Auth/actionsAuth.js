@@ -1,4 +1,3 @@
-import * as types from '../../constants/ActionTypes'
 import {browserHistory, createActions} from 'redux-actions'
 import fetch from 'isomorphic-fetch'
 import cookie from 'react-cookie'
@@ -10,7 +9,7 @@ import * as actionsD from '../Profile/actionsProfile'
 
 const socket = io('', { path: '/api/chat' })
 
-import * as types from "../../constants/ActionTypes";
+import * as types from "./types";
 import { createAction } from 'redux-actions';
 import { createSignalAction } from "../typeSettings";
 

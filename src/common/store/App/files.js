@@ -7,22 +7,27 @@ const initialState = {
 }
 
 export default function audio(state = initialState, action) {
+    function getMusicName(value) {
+        var path_parts = url.parse(value).path.split('/')
+
+        let songName = decodeURIComponent(path_parts[path_parts.length - 1])
+        songName = songName.replace(/.mp3/g, '')
+        return songName
+    }
+    function getName(value) {
+        var path_parts = url.parse(value).path.split('/')
+        return decodeURIComponent(path_parts[path_parts.length - 1])
+    }
     switch (action.type) {
 
         case types.GET_MUSIC:
-        function getName(value) {
-            var path_parts = url.parse(value).path.split('/')
 
-            let songName = decodeURIComponent(path_parts[path_parts.length - 1])
-            songName = songName.replace(/.mp3/g, '')
-            return songName
-        }
 
             let files = []
             action.files.map((value, index) => {
                 files[index] = {
                     href: value,
-                    name: getName(value),
+                    name: getMusicName(value),
                 }
             })
             return {
@@ -31,10 +36,7 @@ export default function audio(state = initialState, action) {
             }
             break
         case types.GET_PICTURES:
-        function getName(value) {
-            var path_parts = url.parse(value).path.split('/')
-            return decodeURIComponent(path_parts[path_parts.length - 1])
-        }
+
 
             let pictures = []
 

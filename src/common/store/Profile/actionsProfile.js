@@ -44,7 +44,7 @@ export const removeFileAction = createAction(types.REMOVE_FILE,({file, typeFile}
 })
 
 
-export const addItem = data => {
+/*export const addItem = data => {
   let profile = {
     local: {
       username: data.name,
@@ -55,7 +55,7 @@ export const addItem = data => {
     item: profile,
     name: data.name,
   }
-}
+}*/
 export const setSong = song => dispatch => {
   dispatch(setSongAction(song))
 

@@ -2,7 +2,7 @@ export const onUpdate = 'onUpdate'
 export const handleToggle = 'handleToggle'
 export const GET_MUSIC = 'GET_MUSIC'
 export const onPlayerPrev = 'onPlayerPrev'
-export const onPlayerNext = 'onPlayerNext'
+export const ON_PLAYER_NEXT = 'ON_PLAYER_NEXT'
 
 export const handleOnLoad = 'handleOnLoad'
 export const volume = 'volume'

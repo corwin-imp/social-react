@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import store from '../store/configureStore/configureStore'
+
 import * as actions from '../store/Profile/actionsProfile'
 import * as authActions from '../store/Auth/actionsAuth'
 import Pictures from '../components/Pictures'

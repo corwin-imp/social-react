@@ -7,7 +7,10 @@ import mongoose from "mongoose";
 
 import { renderToString } from "react-dom/server";
 import React from "react";
-
+import { Provider } from "react-redux";
+import {BrowserRouter as Router} from "react-router-dom";
+import Routes from "../common/routes.tsx";
+import store from "../common/store/configureStore";
 import {
   RouterContext,
   match,
@@ -24,6 +27,7 @@ require("../../config/passport")(passport);
 import config from "../../config/config";
 import Provider from "../client/Provider";
 import SocketIo from "socket.io";
+import DevTools from "../common/containers/DevTools";
 const app = express();
 const fileUpload = require("express-fileupload");
 const { nameBase, portBase, hostUser } = config.db;
@@ -98,14 +102,35 @@ app.use("/ftp", ftpRouter);
 
 app.use("/", express.static(path.join(__dirname, "..", "static")));
 
-app.get("/*", function(req, res) {
+/*app.get("/!*", function(req, res) {
 
   const InitialView = (Provider);
   const finalState = store.getState();
   const html = renderToString(InitialView);
   //res.send(renderFullPage(html, finalState));
    res.status(200).end(renderFullPage(html, finalState))
-});
+});*/
+
+
+
+module.exports = function render(initialState={}) {
+  // Model the initial state
+
+  let content = renderToString(
+      <Provider store={store} >
+        <div style={{ height: "100%" }}>
+          {process.env.NODE_ENV !== "production" && <DevTools />}
+          <Router >
+            <Routes />
+
+          </Router>
+        </div>
+      </Provider>
+  );
+  const preloadedState = store.getState()
+  return {content, preloadedState};
+}
+
 const server = app.listen(port, function(err) {
   if (err) {
     console.log(err);

@@ -4,9 +4,10 @@ import {
   DELETE_CHANNEL,
   LOAD_CHANNELS,
   LOAD_CHANNELS_SUCCESS,
-  LOAD_CHANNELS_FAIL,
-  AUTH_SIGNOUT_SUCCESS,
-} from '../../constants/ActionTypes'
+  LOAD_CHANNELS_FAIL
+} from './TypesChat'
+
+import {  AUTH_SIGNOUT_SUCCESS} from '../Auth/types'
 
 const initialState = {
   loaded: false,

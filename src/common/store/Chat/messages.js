@@ -4,8 +4,10 @@ import {
   LOAD_MESSAGES,
   LOAD_MESSAGES_SUCCESS,
   LOAD_MESSAGES_FAIL,
-  AUTH_SIGNOUT_SUCCESS,
-} from '../../constants/ActionTypes'
+
+} from './TypesChat'
+
+import {  AUTH_SIGNOUT_SUCCESS} from '../Auth/types'
 
 const initialState = {
   loaded: false,

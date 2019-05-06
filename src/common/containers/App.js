@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { browserHistory } from 'react-router'
-import Input from '../components/Input'
-import { initEnvironment } from '../actions/actions'
+
+import { initEnvironment } from '../store/App/actionsApp'
 import { connect } from 'react-redux'
-import * as actions from '../actions/actions'
+
 import { receiveAuth } from '../store/Auth/actionsAuth'
 import * as authActions from '../store/Auth/actionsAuth'
 import * as actionsD from '../store/Profile/actionsProfile'
@@ -107,7 +107,7 @@ class App extends React.Component {
           <Dropdown.Item
             style={{ width: '21rem' }}
             eventKey="4"
-            onSelect={::this.handleSignOut}
+            onSelect={this.handleSignOut}
           >
             Signout
           </Dropdown.Item>

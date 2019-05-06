@@ -2,10 +2,10 @@ import messages from './Chat/messages'
 import channels from './Chat/channels'
 import activeChannel from './Chat/activeChannel'
 import authReducer from './Auth/reducerAuth'
-import typers from './App/typers'
+import typers from './Chat/typers'
 import files from './App/files'
 import reducerProfile from './Profile/reducerProfile'
-import audio from './audio'
+import audio from './Audio/reducerAudio'
 import reducerVideo from './Video/reducerVideo'
 import welcomePage from './App/welcomePage'
 import userValidation from './App/userValidation'
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   activeChannel,
   auth: authReducer,
   files,
-  typers,
+  typers: typers,
   audio,
   reducerItems: reducerProfile,
   reducerVideo,

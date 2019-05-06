@@ -1,4 +1,4 @@
-import * as types from "../constants/ActionTypes";
+import * as types from "./TypesChat";
 import { browserHistory } from "react-router";
 import fetch from "isomorphic-fetch";
 import moment from "moment";

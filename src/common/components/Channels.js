@@ -4,7 +4,7 @@ import ChannelListItem from './ChannelListItem'
 
 import ChannelListModalItem from './ChannelListModalItem'
 import { Modal, Glyphicon, Input, Button } from 'react-bootstrap'
-import * as actions from '../actions/actions'
+import * as actions from '../store/Chat/actions'
 import uuid from 'node-uuid'
 
 export default class Channels extends Component {
@@ -117,13 +117,13 @@ export default class Channels extends Component {
         <Modal
           key={1}
           show={this.state.addChannelModal}
-          onHide={::this.closeAddChannelModal}
+          onHide={this.closeAddChannelModal}
         >
           <Modal.Header closeButton>
             <Modal.Title>Add New Channel</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form onSubmit={::this.handleModalSubmit}>
+            <form onSubmit={this.handleModalSubmit}>
               <Input
                 ref="channelName"
                 type="text"
@@ -137,15 +137,15 @@ export default class Channels extends Component {
                 autoFocus="true"
                 placeholder="Enter the channel name"
                 value={this.state.channelName}
-                onChange={::this.handleModalChange}
+                onChange={this.handleModalChange}
               />
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={::this.closeAddChannelModal}>Cancel</Button>
+            <Button onClick={this.closeAddChannelModal}>Cancel</Button>
             <Button
               disabled={this.validateChannelName() === 'error' && 'true'}
-              onClick={::this.handleModalSubmit}
+              onClick={this.handleModalSubmit}
               type="submit"
             >
               Create Channel
@@ -159,12 +159,12 @@ export default class Channels extends Component {
         <Modal
           key={2}
           show={this.state.moreChannelsModal}
-          onHide={::this.closeMoreChannelsModal}
+          onHide={this.closeMoreChannelsModal}
         >
           <Modal.Header closeButton>
             <Modal.Title>More Channels</Modal.Title>
             <a
-              onClick={::this.createChannelWithinModal}
+              onClick={this.createChannelWithinModal}
               style={{ cursor: 'pointer', color: '#85BBE9' }}
             >
               Create a channel
@@ -184,13 +184,13 @@ export default class Channels extends Component {
                 <ChannelListModalItem
                   channel={channel}
                   key={index}
-                  onClick={::this.handleChangeChannel}
+                  onClick={this.handleChangeChannel}
                 />
               ))}
             </ul>
           </Modal.Body>
           <Modal.Footer>
-            <button onClick={::this.closeMoreChannelsModal}>Cancel</button>
+            <button onClick={this.closeMoreChannelsModal}>Cancel</button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -238,14 +238,14 @@ export default class Channels extends Component {
                 }
                 channel={channel}
                 key={index}
-                ondelete={::this.deleteChannel}
-                onClick={::this.handleChangeChannel}
+                ondelete={this.deleteChannel}
+                onClick={this.handleChangeChannel}
               />
             ))}
           </ul>
           {moreChannelsBoolean && (
             <a
-              onClick={::this.openMoreChannelsModal}
+              onClick={this.openMoreChannelsModal}
               style={{ cursor: 'pointer', color: '#85BBE9' }}
             >
               + {channels.length - 8} more...

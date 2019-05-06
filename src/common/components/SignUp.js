@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import * as actions from '../actions/actions'
+import * as ChatActions from '../store/Chat/actions'
 import { Input, Button } from 'react-bootstrap'
 import * as authActions from '../store/Auth/actionsAuth'
 
@@ -22,7 +22,7 @@ class SignUp extends Component {
   componentWillMount() {
     const { dispatch, userValidation } = this.props
     if (userValidation.length === 0) {
-      dispatch(actions.usernameValidationList())
+      dispatch(ChatActions.usernameValidationList())
     }
   }
   componentDidMount() {
@@ -118,7 +118,7 @@ class SignUp extends Component {
           Sign Up
         </header>
         <main style={{ display: 'flex', justifyContent: 'center' }}>
-          <form onSubmit={::this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
             <section style={{ height: '6em' }}>
               <Input
                 label="Username"
@@ -134,7 +134,7 @@ class SignUp extends Component {
                 autoFocus="true"
                 placeholder="Enter username"
                 value={this.state.username}
-                onChange={::this.handleChange}
+                onChange={this.handleChange}
               />
             </section>
             <section style={{ height: '6em' }}>
@@ -145,7 +145,7 @@ class SignUp extends Component {
                 name="password"
                 value={this.state.password}
                 placeholder="Enter password"
-                onChange={::this.handleChange}
+                onChange={this.handleChange}
               />
             </section>
             <section style={{ height: '6em' }}>
@@ -160,7 +160,7 @@ class SignUp extends Component {
                 name="confirm-password"
                 placeholder="Enter password again"
                 value={this.state.confirmPassword}
-                onChange={::this.handleChange}
+                onChange={this.handleChange}
               />
             </section>
             <Button
@@ -170,7 +170,7 @@ class SignUp extends Component {
               }
               bsStyle="success"
               style={{ width: '100%', height: '4rem', marginTop: '2rem' }}
-              onClick={::this.handleSubmit}
+              onClick={this.handleSubmit}
               type="submit"
             >
               <p

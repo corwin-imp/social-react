@@ -1,4 +1,4 @@
-import { TYPING, STOP_TYPING } from '../../constants/ActionTypes'
+import { TYPING, STOP_TYPING } from './TypesChat'
 
 const initialState = []
 export default function typers(state = initialState, action) {
