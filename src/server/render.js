@@ -4,7 +4,7 @@ import { StaticRouter } from 'react-router';
 //import Routes from '../common/routes';
 import Routes from '../common/containers/Routes';
 import { Helmet } from 'react-helmet';
-import { flushChunkNames } from 'react-universal-component/server';
+import { flushChunkNames, clearChunks,  } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
 import extractLocalesFromReq from './client-locale/extractLocalesFromReq';
 import guessLocale from './client-locale/guessLocale';
@@ -30,7 +30,7 @@ export default ({ clientStats }) => (req, res) => {
 	);
 
 	const helmet = Helmet.renderStatic();
-
+	clearChunks();
 	const { js, styles, cssHash } = flushChunks(clientStats, {
 		chunkNames: flushChunkNames(),
 	});

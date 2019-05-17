@@ -62,6 +62,8 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin( "bundle.css" ),
     new webpack.DefinePlugin({
+      favicon: 'src/common/FondueComponents/FondueAssets/img/favicon.ico'}),
+    new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
         WEBPACK: true,

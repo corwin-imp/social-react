@@ -16,7 +16,7 @@ class ProviderWrap extends React.Component  {
       <Provider store={store}>
 
           {process.env.NODE_ENV !== "production" && <DevTools />}
-          <Router >
+          <Router>
             <Routes />
 
           </Router>

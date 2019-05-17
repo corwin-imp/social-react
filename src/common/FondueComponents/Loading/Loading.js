@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Loading.css';
-import logo from '../../FondueAssets/images/logo.svg';
+import logo from '../FondueAssets/images/logo.svg';
 import AppearAfter from '../../FondueComponents/AppearAfter';
 
 function Loading() {

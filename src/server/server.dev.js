@@ -4,19 +4,19 @@ import express from "express";
 import path from "path";
 const fs = require("fs");
 import mongoose from "mongoose";
-
+import { StaticRouter } from 'react-router';
 import { renderToString } from "react-dom/server";
 import React from "react";
 import { Provider } from "react-redux";
 import {BrowserRouter as Router} from "react-router-dom";
-import Routes from "../common/routes.tsx";
+import Routes from "../common/routes.js";
 import store from "../common/store/configureStore";
 import {
   RouterContext,
   match,
   browserHistory
 } from "react-router";
-import store from '../common/store/configureStore/configureStore'
+
 import { ConnectedRouter } from "react-router-redux";
 import webpack from "webpack";
 import webpackConfig from "../../webpack.config.dev";
@@ -25,7 +25,7 @@ const compiler = webpack(webpackConfig);
 import passport from "passport";
 require("../../config/passport")(passport);
 import config from "../../config/config";
-import Provider from "../client/Provider";
+
 import SocketIo from "socket.io";
 import DevTools from "../common/containers/DevTools";
 const app = express();
@@ -99,7 +99,9 @@ app.use("/api", usersRouter);
 app.use("/api", channelRouter);
 app.use("/api", profilesRouter);
 app.use("/ftp", ftpRouter);
-
+import extractLocalesFromReq from './client-locale/extractLocalesFromReq';
+import guessLocale from './client-locale/guessLocale';
+import { LOCALE_COOKIE_NAME, COOKIE_MAX_AGE } from './client-locale/constants';
 app.use("/", express.static(path.join(__dirname, "..", "static")));
 
 /*app.get("/!*", function(req, res) {
@@ -115,15 +117,23 @@ app.use("/", express.static(path.join(__dirname, "..", "static")));
 
 module.exports = function render(initialState={}) {
   // Model the initial state
+  const userLocales = extractLocalesFromReq(req);
+  let lang = guessLocale(['de', 'en'], userLocales, 'en');
 
+  if (req.originalUrl.substr(1, 2) == 'de') {
+    lang = 'de';
+  }
+
+  if (req.originalUrl.substr(1, 2) == 'en') {
+    lang = 'en';
+  }
   let content = renderToString(
       <Provider store={store} >
         <div style={{ height: "100%" }}>
           {process.env.NODE_ENV !== "production" && <DevTools />}
-          <Router >
-            <Routes />
-
-          </Router>
+          <StaticRouter location={req.originalUrl} context={context}>
+            <Routes lang={lang} />
+          </StaticRouter>
         </div>
       </Provider>
   );

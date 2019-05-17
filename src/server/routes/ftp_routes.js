@@ -11,7 +11,7 @@ console.log('process',process.version);
 
 
 
-if (os.platform() == 'win32') {
+/*if (os.platform() == 'win32') {
   var chilkat = require('chilkat_node8_win32');
 } else if (os.platform() == 'linux') {
   if (os.arch() == 'arm') {
@@ -21,8 +21,8 @@ if (os.platform() == 'win32') {
   } else {
     var chilkat = require('chilkat_node8_linux64');
   }
-}
-
+}*/
+var chilkat = 1;
 
 
 let ftp = new chilkat.Ftp2();

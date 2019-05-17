@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { Quote } from '../../../FondueAssets/svg';
+import { Quote } from '../../FondueAssets/svg';
 import styles from './Text.css';
 
 class Text extends Component {
