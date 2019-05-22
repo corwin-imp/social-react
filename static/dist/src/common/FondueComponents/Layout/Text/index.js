@@ -1,2 +1,5 @@
-import Text from './Text';
-export default Text;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const Text_1 = tslib_1.__importDefault(require("./Text"));
+exports.default = Text_1.default;

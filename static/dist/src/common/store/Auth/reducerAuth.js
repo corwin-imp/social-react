@@ -1,8 +1,9 @@
-import * as tslib_1 from "tslib";
-var _a;
-import { handleActions } from 'redux-actions';
-import * as actions from "./actionsAuth";
-var initialState = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const redux_actions_1 = require("redux-actions");
+const actions = tslib_1.__importStar(require("./actionsAuth"));
+const initialState = {
     loaded: false,
     user: {
         username: 'test',
@@ -10,39 +11,78 @@ var initialState = {
         socketID: null,
     },
 };
-var reducerAuth = handleActions((_a = {},
-    _a[actions.requestSignUp] = function (state) {
-        return tslib_1.__assign({}, state, { signingUp: true });
+const reducerAuth = redux_actions_1.handleActions({
+    [actions.requestSignUp]: (state) => {
+        return {
+            ...state,
+            signingUp: true,
+        };
     },
-    _a[actions.requestSignOut] = function (state, action) {
-        return tslib_1.__assign({}, state, { signingOut: true });
+    [actions.requestSignOut]: (state, action) => {
+        return {
+            ...state,
+            signingOut: true,
+        };
     },
-    _a[actions.receiveSignOut] = function (state, action) {
-        return tslib_1.__assign({}, state, { signingOut: false, user: {
+    [actions.receiveSignOut]: (state, action) => {
+        return {
+            ...state,
+            signingOut: false,
+            user: {
                 username: 'test',
                 id: null,
-            } });
+            },
+        };
     },
-    _a[actions.requestSignIn] = function (state, action) {
-        return tslib_1.__assign({}, state, { signingIn: true });
+    [actions.requestSignIn]: (state, action) => {
+        return {
+            ...state,
+            signingIn: true,
+        };
     },
-    _a[actions.loadUser] = function (state, action) {
-        return tslib_1.__assign({}, state, { loading: false, loaded: true, user: action.user });
+    [actions.loadUser]: (state, action) => {
+        return {
+            ...state,
+            loading: false,
+            loaded: true,
+            user: action.user,
+        };
     },
-    _a[actions.receiveSocket] = function (state, action) {
-        return tslib_1.__assign({}, state, { user: tslib_1.__assign({}, state.user, { socketID: action.socketID }) });
+    [actions.receiveSocket]: (state, action) => {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                socketID: action.socketID,
+            },
+        };
     },
-    _a[actions.receiveUser] = function (state, action) {
-        return tslib_1.__assign({}, state, { signingUp: false, myProfile: action.user, user: action.user });
+    [actions.receiveUser]: (state, action) => {
+        return {
+            ...state,
+            signingUp: false,
+            myProfile: action.user,
+            user: action.user,
+        };
     },
-    _a[actions.receiveSignIn] = function (state, action) {
-        return tslib_1.__assign({}, state, { signingIn: false, user: action.user });
+    [actions.receiveSignIn]: (state, action) => {
+        return {
+            ...state,
+            signingIn: false,
+            user: action.user,
+        };
     },
-    _a[actions.setPictureAction] = function (state, action) {
-        return tslib_1.__assign({}, state, { user: tslib_1.__assign({}, state.user, { picture: action.currentPicture }) });
+    [actions.setPictureAction]: (state, action) => {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                picture: action.currentPicture,
+            },
+        };
     },
-    _a), initialState);
-export default reducerAuth;
+}, initialState);
+exports.default = reducerAuth;
 /*
 export default function authReducer(state = initialState, action = {}) {
     case AUTH_LOAD_FAIL:

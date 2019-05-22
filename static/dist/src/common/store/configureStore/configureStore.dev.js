@@ -1,21 +1,24 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import promiseMiddleware from '../../middleware/promiseMiddleware';
-import DevTools from '../../containers/DevTools';
-import thunk from 'redux-thunk';
-import rootReducer from '../RootReducer';
-var finalCreateStore = compose(applyMiddleware(thunk, promiseMiddleware), DevTools.instrument())(createStore);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const redux_1 = require("redux");
+const promiseMiddleware_1 = tslib_1.__importDefault(require("../../middleware/promiseMiddleware"));
+const DevTools_1 = tslib_1.__importDefault(require("../../containers/DevTools"));
+const redux_thunk_1 = tslib_1.__importDefault(require("redux-thunk"));
+const RootReducer_1 = tslib_1.__importDefault(require("../RootReducer"));
+const finalCreateStore = redux_1.compose(redux_1.applyMiddleware(redux_thunk_1.default, promiseMiddleware_1.default), DevTools_1.default.instrument())(redux_1.createStore);
 function configureStore(initialState) {
-    var store = finalCreateStore(rootReducer, initialState);
+    const store = finalCreateStore(RootReducer_1.default, initialState);
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers
-        module.hot.accept('../RootReducer', function () {
-            var nextRootReducer = require('../RootReducer');
+        module.hot.accept('../RootReducer', () => {
+            const nextRootReducer = require('../RootReducer');
             store.replaceReducer(nextRootReducer);
         });
     }
     return store;
 }
-var initialState = {
+const initialState = {
     auth: {
         user: {
             username: 'tester123',
@@ -24,4 +27,4 @@ var initialState = {
         },
     },
 };
-export default configureStore(initialState);
+exports.default = configureStore(initialState);

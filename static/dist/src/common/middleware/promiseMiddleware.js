@@ -1,17 +1,19 @@
-import * as tslib_1 from "tslib";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // Middleware
-export default function promiseMiddleware() {
-    return function (next) { return function (action) {
-        var promise = action.promise, types = action.types, rest = tslib_1.__rest(action, ["promise", "types"]);
+function promiseMiddleware() {
+    return next => action => {
+        const { promise, types, ...rest } = action;
         if (!promise) {
             return next(action);
         }
-        var REQUEST = types[0], SUCCESS = types[1], FAILURE = types[2];
-        next(tslib_1.__assign({}, rest, { type: REQUEST }));
-        return promise.then(function (result) {
-            next(tslib_1.__assign({}, rest, { result: result, type: SUCCESS }));
-        }, function (error) {
-            next(tslib_1.__assign({}, rest, { error: error, type: FAILURE }));
+        const [REQUEST, SUCCESS, FAILURE] = types;
+        next({ ...rest, type: REQUEST });
+        return promise.then(result => {
+            next({ ...rest, result, type: SUCCESS });
+        }, error => {
+            next({ ...rest, error, type: FAILURE });
         });
-    }; };
+    };
 }
+exports.default = promiseMiddleware;

@@ -1,38 +1,38 @@
-import * as tslib_1 from "tslib";
-import React, { Component } from 'react';
-import Video from '../components/Video';
-import AddVideo from '../components/AddVideo';
-import * as actions from '../store/Profile/actionsProfile';
-import { connect } from 'react-redux';
-var AppVideo = /** @class */ (function (_super) {
-    tslib_1.__extends(AppVideo, _super);
-    function AppVideo(props) {
-        return _super.call(this, props) || this;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importStar(require("react"));
+const Video_1 = tslib_1.__importDefault(require("../components/Video"));
+const AddVideo_1 = tslib_1.__importDefault(require("../components/AddVideo"));
+const actions = tslib_1.__importStar(require("../store/Profile/actionsProfile"));
+const react_redux_1 = require("react-redux");
+class AppVideo extends react_1.Component {
+    constructor(props) {
+        super(props);
     }
-    AppVideo.prototype.componentDidMount = function () {
-        var _a = this.props, video = _a.video, dispatch = _a.dispatch;
+    componentDidMount() {
+        const { video, dispatch } = this.props;
         if (!Object.keys(video).length) {
             dispatch(actions.getVideo());
         }
-    };
-    AppVideo.prototype.render = function () {
-        return (React.createElement("div", { id: "pageVideo" },
-            React.createElement(AddVideo, { value: "Video name", addVideo: this.props.addVideo }),
-            React.createElement("div", { id: "videoPart", className: "part" },
-                React.createElement(Video, { history: this.props.history, videoList: this.props.video, delVideo: this.props.delVideo }))));
-    };
-    return AppVideo;
-}(Component));
-var mapStateToProps = function (state) {
+    }
+    render() {
+        return (react_1.default.createElement("div", { id: "pageVideo" },
+            react_1.default.createElement(AddVideo_1.default, { value: "Video name", addVideo: this.props.addVideo }),
+            react_1.default.createElement("div", { id: "videoPart", className: "part" },
+                react_1.default.createElement(Video_1.default, { history: this.props.history, videoList: this.props.video, delVideo: this.props.delVideo }))));
+    }
+}
+const mapStateToProps = state => {
     return {
         video: state.reducerVideo.video,
     };
 };
-var mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = dispatch => {
     return {
-        addVideo: function (data) { return actions.addVideo(data, dispatch); },
-        delVideo: function (idBase) { return dispatch(actions.delVideo(idBase)); },
+        addVideo: data => actions.addVideo(data, dispatch),
+        delVideo: idBase => dispatch(actions.delVideo(idBase)),
         dispatch: dispatch,
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(AppVideo);
+exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(AppVideo);

@@ -1,7 +1,9 @@
-import * as types from '../Auth/actionsAuth';
-var initialState = '';
-export default function welcomePage(state, action) {
-    if (state === void 0) { state = initialState; }
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const types = tslib_1.__importStar(require("../Auth/actionsAuth"));
+const initialState = '';
+function welcomePage(state = initialState, action) {
     switch (action.type) {
         case types.SAVE_USERNAME:
             return action.username;
@@ -11,3 +13,4 @@ export default function welcomePage(state, action) {
             return state;
     }
 }
+exports.default = welcomePage;

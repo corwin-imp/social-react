@@ -1,51 +1,48 @@
-import * as tslib_1 from "tslib";
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import styles from './Tabs.css';
-import Tab from './Tab';
-import hljs from 'highlight.js/lib/highlight';
-import javascript from 'highlight.js/lib/languages/javascript';
-import css from 'highlight.js/lib/languages/css';
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('css', css);
-var Tabs = /** @class */ (function (_super) {
-    tslib_1.__extends(Tabs, _super);
-    function Tabs(props) {
-        var _this = _super.call(this, props) || this;
-        _this.onClickTabItem = function (tab) {
-            _this.setState({ activeTab: tab });
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importStar(require("react"));
+const classnames_1 = tslib_1.__importDefault(require("classnames"));
+const Tabs_css_1 = tslib_1.__importDefault(require("./Tabs.css"));
+const Tab_1 = tslib_1.__importDefault(require("./Tab"));
+const highlight_1 = tslib_1.__importDefault(require("highlight.js/lib/highlight"));
+const javascript_1 = tslib_1.__importDefault(require("highlight.js/lib/languages/javascript"));
+const css_1 = tslib_1.__importDefault(require("highlight.js/lib/languages/css"));
+highlight_1.default.registerLanguage('javascript', javascript_1.default);
+highlight_1.default.registerLanguage('css', css_1.default);
+class Tabs extends react_1.Component {
+    constructor(props) {
+        super(props);
+        this.onClickTabItem = tab => {
+            this.setState({ activeTab: tab });
         };
-        _this.state = {
-            activeTab: _this.props.children[0].props.label,
+        this.state = {
+            activeTab: this.props.children[0].props.label,
         };
-        return _this;
     }
-    Tabs.prototype.componentDidUpdate = function () {
-        var cdx = document.getElementsByTagName('pre');
+    componentDidUpdate() {
+        const cdx = document.getElementsByTagName('pre');
         if (cdx.length) {
-            var i = void 0;
+            let i;
             for (i = 0; i < cdx.length; i++) {
-                hljs.highlightBlock(cdx[i]);
+                highlight_1.default.highlightBlock(cdx[i]);
             }
         }
-    };
-    Tabs.prototype.render = function () {
-        var _this = this;
-        var _a;
-        var _b = this.props, onClickTabItem = _b.onClickTabItem, children = _b.children, className = _b.className, wrap = _b.wrap, classNameTabList = _b.classNameTabList, classNameTabContent = _b.classNameTabContent;
-        var activeTab = this.state.activeTab;
-        return (React.createElement("div", { className: classNames(styles.tabsWrapper, className, (_a = {}, _a[styles.wrap] = wrap, _a)) },
-            React.createElement("ol", { className: classNames(styles.tabList, classNameTabList) }, children.map(function (child) {
-                var label = child.props.label;
-                return (React.createElement(Tab, { activeTab: activeTab, key: label, label: label, onClick: _this.onClickTabItem }));
+    }
+    render() {
+        const { onClickTabItem, children, className, wrap, classNameTabList, classNameTabContent, } = this.props;
+        const { activeTab } = this.state;
+        return (react_1.default.createElement("div", { className: classnames_1.default(Tabs_css_1.default.tabsWrapper, className, { [Tabs_css_1.default.wrap]: wrap }) },
+            react_1.default.createElement("ol", { className: classnames_1.default(Tabs_css_1.default.tabList, classNameTabList) }, children.map(child => {
+                const { label } = child.props;
+                return (react_1.default.createElement(Tab_1.default, { activeTab: activeTab, key: label, label: label, onClick: this.onClickTabItem }));
             })),
-            React.createElement("div", { className: classNames(styles.tabContent, classNameTabContent) }, children.map(function (child) {
+            react_1.default.createElement("div", { className: classnames_1.default(Tabs_css_1.default.tabContent, classNameTabContent) }, children.map(child => {
                 if (child.props.label !== activeTab) {
                     return undefined;
                 }
                 return child.props.children;
             }))));
-    };
-    return Tabs;
-}(Component));
-export default Tabs;
+    }
+}
+exports.default = Tabs;

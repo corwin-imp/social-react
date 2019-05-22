@@ -1,15 +1,16 @@
-import * as tslib_1 from "tslib";
-import React from 'react';
-import Button from './Button';
-import ReactPlayer from 'react-player';
-var Video = /** @class */ (function (_super) {
-    tslib_1.__extends(Video, _super);
-    function Video(props) {
-        var _this = _super.call(this, props) || this;
-        _this.onPlay = function () {
-            _this.setState({ playing: true });
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const Button_1 = tslib_1.__importDefault(require("./Button"));
+const react_player_1 = tslib_1.__importDefault(require("react-player"));
+class Video extends react_1.default.Component {
+    constructor(props) {
+        super(props);
+        this.onPlay = () => {
+            this.setState({ playing: true });
         };
-        _this.state = {
+        this.state = {
             playing: false,
             url: null,
             loaded: false,
@@ -20,28 +21,25 @@ var Video = /** @class */ (function (_super) {
             mute: false,
             volume: 1.0,
         };
-        return _this;
         // this.history = [];
     }
-    Video.prototype.handleToggle = function () {
+    handleToggle() {
         this.setState({
             playing: !this.state.playing,
         });
-    };
-    Video.prototype.render = function () {
-        var _this = this;
-        var videoList = this.props.videoList;
-        var value = this.props.item;
-        var idItem = Number(this.props.idItem);
-        var _a = this.state, url = _a.url, playing = _a.playing, volume = _a.volume, muted = _a.muted, loop = _a.loop, played = _a.played, loaded = _a.loaded, duration = _a.duration, playbackRate = _a.playbackRate;
+    }
+    render() {
+        let { videoList } = this.props;
+        let value = this.props.item;
+        let idItem = Number(this.props.idItem);
+        const { url, playing, volume, muted, loop, played, loaded, duration, playbackRate, } = this.state;
         if (!videoList) {
             return false;
         }
-        return (React.createElement("div", { className: "videoList" }, Object.keys(videoList).map(function (keyOf, index) { return (React.createElement("div", { className: "video", key: index },
-            React.createElement(ReactPlayer, { ref: _this.ref, className: "react-player", width: "100%", height: "100%", url: videoList[keyOf].href, controls: true, playing: playing, loop: loop, playbackRate: playbackRate, volume: volume, muted: muted, onReady: function () { return console.log('onReady'); }, onStart: function () { return console.log('onStart'); }, onBuffer: function () { return console.log('onBuffer'); }, onSeek: function (e) { return console.log('onSeek', e); }, onEnded: _this.onEnded, onError: function (e) { return console.log('onError', e); }, onProgress: _this.onProgress, onDuration: _this.onDuration }),
-            _this.props.delVideo ? (React.createElement("div", { className: "btnVideo" },
-                React.createElement(Button, { onCl: "btnWarn", onClick: function () { return _this.props.delVideo(keyOf); }, text: "Delete" }))) : (''))); })));
-    };
-    return Video;
-}(React.Component));
-export default Video;
+        return (react_1.default.createElement("div", { className: "videoList" }, Object.keys(videoList).map((keyOf, index) => (react_1.default.createElement("div", { className: "video", key: index },
+            react_1.default.createElement(react_player_1.default, { ref: this.ref, className: "react-player", width: "100%", height: "100%", url: videoList[keyOf].href, controls: true, playing: playing, loop: loop, playbackRate: playbackRate, volume: volume, muted: muted, onReady: () => console.log('onReady'), onStart: () => console.log('onStart'), onBuffer: () => console.log('onBuffer'), onSeek: e => console.log('onSeek', e), onEnded: this.onEnded, onError: e => console.log('onError', e), onProgress: this.onProgress, onDuration: this.onDuration }),
+            this.props.delVideo ? (react_1.default.createElement("div", { className: "btnVideo" },
+                react_1.default.createElement(Button_1.default, { onCl: "btnWarn", onClick: () => this.props.delVideo(keyOf), text: "Delete" }))) : (''))))));
+    }
+}
+exports.default = Video;

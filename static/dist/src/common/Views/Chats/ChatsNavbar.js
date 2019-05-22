@@ -1,8 +1,14 @@
-import * as tslib_1 from "tslib";
-import { Toolbar } from '@material-ui/core';
-import * as React from 'react';
-import styled from 'styled-components';
-var Container = styled(Toolbar)(templateObject_1 || (templateObject_1 = tslib_1.__makeTemplateObject(["\n  background-color: var(--primary-bg);\n  color: var(--primary-text);\n  font-size: 20px;\n  line-height: 40px;\n"], ["\n  background-color: var(--primary-bg);\n  color: var(--primary-text);\n  font-size: 20px;\n  line-height: 40px;\n"])));
-var ChatsNavbar = function () { return (React.createElement(Container, null, "Whatsapp Clone")); };
-export default ChatsNavbar;
-var templateObject_1;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const core_1 = require("@material-ui/core");
+const React = tslib_1.__importStar(require("react"));
+const styled_components_1 = tslib_1.__importDefault(require("styled-components"));
+const Container = styled_components_1.default(core_1.Toolbar) `
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  font-size: 20px;
+  line-height: 40px;
+`;
+const ChatsNavbar = () => (React.createElement(Container, null, "Whatsapp Clone"));
+exports.default = ChatsNavbar;

@@ -1,20 +1,23 @@
-import * as tslib_1 from "tslib";
-import { ADD_CHANNEL, RECEIVE_CHANNEL, DELETE_CHANNEL, LOAD_CHANNELS, LOAD_CHANNELS_SUCCESS, LOAD_CHANNELS_FAIL } from './TypesChat';
-import { AUTH_SIGNOUT_SUCCESS } from '../Auth/types';
-var initialState = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const TypesChat_1 = require("./TypesChat");
+const types_1 = require("../Auth/types");
+const initialState = {
     loaded: false,
     data: [],
 };
-export default function channels(state, action) {
-    if (state === void 0) { state = initialState; }
+function channels(state = initialState, action) {
     switch (action.type) {
-        case ADD_CHANNEL:
+        case TypesChat_1.ADD_CHANNEL:
             /*   if (state.data.filter(channel => channel.name === action.channel.name).length !== 0) {
             return state;
           }*/
             console.log('st', action);
-            return tslib_1.__assign({}, state, { data: state.data.concat([action.channel]) });
-        case DELETE_CHANNEL:
+            return {
+                ...state,
+                data: [...state.data, action.channel],
+            };
+        case TypesChat_1.DELETE_CHANNEL:
             console.log('st', state.data);
             state.data.forEach(function (item, i, arr) {
                 if (item.id == action.channel) {
@@ -23,20 +26,40 @@ export default function channels(state, action) {
             });
             if (state.data) {
             }
-            return tslib_1.__assign({}, state, { data: state.data });
-        case RECEIVE_CHANNEL:
-            if (state.data.filter(function (channel) { return channel.name === action.channel.name; })
+            return {
+                ...state,
+                data: state.data,
+            };
+        case TypesChat_1.RECEIVE_CHANNEL:
+            if (state.data.filter(channel => channel.name === action.channel.name)
                 .length !== 0) {
                 return state;
             }
-            return tslib_1.__assign({}, state, { data: state.data.concat([action.channel]) });
-        case LOAD_CHANNELS:
-            return tslib_1.__assign({}, state, { loading: true });
-        case LOAD_CHANNELS_SUCCESS:
-            return tslib_1.__assign({}, state, { loading: false, loaded: true, data: state.data.concat(action.json) });
-        case LOAD_CHANNELS_FAIL:
-            return tslib_1.__assign({}, state, { loading: false, loaded: false, error: action.error, data: state.data.slice() });
-        case AUTH_SIGNOUT_SUCCESS:
+            return {
+                ...state,
+                data: [...state.data, action.channel],
+            };
+        case TypesChat_1.LOAD_CHANNELS:
+            return {
+                ...state,
+                loading: true,
+            };
+        case TypesChat_1.LOAD_CHANNELS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                loaded: true,
+                data: [...state.data, ...action.json],
+            };
+        case TypesChat_1.LOAD_CHANNELS_FAIL:
+            return {
+                ...state,
+                loading: false,
+                loaded: false,
+                error: action.error,
+                data: [...state.data],
+            };
+        case types_1.AUTH_SIGNOUT_SUCCESS:
             return {
                 loaded: false,
                 data: [],
@@ -45,3 +68,4 @@ export default function channels(state, action) {
             return state;
     }
 }
+exports.default = channels;

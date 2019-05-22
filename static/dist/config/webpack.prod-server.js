@@ -1,12 +1,12 @@
-var path = require('path');
-var webpack = require('webpack');
-var externals = require('./node-externals');
-var OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const externals = require('./node-externals');
+const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin');
 module.exports = {
     name: 'server',
     target: 'node',
-    externals: externals,
-    entry: './src/server/render.js',
+    externals,
+    entry: './src/server/render.tsx',
     mode: 'production',
     output: {
         filename: 'prod-server-bundle.js',

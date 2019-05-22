@@ -1,20 +1,21 @@
-import * as tslib_1 from "tslib";
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ItemsList from './../components/ItemsList';
-import Filter from './../components/Filter';
-import Search from '../components/Search';
-import * as actions from '../store/Profile/actionsProfile';
-import io from 'socket.io-client';
-import KeyHandler, { KEYPRESS } from 'react-key-handler';
-var socket = io('', { path: '/api/chat' });
-var ItemsContainer = /** @class */ (function (_super) {
-    tslib_1.__extends(ItemsContainer, _super);
-    function ItemsContainer(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            itemsFind: _this.props.items,
-            findSearch: _this.props.findSearch,
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importStar(require("react"));
+const react_redux_1 = require("react-redux");
+const ItemsList_1 = tslib_1.__importDefault(require("./../components/ItemsList"));
+const Filter_1 = tslib_1.__importDefault(require("./../components/Filter"));
+const Search_1 = tslib_1.__importDefault(require("../components/Search"));
+const actions = tslib_1.__importStar(require("../store/Profile/actionsProfile"));
+const socket_io_client_1 = tslib_1.__importDefault(require("socket.io-client"));
+const react_key_handler_1 = tslib_1.__importStar(require("react-key-handler"));
+const socket = socket_io_client_1.default('', { path: '/api/chat' });
+class ItemsContainer extends react_1.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            itemsFind: this.props.items,
+            findSearch: this.props.findSearch,
             ageTo: '',
             'ageFr': '',
             'name': '',
@@ -24,15 +25,14 @@ var ItemsContainer = /** @class */ (function (_super) {
             'citySend': 0,
             'city': '',
         };
-        _this.find = _this.find.bind(_this);
-        _this.fromFilter = _this.fromFilter.bind(_this);
-        _this.fromSearch = _this.fromSearch.bind(_this);
-        _this.handleKeyPress = _this.handleKeyPress.bind(_this);
+        this.find = this.find.bind(this);
+        this.fromFilter = this.fromFilter.bind(this);
+        this.fromSearch = this.fromSearch.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         console.log('mount');
-        return _this;
     }
-    ItemsContainer.prototype.handleKeyPress = function () {
-        var obj = this.state;
+    handleKeyPress() {
+        let obj = this.state;
         obj['local.city'] = obj.city;
         obj['local.country'] = obj.country;
         delete obj.itemsFind;
@@ -42,13 +42,13 @@ var ItemsContainer = /** @class */ (function (_super) {
         delete obj.city;
         console.log('send', this.state);
         this.find(this.state);
-    };
-    ItemsContainer.prototype.fromSearch = function (obj) {
+    }
+    fromSearch(obj) {
         console.log(222);
         this.setState({
             findSearch: obj.name,
         });
-        var newObj = {
+        let newObj = {
             'ageTo': this.state.ageTo,
             'ageFr': this.state.ageFr,
             'name': obj.name,
@@ -58,10 +58,10 @@ var ItemsContainer = /** @class */ (function (_super) {
         };
         console.log('newObj', newObj);
         this.find(newObj);
-    };
-    ItemsContainer.prototype.fromFilter = function (obj) {
+    }
+    fromFilter(obj) {
         console.log(333);
-        var newObj = {
+        let newObj = {
             'ageTo': obj.ageTo,
             'ageFr': obj.ageFr,
             'name': this.state.findSearch,
@@ -70,23 +70,22 @@ var ItemsContainer = /** @class */ (function (_super) {
             'local.city': this.state.city,
         };
         this.find(newObj);
-    };
-    ItemsContainer.prototype.onCountry = function (event) {
+    }
+    onCountry(event) {
         console.log('count', event.target.value);
         this.setState({
             country: event.target.value,
         });
-    };
-    ItemsContainer.prototype.onCity = function (event) {
+    }
+    onCity(event) {
         this.setState({
             city: event.target.value,
         });
-    };
-    ItemsContainer.prototype.find = function (find) {
-        var _this = this;
+    }
+    find(find) {
         console.log('find', find);
-        var citySend = 0;
-        var countrySend = 0;
+        let citySend = 0;
+        let countrySend = 0;
         if (this.state.city) {
             citySend = 1;
         }
@@ -98,30 +97,30 @@ var ItemsContainer = /** @class */ (function (_super) {
             'citySend': citySend,
         });
         console.log(444);
-        for (var item in find) {
+        for (let item in find) {
             if (!find[item]) {
                 delete find[item];
             }
         }
-        actions.quickSearch(find).then(function (result) {
-            var itemsBase = result['data'];
+        actions.quickSearch(find).then(result => {
+            let itemsBase = result['data'];
             if (itemsBase.length) {
-                var newItems_1 = new Map();
-                var ids_1 = [];
-                itemsBase.forEach(function (item, i, arr) {
-                    var user = item['local'];
-                    if (item._id == _this.props.user.id) {
+                let newItems = new Map();
+                let ids = [];
+                itemsBase.forEach((item, i, arr) => {
+                    let user = item['local'];
+                    if (item._id == this.props.user.id) {
                         return;
                     }
-                    var newItem = {
+                    let newItem = {
                         name: user.username,
                         city: user.city,
                         picture: user.picture,
                         country: user.country,
                     };
                     newItem['dataId'] = item._id;
-                    ids_1.push(item._id);
-                    newItems_1.set(item._id, newItem);
+                    ids.push(item._id);
+                    newItems.set(item._id, newItem);
                 });
                 /*socket.emit('get users', ids)
                 socket.on('server users', (message)=> {
@@ -144,31 +143,31 @@ var ItemsContainer = /** @class */ (function (_super) {
                   });
               
                 })*/
-                _this.setState({
-                    itemsFind: newItems_1
+                this.setState({
+                    itemsFind: newItems
                 });
             }
             else {
-                _this.setState({
+                this.setState({
                     itemsFind: []
                 });
             }
-        }, function (error) {
+        }, error => {
             console.log('err');
             console.log(error);
         });
-    };
-    ItemsContainer.prototype.componentDidMount = function () {
+    }
+    componentDidMount() {
         if (this.props.findSearch) {
             console.log('search', this.props.findSearch);
             this.find({ name: this.props.findSearch });
         }
-    };
-    ItemsContainer.prototype.componentWillUnmount = function () {
-        var dispatch = this.props.dispatch;
+    }
+    componentWillUnmount() {
+        const { dispatch } = this.props;
         console.log('unmount');
         dispatch(actions.clearSearch(false));
-    };
+    }
     /*  componentWillMount(){
         const { findSearch } = this.props
         if(findSearch){
@@ -186,21 +185,19 @@ var ItemsContainer = /** @class */ (function (_super) {
           })
         }
       }*/
-    ItemsContainer.prototype.render = function () {
-        var _this = this;
-        return (React.createElement("div", { id: "profilesPage" },
-            React.createElement(KeyHandler, { keyEventName: KEYPRESS, keyValue: "Enter", onKeyHandle: this.handleKeyPress }),
-            React.createElement("div", { className: "mainPart part" },
-                React.createElement("div", { className: "fullSearch stickyPart" },
-                    React.createElement(Search, { onFindSearch: function (obj) { return _this.fromSearch(obj); }, fullSearch: true, findSearch: this.props.findSearch, dispatch: this.props.dispatch, userId: this.props.user.id })),
-                React.createElement(ItemsList, tslib_1.__assign({}, this.props, { items: this.state.itemsFind, delItem: this.props.delItem, getItem: this.props.getItem }))),
-            React.createElement("div", { className: "rightSide part" },
-                React.createElement("div", { className: "stickyPart" },
-                    React.createElement(Filter, { onCity: this.onCity.bind(this), onCountry: this.onCountry.bind(this), citySend: this.state.citySend, countrySend: this.state.countrySend, onFindSearch: function (obj) { return _this.fromFilter(obj); }, params: this.props.params })))));
-    };
-    return ItemsContainer;
-}(Component));
-var mapStateToProps = function (state) {
+    render() {
+        return (react_1.default.createElement("div", { id: "profilesPage" },
+            react_1.default.createElement(react_key_handler_1.default, { keyEventName: react_key_handler_1.KEYPRESS, keyValue: "Enter", onKeyHandle: this.handleKeyPress }),
+            react_1.default.createElement("div", { className: "mainPart part" },
+                react_1.default.createElement("div", { className: "fullSearch stickyPart" },
+                    react_1.default.createElement(Search_1.default, { onFindSearch: (obj) => this.fromSearch(obj), fullSearch: true, findSearch: this.props.findSearch, dispatch: this.props.dispatch, userId: this.props.user.id })),
+                react_1.default.createElement(ItemsList_1.default, Object.assign({}, this.props, { items: this.state.itemsFind, delItem: this.props.delItem, getItem: this.props.getItem }))),
+            react_1.default.createElement("div", { className: "rightSide part" },
+                react_1.default.createElement("div", { className: "stickyPart" },
+                    react_1.default.createElement(Filter_1.default, { onCity: this.onCity.bind(this), onCountry: this.onCountry.bind(this), citySend: this.state.citySend, countrySend: this.state.countrySend, onFindSearch: (obj) => this.fromFilter(obj), params: this.props.params })))));
+    }
+}
+const mapStateToProps = state => {
     return {
         state: state.reducerItems,
         items: state.reducerItems.items,
@@ -210,13 +207,13 @@ var mapStateToProps = function (state) {
         user: state.auth.user,
     };
 };
-var mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = dispatch => {
     return {
-        addItem: function (data) { return dispatch(actions.addItem(data)); },
-        delItem: function (name) { return dispatch(actions.delItem(id)); },
-        getItem: function (item, id) { return dispatch(actions.getItem(item, id)); },
-        getItems: function () { return dispatch(getItems()); },
+        addItem: data => dispatch(actions.addItem(data)),
+        delItem: name => dispatch(actions.delItem(id)),
+        getItem: (item, id) => dispatch(actions.getItem(item, id)),
+        getItems: () => dispatch(getItems()),
         dispatch: dispatch,
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);
+exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);

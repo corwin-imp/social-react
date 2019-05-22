@@ -39,17 +39,17 @@ const Routes = (props:any) => {
 			<Switch>
 				<Route
 					exact
-					path="/app/:lang"
+					path="/:lang"
 					render={(routeProps: interfaceProp) => <UniversalComponent page="Home" {...routeProps} />}
 				/>
 				<Route
 					exact
-					path="/app/:lang/about"
+					path="/:lang/about"
 					render={(routeProps: interfaceProp) => <UniversalComponent page="About" {...routeProps} />}
 				/>
 				<Route
 					exact
-					path="/app/:lang/chats"
+					path="/:lang/chats"
 					render={(routeProps: interfaceProp) => <UniversalComponent page="Chats" {...routeProps} />}
 				/>
 				<RedirectWithStatus status={301} exact from="/" to={`/${lang}`} />

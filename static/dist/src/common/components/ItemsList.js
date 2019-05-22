@@ -1,50 +1,48 @@
-import * as tslib_1 from "tslib";
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-var ItemsList = /** @class */ (function (_super) {
-    tslib_1.__extends(ItemsList, _super);
-    function ItemsList(props, context) {
-        return _super.call(this, props, context) || this;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const react_router_dom_1 = require("react-router-dom");
+const react_bootstrap_1 = require("react-bootstrap");
+class ItemsList extends react_1.default.Component {
+    constructor(props, context) {
+        super(props, context);
     }
-    ItemsList.prototype.render = function () {
-        var _this = this;
-        var itemsArr = [];
+    render() {
+        let itemsArr = [];
         if (!this.props.items) {
             return false;
         }
         if (Object.keys(this.props.items).length || this.props.items.size) {
-            for (var _i = 0, _a = this.props.items; _i < _a.length; _i++) {
-                var _b = _a[_i], key = _b[0], value = _b[1];
+            for (let [key, value] of this.props.items) {
                 itemsArr.push(value);
             }
         }
         if (this.props.selectItem) {
-            return (React.createElement("div", { className: "itemList " + this.props.className + " itemsSelect " }, itemsArr.map(function (value, index) { return (React.createElement("div", { className: "itemLink", key: index, onClick: function (e) { return _this.props.selectItem(e, value); } },
-                React.createElement("div", { className: "imageItem" },
-                    React.createElement("img", { src: value.picture
+            return (react_1.default.createElement("div", { className: `itemList ${this.props.className} itemsSelect ` }, itemsArr.map((value, index) => (react_1.default.createElement("div", { className: "itemLink", key: index, onClick: e => this.props.selectItem(e, value) },
+                react_1.default.createElement("div", { className: "imageItem" },
+                    react_1.default.createElement("img", { src: value.picture
                             ? value.picture
                             : require('../images/profile.png'), width: "60", height: "60" })),
-                React.createElement("div", { className: "itemName" }, value.name),
-                value.status ? React.createElement("div", { className: "status" }) : '')); })));
+                react_1.default.createElement("div", { className: "itemName" }, value.name),
+                value.status ? react_1.default.createElement("div", { className: "status" }) : '')))));
         }
         else {
-            return (React.createElement("div", { className: "itemList " + this.props.className }, itemsArr.map(function (value, index) { return (React.createElement("div", { className: "item", key: index },
-                React.createElement(Link, { className: "itemLink", to: "/profiles/" + value.dataId, onClick: function () { return _this.props.getItem(value.dataId); } },
-                    React.createElement("div", { className: "imageItem" },
-                        React.createElement("img", { src: value.picture
+            return (react_1.default.createElement("div", { className: `itemList ${this.props.className}` }, itemsArr.map((value, index) => (react_1.default.createElement("div", { className: "item", key: index },
+                react_1.default.createElement(react_router_dom_1.Link, { className: "itemLink", to: `/profiles/${value.dataId}`, onClick: () => this.props.getItem(value.dataId) },
+                    react_1.default.createElement("div", { className: "imageItem" },
+                        react_1.default.createElement("img", { src: value.picture
                                 ? value.picture
                                 : require('../images/profile.png'), width: "125", height: "125" })),
-                    React.createElement("div", { className: "itemInfo" },
-                        React.createElement("div", { className: "itemName" }, value.name),
-                        React.createElement("div", { className: "itemprop" },
+                    react_1.default.createElement("div", { className: "itemInfo" },
+                        react_1.default.createElement("div", { className: "itemName" }, value.name),
+                        react_1.default.createElement("div", { className: "itemprop" },
                             value.country,
-                            (value.city) && ", " + value.city)),
-                    value.status ? React.createElement("div", { className: "status" }) : ''),
-                React.createElement("div", { className: "itemButtons" },
-                    React.createElement(Button, { bsStyle: "primary" }, "Add Contact")))); })));
+                            (value.city) && `, ${value.city}`)),
+                    value.status ? react_1.default.createElement("div", { className: "status" }) : ''),
+                react_1.default.createElement("div", { className: "itemButtons" },
+                    react_1.default.createElement(react_bootstrap_1.Button, { bsStyle: "primary" }, "Add Contact")))))));
         }
-    };
-    return ItemsList;
-}(React.Component));
-export default ItemsList;
+    }
+}
+exports.default = ItemsList;

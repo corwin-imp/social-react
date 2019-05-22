@@ -1,39 +1,37 @@
-import * as tslib_1 from "tslib";
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import { Arrow } from '../FondueAssets/svg';
-import styles from './Nav.css';
-var NavItem = /** @class */ (function (_super) {
-    tslib_1.__extends(NavItem, _super);
-    function NavItem(props) {
-        var _this = _super.call(this, props) || this;
-        _this.toggleAccordion = function () {
-            _this.setState({ opened: !_this.state.opened });
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importStar(require("react"));
+const classnames_1 = tslib_1.__importDefault(require("classnames"));
+const svg_1 = require("../FondueAssets/svg");
+const Nav_css_1 = tslib_1.__importDefault(require("./Nav.css"));
+class NavItem extends react_1.Component {
+    constructor(props) {
+        super(props);
+        this.toggleAccordion = () => {
+            this.setState({ opened: !this.state.opened });
         };
-        _this.state = {
+        this.state = {
             opened: props.active ? true : false,
         };
-        return _this;
     }
-    NavItem.prototype.render = function () {
-        var _a;
-        var opened = this.state.opened;
-        var _b = this.props, children = _b.children, title = _b.title, className = _b.className, link = _b.link, label = _b.label;
-        var x = {
+    render() {
+        const { opened } = this.state;
+        const { children, title, className, link, label } = this.props;
+        const x = {
             to: link,
             onClick: children ? this.toggleAccordion : undefined,
-            className: styles.link
+            className: Nav_css_1.default.link
         };
-        return (React.createElement("li", { className: classNames(styles.navItem, className, (_a = {},
-                _a[styles.opened] = opened,
-                _a)) },
-            React.createElement("button", tslib_1.__assign({}, x),
+        return (react_1.default.createElement("li", { className: classnames_1.default(Nav_css_1.default.navItem, className, {
+                [Nav_css_1.default.opened]: opened,
+            }) },
+            react_1.default.createElement("button", Object.assign({}, x),
                 title,
                 " ",
-                label && React.createElement("span", { className: styles.label }, label),
-                React.createElement(Arrow, { className: styles.arrow })),
+                label && react_1.default.createElement("span", { className: Nav_css_1.default.label }, label),
+                react_1.default.createElement(svg_1.Arrow, { className: Nav_css_1.default.arrow })),
             children && children));
-    };
-    return NavItem;
-}(Component));
-export { NavItem };
+    }
+}
+exports.NavItem = NavItem;

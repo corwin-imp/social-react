@@ -1,7 +1,9 @@
+"use strict";
 // ==============================
 // THEME
 // ==============================
-var theme = {};
+Object.defineProperty(exports, "__esModule", { value: true });
+const theme = {};
 // container
 theme.container = {
     background: 'rgba(0, 0, 0, 0.8)',
@@ -43,4 +45,4 @@ theme.arrow = {
     fill: 'white',
     height: 120,
 };
-export default theme;
+exports.default = theme;

@@ -1,28 +1,24 @@
 'use strict';
-var VolumeM = /** @class */ (function () {
-    function VolumeM() {
+Object.defineProperty(exports, "__esModule", { value: true });
+class VolumeM {
+    constructor() {
         this._volume = 0;
     }
-    Object.defineProperty(VolumeM.prototype, "volume", {
-        get: function () {
-            return this._volume;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    VolumeM.prototype.incVolume = function () {
+    get volume() {
+        return this._volume;
+    }
+    incVolume() {
         if (this._volume < 10) {
             this._volume++;
         }
-    };
-    VolumeM.prototype.decVolume = function () {
+    }
+    decVolume() {
         if (this._volume > 0) {
             this._volume--;
         }
-    };
-    VolumeM.prototype.toString = function () {
-        return " /volume: " + this._volume;
-    };
-    return VolumeM;
-}());
-export default VolumeM;
+    }
+    toString() {
+        return ` /volume: ${this._volume}`;
+    }
+}
+exports.default = VolumeM;

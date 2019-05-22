@@ -1,7 +1,8 @@
-function deepMerge(target, source) {
-    if (source === void 0) { source = {}; }
-    var extended = Object.assign({}, target);
-    Object.keys(source).forEach(function (key) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function deepMerge(target, source = {}) {
+    const extended = Object.assign({}, target);
+    Object.keys(source).forEach(key => {
         if (typeof source[key] !== 'object' || !source[key]) {
             extended[key] = source[key];
         }
@@ -16,4 +17,4 @@ function deepMerge(target, source) {
     });
     return extended;
 }
-export default deepMerge;
+exports.default = deepMerge;

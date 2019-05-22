@@ -1,18 +1,27 @@
-import * as tslib_1 from "tslib";
-import * as types from './AppTypes';
-var initialState = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const types = tslib_1.__importStar(require("./AppTypes"));
+const initialState = {
     isMobile: false,
     screenHeight: null,
     screenWidth: null,
 };
-export default function environment(state, action) {
-    if (state === void 0) { state = initialState; }
+function environment(state = initialState, action) {
     switch (action.type) {
         case types.CHANGE_IS_MOBILE:
-            return tslib_1.__assign({}, state, { isMobile: action.isMobile });
+            return {
+                ...state,
+                isMobile: action.isMobile,
+            };
         case types.CHANGE_WIDTH_AND_HEIGHT:
-            return tslib_1.__assign({}, state, { screenHeight: action.screenHeight, screenWidth: action.screenWidth });
+            return {
+                ...state,
+                screenHeight: action.screenHeight,
+                screenWidth: action.screenWidth,
+            };
         default:
             return state;
     }
 }
+exports.default = environment;

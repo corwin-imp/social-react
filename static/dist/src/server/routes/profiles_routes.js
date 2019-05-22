@@ -3,7 +3,7 @@ var Video = require('../models/Video');
 var bodyparser = require('body-parser');
 module.exports = function (router) {
     router.use(bodyparser.json());
-    router.get('/video', function (req, res) {
+    router.get('/video', (req, res) => {
         Video.find({}, function (err, data) {
             if (err) {
                 console.log(err);
@@ -12,9 +12,9 @@ module.exports = function (router) {
             res.json(data);
         });
     });
-    router.post('/add-video', function (req, res) {
-        var data = req.body;
-        var video = new Video({
+    router.post('/add-video', (req, res) => {
+        let data = req.body;
+        const video = new Video({
             name: data[0],
             src: data[1],
             date: new Date(),
@@ -27,8 +27,8 @@ module.exports = function (router) {
             res.json(data);
         });
     });
-    router.post('/video/delete', function (req, res) {
-        var id = req.body.id;
+    router.post('/video/delete', (req, res) => {
+        let id = req.body.id;
         console.log(id);
         Video.findById(id).remove(function (err, doc) {
             if (err) {
@@ -38,8 +38,8 @@ module.exports = function (router) {
             res.json('ok');
         });
     });
-    router.get('/items/delcol', function (req, res) {
-        var modelName = 'items';
+    router.get('/items/delcol', (req, res) => {
+        let modelName = 'items';
         if (!modelName || !modelName.length) {
             Promise.reject(new Error('You must provide the name of a model.'));
         }

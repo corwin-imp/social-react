@@ -1,16 +1,17 @@
-import * as tslib_1 from "tslib";
-import React from 'react';
-import { connect } from 'react-redux';
-import ItemInfo from './../components/ItemInfo';
-import * as actions from '../store/Profile/actionsProfile';
-import * as authActions from '../store/Auth/actionsAuth';
-var AppItem = /** @class */ (function (_super) {
-    tslib_1.__extends(AppItem, _super);
-    function AppItem(props) {
-        return _super.call(this, props) || this;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const react_redux_1 = require("react-redux");
+const ItemInfo_1 = tslib_1.__importDefault(require("./../components/ItemInfo"));
+const actions = tslib_1.__importStar(require("../store/Profile/actionsProfile"));
+const authActions = tslib_1.__importStar(require("../store/Auth/actionsAuth"));
+class AppItem extends react_1.default.Component {
+    constructor(props) {
+        super(props);
     }
-    AppItem.prototype.componentDidMount = function () {
-        var _a = this.props, audio = _a.audio, video = _a.video, pictures = _a.pictures, dispatch = _a.dispatch, music = _a.music;
+    componentDidMount() {
+        const { audio, video, pictures, dispatch, music } = this.props;
         if (!pictures.length) {
             dispatch(actions.getFiles('get-pictures'));
         }
@@ -20,20 +21,19 @@ var AppItem = /** @class */ (function (_super) {
         if (!Object.keys(video).length) {
             dispatch(actions.getVideo());
         }
-    };
-    AppItem.prototype.render = function () {
-        var audio = this.props.audio;
+    }
+    render() {
+        const { audio } = this.props;
         audio['music'] = this.props.music;
-        var id = this.props.params.Chats;
+        let id = this.props.params.Chats;
         if (!this.props.item) {
             return false;
         }
-        return (React.createElement("div", { className: "profile", id: "pageProfile" },
-            React.createElement(ItemInfo, { item: this.props.item, history: this.props.history, idItem: id, delItem: this.props.delItem, idUser: this.props.idUser, video: this.props.video, audio: audio, pictures: this.props.pictures, setPicture: this.props.setPicture, src: this.props.src, dispatch: this.props.dispatch })));
-    };
-    return AppItem;
-}(React.Component));
-var mapStateToProps = function (state) {
+        return (react_1.default.createElement("div", { className: "profile", id: "pageProfile" },
+            react_1.default.createElement(ItemInfo_1.default, { item: this.props.item, history: this.props.history, idItem: id, delItem: this.props.delItem, idUser: this.props.idUser, video: this.props.video, audio: audio, pictures: this.props.pictures, setPicture: this.props.setPicture, src: this.props.src, dispatch: this.props.dispatch })));
+    }
+}
+const mapStateToProps = state => {
     return {
         state: state.reducerItems,
         item: state.reducerItems.item,
@@ -44,12 +44,12 @@ var mapStateToProps = function (state) {
         idUser: state.auth.user.id,
     };
 };
-var mapDispatchToProps = function (dispatch, props) {
+const mapDispatchToProps = (dispatch, props) => {
     dispatch(actions.getItem(props.params.Chats));
     return {
-        delItem: function (idBase) { return dispatch(actions.delItem(idBase)); },
-        setPicture: function (picture, id) { return authActions.setPicture(picture, id, dispatch); },
+        delItem: idBase => dispatch(actions.delItem(idBase)),
+        setPicture: (picture, id) => authActions.setPicture(picture, id, dispatch),
         dispatch: dispatch,
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(AppItem);
+exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(AppItem);

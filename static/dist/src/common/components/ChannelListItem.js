@@ -1,19 +1,22 @@
-import React from 'react';
-import classnames from 'classnames';
-import PropTypes from 'prop-types';
-var ChannelListItem = function (props) {
-    var selectedChannel = props.channel, ondelete = props.ondelete, onClick = props.onClick, channel = props.channel, username = props.username, idActive = props.idActive;
-    var re = new RegExp("," + username, 'g');
-    var channelName = channel.name.replace(re, '');
-    var active = idActive == channel.id ? 'ChannelAct' : '';
-    return (React.createElement("div", { className: active + " channelItem" },
-        React.createElement("a", { onClick: function () { return onClick(channel); }, className: classnames({ selected: channel === selectedChannel }), style: { cursor: 'hand', color: 'white' } },
-            React.createElement("div", { style: { textAlign: 'left', cursor: 'pointer', marginLeft: '2em' } },
-                React.createElement("h5", null, channelName))),
-        React.createElement("div", { onClick: function () { return ondelete(channel); }, className: "deleteBtn" }, "x")));
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const classnames_1 = tslib_1.__importDefault(require("classnames"));
+const prop_types_1 = tslib_1.__importDefault(require("prop-types"));
+const ChannelListItem = props => {
+    const { channel: selectedChannel, ondelete, onClick, channel, username, idActive, } = props;
+    var re = new RegExp(`,${username}`, 'g');
+    let channelName = channel.name.replace(re, '');
+    let active = idActive == channel.id ? 'ChannelAct' : '';
+    return (react_1.default.createElement("div", { className: `${active} channelItem` },
+        react_1.default.createElement("a", { onClick: () => onClick(channel), className: classnames_1.default({ selected: channel === selectedChannel }), style: { cursor: 'hand', color: 'white' } },
+            react_1.default.createElement("div", { style: { textAlign: 'left', cursor: 'pointer', marginLeft: '2em' } },
+                react_1.default.createElement("h5", null, channelName))),
+        react_1.default.createElement("div", { onClick: () => ondelete(channel), className: "deleteBtn" }, "x")));
 };
 ChannelListItem.propTypes = {
-    channel: PropTypes.object.isRequired,
-    onClick: PropTypes.func.isRequired,
+    channel: prop_types_1.default.object.isRequired,
+    onClick: prop_types_1.default.func.isRequired,
 };
-export default ChannelListItem;
+exports.default = ChannelListItem;

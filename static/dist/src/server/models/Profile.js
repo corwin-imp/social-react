@@ -1,6 +1,9 @@
-import mongoose from 'mongoose';
-var Schema = mongoose.Schema;
-var ItemSchema = new Schema({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const mongoose_1 = tslib_1.__importDefault(require("mongoose"));
+const Schema = mongoose_1.default.Schema;
+const ItemSchema = new Schema({
     name: { type: String },
     age: { type: Number },
     gender: { type: String },
@@ -9,4 +12,4 @@ var ItemSchema = new Schema({
     photos: { type: Array },
     date: { type: Date },
 });
-module.exports = mongoose.model('profiles', ItemSchema);
+module.exports = mongoose_1.default.model('profiles', ItemSchema);

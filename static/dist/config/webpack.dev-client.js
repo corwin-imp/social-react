@@ -1,10 +1,10 @@
-var path = require('path');
-var webpack = require('webpack');
-var CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
-var MiniCssExtractPlugin = require("mini-css-extract-plugin");
-var Dotenv = require('dotenv-webpack');
-var production = process.env.NODE_ENV === 'production' || process.argv.indexOf('-p') !== -1;
-var CSSModuleLoader = {
+const path = require('path');
+const webpack = require('webpack');
+const { CheckerPlugin } = require('awesome-typescript-loader');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const Dotenv = require('dotenv-webpack');
+let production = process.env.NODE_ENV === 'production' || process.argv.indexOf('-p') !== -1;
+const CSSModuleLoader = {
     loader: 'css-loader',
     options: {
         exportOnlyLocals: true,
@@ -12,7 +12,7 @@ var CSSModuleLoader = {
         localIdentName: '[name]__[local]--[hash:base64:5]',
     },
 };
-var postCSSLoader = {
+const postCSSLoader = {
     loader: 'postcss-loader',
     options: {
         sourceMap: true,

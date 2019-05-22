@@ -1,52 +1,50 @@
-import * as tslib_1 from "tslib";
-import React from 'react';
-import Input from './Input';
-import Button from './Button';
-var AddItem = /** @class */ (function (_super) {
-    tslib_1.__extends(AddItem, _super);
-    function AddItem(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const Input_1 = tslib_1.__importDefault(require("./Input"));
+const Button_1 = tslib_1.__importDefault(require("./Button"));
+class AddItem extends react_1.default.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             name: '',
         };
-        _this.onName = _this.onName.bind(_this);
-        _this.onEmail = _this.onEmail.bind(_this);
-        _this.onAge = _this.onAge.bind(_this);
-        _this.onGender = _this.onGender.bind(_this);
-        return _this;
+        this.onName = this.onName.bind(this);
+        this.onEmail = this.onEmail.bind(this);
+        this.onAge = this.onAge.bind(this);
+        this.onGender = this.onGender.bind(this);
     }
-    AddItem.prototype.onName = function (event) {
+    onName(event) {
         this.setState({
             name: event.target.value,
         });
-    };
-    AddItem.prototype.onEmail = function (event) {
+    }
+    onEmail(event) {
         this.setState({
             email: event.target.value,
         });
-    };
-    AddItem.prototype.onAge = function (event) {
+    }
+    onAge(event) {
         this.setState({
             age: event.target.value,
         });
-    };
-    AddItem.prototype.onGender = function (event) {
+    }
+    onGender(event) {
         this.setState({
             gender: event.target.value,
         });
-    };
-    AddItem.prototype.render = function () {
-        var _this = this;
-        return (React.createElement("div", { class: "addItem" },
-            React.createElement("form", { className: "form-inline", role: "form" },
-                React.createElement("div", { className: "form-group" },
-                    React.createElement("label", { htmlFor: "device", className: "sr-only" },
+    }
+    render() {
+        return (react_1.default.createElement("div", { class: "addItem" },
+            react_1.default.createElement("form", { className: "form-inline", role: "form" },
+                react_1.default.createElement("div", { className: "form-group" },
+                    react_1.default.createElement("label", { htmlFor: "device", className: "sr-only" },
                         this.props.value,
                         ":",
                         ' '),
-                    React.createElement(Input, { id: "name", type: "text", onChange: this.onName, value: this.state.name })),
-                React.createElement(Button, { onClick: function () { return _this.props.addItem(_this.state); }, text: "Add" }))));
-    };
-    return AddItem;
-}(React.Component));
-export default AddItem;
+                    react_1.default.createElement(Input_1.default, { id: "name", type: "text", onChange: this.onName, value: this.state.name })),
+                react_1.default.createElement(Button_1.default, { onClick: () => this.props.addItem(this.state), text: "Add" }))));
+    }
+}
+exports.default = AddItem;

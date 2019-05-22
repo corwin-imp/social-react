@@ -1,12 +1,13 @@
-import { CHANGE_CHANNEL } from './TypesChat';
-var initialState = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const TypesChat_1 = require("./TypesChat");
+const initialState = {
     name: 'Lobby',
     id: 0,
 };
-export default function activeChannel(state, action) {
-    if (state === void 0) { state = initialState; }
+function activeChannel(state = initialState, action) {
     switch (action.type) {
-        case CHANGE_CHANNEL:
+        case TypesChat_1.CHANGE_CHANNEL:
             return {
                 name: action.channel.name,
                 id: action.channel.id,
@@ -15,3 +16,4 @@ export default function activeChannel(state, action) {
             return state;
     }
 }
+exports.default = activeChannel;

@@ -1,23 +1,23 @@
-import * as tslib_1 from "tslib";
-import '@babel/polyfill';
-import React from "react";
-import { Provider } from "react-redux";
-import store from "../common/store/configureStore";
-import DevTools from "../common/containers/DevTools";
-import { BrowserRouter as Router } from "react-router-dom";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+require("@babel/polyfill");
+const react_1 = tslib_1.__importDefault(require("react"));
+const react_redux_1 = require("react-redux");
+const configureStore_1 = tslib_1.__importDefault(require("../common/store/configureStore"));
+const DevTools_1 = tslib_1.__importDefault(require("../common/containers/DevTools"));
+const react_router_dom_1 = require("react-router-dom");
 //import Routes from "../common/routes";
-import Routes from "../common/containers/Routes";
-var ProviderWrap = /** @class */ (function (_super) {
-    tslib_1.__extends(ProviderWrap, _super);
-    function ProviderWrap(props) {
-        return _super.call(this, props) || this;
+const Routes_1 = tslib_1.__importDefault(require("../common/containers/Routes"));
+class ProviderWrap extends react_1.default.Component {
+    constructor(props) {
+        super(props);
     }
-    ProviderWrap.prototype.render = function () {
-        return (React.createElement(Provider, { store: store },
-            process.env.NODE_ENV !== "production" && React.createElement(DevTools, null),
-            React.createElement(Router, null,
-                React.createElement(Routes, null))));
-    };
-    return ProviderWrap;
-}(React.Component));
-export default ProviderWrap;
+    render() {
+        return (react_1.default.createElement(react_redux_1.Provider, { store: configureStore_1.default },
+            process.env.NODE_ENV !== "production" && react_1.default.createElement(DevTools_1.default, null),
+            react_1.default.createElement(react_router_dom_1.BrowserRouter, null,
+                react_1.default.createElement(Routes_1.default, null))));
+    }
+}
+exports.default = ProviderWrap;

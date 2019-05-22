@@ -1,61 +1,64 @@
-import { browserHistory } from 'redux-actions';
-import fetch from 'isomorphic-fetch';
-import cookie from 'react-cookie';
-import Profile from '../Profile/Profile';
-import io from 'socket.io-client';
-import * as actionsD from '../Profile/actionsProfile';
-var socket = io('', { path: '/api/chat' });
-import * as types from "./types";
-import { createAction } from 'redux-actions';
-export var requestSignUp = createAction(types.AUTH_SIGNUP, function (data) { return ({ data: data }); });
-export var requestSignOut = createAction(types.AUTH_SIGNOUT, function (data) { return ({ data: data }); });
-export var receiveSignOut = createAction(types.AUTH_SIGNOUT_SUCCESS, function (data) { return ({ data: data }); });
-export var requestSignIn = createAction(types.AUTH_SIGNIN, function (data) { return ({ data: data }); });
-export var loadUser = createAction(types.AUTH_LOAD_SUCCESS, function (data) {
-    var user = new Profile(data);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const redux_actions_1 = require("redux-actions");
+const isomorphic_fetch_1 = tslib_1.__importDefault(require("isomorphic-fetch"));
+const react_cookie_1 = tslib_1.__importDefault(require("react-cookie"));
+const Profile_1 = tslib_1.__importDefault(require("../Profile/Profile"));
+const socket_io_client_1 = tslib_1.__importDefault(require("socket.io-client"));
+const actionsD = tslib_1.__importStar(require("../Profile/actionsProfile"));
+const socket = socket_io_client_1.default('', { path: '/api/chat' });
+const types = tslib_1.__importStar(require("./types"));
+const redux_actions_2 = require("redux-actions");
+exports.requestSignUp = redux_actions_2.createAction(types.AUTH_SIGNUP, data => ({ data }));
+exports.requestSignOut = redux_actions_2.createAction(types.AUTH_SIGNOUT, data => ({ data }));
+exports.receiveSignOut = redux_actions_2.createAction(types.AUTH_SIGNOUT_SUCCESS, data => ({ data }));
+exports.requestSignIn = redux_actions_2.createAction(types.AUTH_SIGNIN, data => ({ data }));
+exports.loadUser = redux_actions_2.createAction(types.AUTH_LOAD_SUCCESS, (data) => {
+    const user = new Profile_1.default(data);
     return {
-        user: user
+        user
     };
 });
-export var receiveSocket = createAction(types.RECEIVE_SOCKET, function (data) { return ({ data: data }); });
-export var receiveUser = createAction(types.AUTH_SIGNUP_SUCCESS, function (dataB) {
-    var user = new Profile(dataB);
+exports.receiveSocket = redux_actions_2.createAction(types.RECEIVE_SOCKET, data => ({ data }));
+exports.receiveUser = redux_actions_2.createAction(types.AUTH_SIGNUP_SUCCESS, (dataB) => {
+    const user = new Profile_1.default(dataB);
     socket.emit('user come', user);
     return {
-        user: user,
+        user,
     };
 });
-export var receiveSignIn = createAction(types.AUTH_SIGNIN_SUCCESS, function (userbase) {
-    var user = new Profile(userbase);
+exports.receiveSignIn = redux_actions_2.createAction(types.AUTH_SIGNIN_SUCCESS, (userbase) => {
+    const user = new Profile_1.default(userbase);
     socket.emit('user come', user);
     return {
-        user: user,
+        user,
     };
 });
-export var setPictureAction = createAction(types.AUTH_CHOOSE_PICTURE, function (сhoose) {
+exports.setPictureAction = redux_actions_2.createAction(types.AUTH_CHOOSE_PICTURE, (сhoose) => {
     return {
         currentPicture: сhoose,
     };
 });
-export function receiveAuth(dispatch) {
-    var user = cookie.load('userId');
+function receiveAuth(dispatch) {
+    const user = react_cookie_1.default.load('userId');
     if (user) {
-        var dataB_1 = { userId: user };
-        return function (dispatch) {
-            return fetch('/api/get_user', {
+        let dataB = { userId: user };
+        return dispatch => {
+            return isomorphic_fetch_1.default('/api/get_user', {
                 method: 'post',
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(dataB_1),
+                body: JSON.stringify(dataB),
             })
-                .then(function (response) { return response.json(); })
-                .then(function (json) {
-                dispatch(loadUser(json));
+                .then(response => response.json())
+                .then(json => {
+                dispatch(exports.loadUser(json));
                 dispatch(actionsD.onItem(user));
             })
-                .catch(function (error) {
+                .catch(error => {
                 throw error;
             });
         };
@@ -64,34 +67,37 @@ export function receiveAuth(dispatch) {
         return { type: false };
     }
 }
-export function checkAuth() {
-    if (cookie.load('userId')) {
+exports.receiveAuth = receiveAuth;
+function checkAuth() {
+    if (react_cookie_1.default.load('userId')) {
         return true;
     }
-    return browserHistory.push('/signin');
+    return redux_actions_1.browserHistory.push('/signin');
 }
-export function signOut() {
-    return function (dispatch) {
-        dispatch(requestSignOut());
-        return fetch('/api/signout')
-            .then(function (response) {
+exports.checkAuth = checkAuth;
+function signOut() {
+    return dispatch => {
+        dispatch(exports.requestSignOut());
+        return isomorphic_fetch_1.default('/api/signout')
+            .then(response => {
             if (response.ok) {
-                var user = cookie.load('userId');
-                cookie.remove('userId');
-                dispatch(receiveSignOut());
+                const user = react_cookie_1.default.load('userId');
+                react_cookie_1.default.remove('userId');
+                dispatch(exports.receiveSignOut());
                 dispatch(actionsD.offItem(user));
-                browserHistory.push('/');
+                redux_actions_1.browserHistory.push('/');
             }
         })
-            .catch(function (error) {
+            .catch(error => {
             throw error;
         });
     };
 }
-export function signUp(user) {
-    return function (dispatch) {
-        dispatch(requestSignUp());
-        return fetch('/api/sign_up', {
+exports.signOut = signOut;
+function signUp(user) {
+    return dispatch => {
+        dispatch(exports.requestSignUp());
+        return isomorphic_fetch_1.default('/api/sign_up', {
             method: 'post',
             headers: {
                 Accept: 'application/json',
@@ -99,24 +105,25 @@ export function signUp(user) {
             },
             body: JSON.stringify(user),
         })
-            .then(function (response) { return response.json(); })
-            .then(function (json) {
-            cookie.save('userId', json._id);
+            .then(response => response.json())
+            .then(json => {
+            react_cookie_1.default.save('userId', json._id);
             dispatch(actionsD.onItem(json._id));
-            dispatch(receiveUser(json));
-            browserHistory.push('my-profile');
+            dispatch(exports.receiveUser(json));
+            redux_actions_1.browserHistory.push('my-profile');
         })
-            .catch(function (error) {
+            .catch(error => {
             throw error;
         });
     };
 }
-export function setPicture(choose, id, dispatch) {
-    var data = {
+exports.signUp = signUp;
+function setPicture(choose, id, dispatch) {
+    let data = {
         choose: choose,
         id: id,
     };
-    fetch('/api/set-picture', {
+    isomorphic_fetch_1.default('/api/set-picture', {
         method: 'post',
         headers: {
             Accept: 'application/json',
@@ -124,17 +131,18 @@ export function setPicture(choose, id, dispatch) {
         },
         body: JSON.stringify(data),
     })
-        .then(function (response) {
-        dispatch(setPictureAction(choose));
+        .then(response => {
+        dispatch(exports.setPictureAction(choose));
     })
-        .catch(function (error) {
+        .catch(error => {
         throw error;
     });
 }
-export function signIn(user) {
-    return function (dispatch) {
-        dispatch(requestSignIn());
-        return fetch('/api/sign_in', {
+exports.setPicture = setPicture;
+function signIn(user) {
+    return dispatch => {
+        dispatch(exports.requestSignIn());
+        return isomorphic_fetch_1.default('/api/sign_in', {
             method: 'post',
             headers: {
                 Accept: 'application/json',
@@ -142,15 +150,16 @@ export function signIn(user) {
             },
             body: JSON.stringify(user),
         })
-            .then(function (response) { return response.json(); })
-            .then(function (json) {
-            cookie.save('userId', json._id);
+            .then(response => response.json())
+            .then(json => {
+            react_cookie_1.default.save('userId', json._id);
             dispatch(actionsD.onItem(json._id));
-            dispatch(receiveSignIn(json));
-            browserHistory.push('/my-profile');
+            dispatch(exports.receiveSignIn(json));
+            redux_actions_1.browserHistory.push('/my-profile');
         })
-            .catch(function (error) {
+            .catch(error => {
             throw error;
         });
     };
 }
+exports.signIn = signIn;

@@ -1,10 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-var TypingListItem = function (props) {
-    var username = props.username;
-    return React.createElement("span", null, username);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const prop_types_1 = tslib_1.__importDefault(require("prop-types"));
+const TypingListItem = props => {
+    const { username } = props;
+    return react_1.default.createElement("span", null, username);
 };
 TypingListItem.proptypes = {
-    username: PropTypes.string.isRequired,
+    username: prop_types_1.default.string.isRequired,
 };
-export default TypingListItem;
+exports.default = TypingListItem;

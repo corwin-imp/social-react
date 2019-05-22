@@ -1,9 +1,9 @@
-var path = require('path');
-var webpack = require('webpack');
-var externals = require('./node-externals');
-var CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
-var MiniCssExtractPlugin = require("mini-css-extract-plugin");
-var CSSModuleLoader = {
+const path = require('path');
+const webpack = require('webpack');
+const externals = require('./node-externals');
+const { CheckerPlugin } = require('awesome-typescript-loader');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CSSModuleLoader = {
     loader: 'css-loader',
     options: {
         exportOnlyLocals: true,
@@ -11,7 +11,7 @@ var CSSModuleLoader = {
         localIdentName: '[name]__[local]--[hash:base64:5]',
     },
 };
-var postCSSLoader = {
+const postCSSLoader = {
     loader: 'postcss-loader',
     options: {
         ident: 'postcss',
@@ -20,8 +20,8 @@ var postCSSLoader = {
 module.exports = {
     name: 'server',
     target: 'node',
-    externals: externals,
-    entry: './src/server/render.js',
+    externals,
+    entry: './src/server/render.tsx',
     mode: 'development',
     output: {
         filename: 'dev-server-bundle.js',

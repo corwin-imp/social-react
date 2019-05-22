@@ -1,39 +1,40 @@
-import * as tslib_1 from "tslib";
-import React from 'react';
-import Lightbox from 'react-images';
-import { css, StyleSheet } from 'aphrodite';
-import cookie from 'react-cookie';
-import * as actionsF from '../store/Profile/actionsProfile';
-import DropzoneComponent from 'react-dropzone-component';
-import FontAwesome from 'react-fontawesome';
-var Pictures = /** @class */ (function (_super) {
-    tslib_1.__extends(Pictures, _super);
-    function Pictures(props) {
-        var _this = _super.call(this, props) || this;
-        _this.load = function (src, name) {
-            _this.setState({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const react_images_1 = tslib_1.__importDefault(require("react-images"));
+const aphrodite_1 = require("aphrodite");
+const react_cookie_1 = tslib_1.__importDefault(require("react-cookie"));
+const actionsF = tslib_1.__importStar(require("../store/Profile/actionsProfile"));
+const react_dropzone_component_1 = tslib_1.__importDefault(require("react-dropzone-component"));
+const react_fontawesome_1 = tslib_1.__importDefault(require("react-fontawesome"));
+class Pictures extends react_1.default.Component {
+    constructor(props) {
+        super(props);
+        this.load = (src, name) => {
+            this.setState({
                 currentImage: src,
                 name: name,
             });
         };
-        _this.ondelete = function (file, index) {
+        this.ondelete = (file, index) => {
             console.log('onDelete', file);
-            var dispatch = _this.props.dispatch;
-            dispatch(actionsF.removeFile('pictures', "" + file, index));
+            const { dispatch } = this.props;
+            dispatch(actionsF.removeFile('pictures', `${file}`, index));
         };
-        _this.state = {
+        this.state = {
             name: false,
             lightboxIsOpen: false,
             currentImage: 0,
             upload: false,
-            images: _this.props.images,
+            images: this.props.images,
         };
-        _this.componentConfig = {
+        this.componentConfig = {
             iconFiletypes: ['.jpg', '.png', '.gif'],
             showFiletypeIcon: true,
             postUrl: '/ftp/add-file',
         };
-        _this.djsConfig = {
+        this.djsConfig = {
             acceptedFiles: "image/*",
             autoProcessQueue: false,
             uploadMultiple: true,
@@ -41,111 +42,108 @@ var Pictures = /** @class */ (function (_super) {
             maxFiles: 10,
             addRemoveLinks: true,
         };
-        _this.dropzone = null;
-        _this.eventHandlers = {
-            init: function (dz) { return _this.dropzone = dz; },
-            successmultiple: _this.completeFile.bind(_this),
+        this.dropzone = null;
+        this.eventHandlers = {
+            init: dz => this.dropzone = dz,
+            successmultiple: this.completeFile.bind(this),
         };
-        _this.UploadZone = _this.UploadZone.bind(_this);
-        _this.closeLightbox = _this.closeLightbox.bind(_this);
-        _this.gotoNext = _this.gotoNext.bind(_this);
-        _this.choose = _this.choose.bind(_this);
-        _this.gotoPrevious = _this.gotoPrevious.bind(_this);
-        _this.gotoImage = _this.gotoImage.bind(_this);
-        _this.handleClickImage = _this.handleClickImage.bind(_this);
-        _this.openLightbox = _this.openLightbox.bind(_this);
-        _this.ondelete = _this.ondelete.bind(_this);
-        _this.load = _this.load.bind(_this);
-        _this.user = cookie.load('userId');
-        return _this;
+        this.UploadZone = this.UploadZone.bind(this);
+        this.closeLightbox = this.closeLightbox.bind(this);
+        this.gotoNext = this.gotoNext.bind(this);
+        this.choose = this.choose.bind(this);
+        this.gotoPrevious = this.gotoPrevious.bind(this);
+        this.gotoImage = this.gotoImage.bind(this);
+        this.handleClickImage = this.handleClickImage.bind(this);
+        this.openLightbox = this.openLightbox.bind(this);
+        this.ondelete = this.ondelete.bind(this);
+        this.load = this.load.bind(this);
+        this.user = react_cookie_1.default.load('userId');
     }
-    Pictures.prototype.openLightbox = function (index, event) {
+    openLightbox(index, event) {
         event.preventDefault();
         this.setState({
             currentImage: index,
             lightboxIsOpen: true,
         });
-    };
-    Pictures.prototype.closeLightbox = function () {
+    }
+    closeLightbox() {
         this.setState({
             currentImage: 0,
             lightboxIsOpen: false,
         });
-    };
-    Pictures.prototype.gotoPrevious = function () {
+    }
+    gotoPrevious() {
         this.setState({
             currentImage: this.state.currentImage - 1,
         });
-    };
-    Pictures.prototype.gotoNext = function () {
+    }
+    gotoNext() {
         this.setState({
             currentImage: this.state.currentImage + 1,
         });
-    };
-    Pictures.prototype.gotoImage = function (index) {
+    }
+    gotoImage(index) {
         this.setState({
             currentImage: index,
         });
-    };
-    Pictures.prototype.choose = function (index) {
+    }
+    choose(index) {
         var choosePic = this.props.images[index];
         this.props.choose(choosePic.src);
-    };
-    Pictures.prototype.handleClickImage = function () {
+    }
+    handleClickImage() {
         if (this.state.currentImage === this.props.images.length - 1)
             return;
         this.gotoNext();
-    };
-    Pictures.prototype.renderRowsGallery = function () {
-        var _this = this;
-        var images = this.props.images;
-        var rowsValue = this.props.rowsValue;
+    }
+    renderRowsGallery() {
+        const { images } = this.props;
+        const { rowsValue } = this.props;
         if (!images)
             return;
-        var rows = [];
-        var rowsGallery = images.filter(function (i) { return true; }).map(function (obj, i) {
+        let rows = [];
+        const rowsGallery = images.filter(i => true).map((obj, i) => {
             rows.push(i);
             if (rows.length > rowsValue - 1 || i > images.length - rowsValue + 1) {
-                var rowD = rows;
+                let rowD = rows;
                 rows = [];
-                return (React.createElement("div", { key: i, className: css(classes.rowGallery) + ' profilePicture' }, rowD.map(function (ob, j) { return (React.createElement("div", { href: images[ob].src, className: css(classes.thumbnail, classes['rowSquare']), key: j },
-                    React.createElement("img", { onClick: function (e) { return _this.openLightbox(ob, e); }, src: images[ob].src, className: css(classes.rowSource) }),
-                    React.createElement("span", { onClick: function () { return _this.ondelete(images[ob].name, ob); }, className: css(classes.delete) + ' deleteBtn' },
-                        React.createElement(FontAwesome, { className: "super-crazy-colors", name: "trash", size: "lg" })))); })));
+                return (react_1.default.createElement("div", { key: i, className: aphrodite_1.css(classes.rowGallery) + ' profilePicture' }, rowD.map((ob, j) => (react_1.default.createElement("div", { href: images[ob].src, className: aphrodite_1.css(classes.thumbnail, classes['rowSquare']), key: j },
+                    react_1.default.createElement("img", { onClick: e => this.openLightbox(ob, e), src: images[ob].src, className: aphrodite_1.css(classes.rowSource) }),
+                    react_1.default.createElement("span", { onClick: () => this.ondelete(images[ob].name, ob), className: aphrodite_1.css(classes.delete) + ' deleteBtn' },
+                        react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "trash", size: "lg" })))))));
             }
         });
-        return (React.createElement("div", { className: css(classes.rowsGallery) + ' profilePicture' }, rowsGallery));
-    };
-    Pictures.prototype.renderGallery = function () {
-        var _this = this;
-        var images = this.props.images;
+        return (react_1.default.createElement("div", { className: aphrodite_1.css(classes.rowsGallery) + ' profilePicture' }, rowsGallery));
+    }
+    renderGallery() {
+        const { images } = this.props;
         if (!images)
             return;
-        var gallery = images.filter(function (i) { return true; }).map(function (obj, i) {
-            return (React.createElement("a", { href: obj.src, className: css(classes.thumbnail, classes['square']), key: i, onClick: function (e) { return _this.openLightbox(i, e); } },
-                React.createElement("img", { align: "middle", src: obj.src, className: css(classes.source) })));
+        const gallery = images.filter(i => true).map((obj, i) => {
+            return (react_1.default.createElement("a", { href: obj.src, className: aphrodite_1.css(classes.thumbnail, classes['square']), key: i, onClick: e => this.openLightbox(i, e) },
+                react_1.default.createElement("img", { align: "middle", src: obj.src, className: aphrodite_1.css(classes.source) })));
         });
-        return (React.createElement("div", { className: css(classes.gallery) + ' profilePicture' }, gallery));
-    };
-    Pictures.prototype.UploadZone = function () {
+        return (react_1.default.createElement("div", { className: aphrodite_1.css(classes.gallery) + ' profilePicture' }, gallery));
+    }
+    UploadZone() {
         console.log('up', this.state.upload);
         this.setState({
             upload: !this.state.upload
         });
-    };
-    Pictures.prototype.handlePost = function () {
+    }
+    handlePost() {
         this.dropzone.processQueue();
-    };
-    Pictures.prototype.completeFile = function (file) {
-        var dispatch = this.props.dispatch;
+    }
+    completeFile(file) {
+        const { dispatch } = this.props;
         console.log(file);
         this.setState({
             upload: !this.state.upload
         });
         dispatch(actionsF.getFiles('get-pictures'));
-    };
-    Pictures.prototype.render = function () {
-        var rowsValue = this.props.rowsValue;
+    }
+    render() {
+        const { rowsValue } = this.props;
         if (rowsValue) {
             var pictures = this.renderRowsGallery();
         }
@@ -153,32 +151,31 @@ var Pictures = /** @class */ (function (_super) {
             var pictures = this.renderGallery();
         }
         if (this.props.images) {
-            return (React.createElement("div", null,
-                React.createElement("button", { onClick: this.UploadZone, className: "btn btnZone" },
-                    React.createElement("span", { className: "up" }, "Upload"),
-                    React.createElement(FontAwesome, { className: "super-crazy-colors", name: "upload", size: "lg" })),
-                this.state.upload && (React.createElement("div", { className: "dropZoneCont" },
-                    React.createElement(DropzoneComponent, { eventHandlers: this.eventHandlers, djsConfig: this.djsConfig, config: this.componentConfig }),
-                    React.createElement("button", { className: "btnUp btn", onClick: this.handlePost.bind(this) }, "Upload"))),
+            return (react_1.default.createElement("div", null,
+                react_1.default.createElement("button", { onClick: this.UploadZone, className: "btn btnZone" },
+                    react_1.default.createElement("span", { className: "up" }, "Upload"),
+                    react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "upload", size: "lg" })),
+                this.state.upload && (react_1.default.createElement("div", { className: "dropZoneCont" },
+                    react_1.default.createElement(react_dropzone_component_1.default, { eventHandlers: this.eventHandlers, djsConfig: this.djsConfig, config: this.componentConfig }),
+                    react_1.default.createElement("button", { className: "btnUp btn", onClick: this.handlePost.bind(this) }, "Upload"))),
                 pictures,
-                React.createElement(Lightbox, { images: this.props.images, currentImage: this.state.currentImage, isOpen: this.state.lightboxIsOpen, onClickImage: this.handleClickImage, onClickNext: this.gotoNext, onChoose: this.user && this.choose, onClickPrev: this.gotoPrevious, onClickThumbnail: this.gotoImage, onClose: this.closeLightbox, showThumbnails: true, spinner: this.props.spinner, spinnerColor: this.props.spinnerColor, spinnerSize: this.props.spinnerSize, theme: this.props.theme }),
-                this.state.currentImage ? (React.createElement("div", null,
-                    React.createElement("b", null, "Current Picture:"),
-                    React.createElement("img", { src: this.state.currentImage, alt: "" }),
-                    React.createElement("span", null, "this.state.name"))) : ('')));
+                react_1.default.createElement(react_images_1.default, { images: this.props.images, currentImage: this.state.currentImage, isOpen: this.state.lightboxIsOpen, onClickImage: this.handleClickImage, onClickNext: this.gotoNext, onChoose: this.user && this.choose, onClickPrev: this.gotoPrevious, onClickThumbnail: this.gotoImage, onClose: this.closeLightbox, showThumbnails: true, spinner: this.props.spinner, spinnerColor: this.props.spinnerColor, spinnerSize: this.props.spinnerSize, theme: this.props.theme }),
+                this.state.currentImage ? (react_1.default.createElement("div", null,
+                    react_1.default.createElement("b", null, "Current Picture:"),
+                    react_1.default.createElement("img", { src: this.state.currentImage, alt: "" }),
+                    react_1.default.createElement("span", null, "this.state.name"))) : ('')));
         }
         else {
             return false;
         }
-    };
-    return Pictures;
-}(React.Component));
+    }
+}
 Pictures.displayName = 'Gallery';
-var gutter = {
+const gutter = {
     small: 2,
     large: 4,
 };
-var classes = StyleSheet.create({
+const classes = aphrodite_1.StyleSheet.create({
     gallery: {
         marginRight: -gutter.small,
         overflow: 'hidden',
@@ -269,4 +266,4 @@ var classes = StyleSheet.create({
         minHeight: '160px',
     },
 });
-export default Pictures;
+exports.default = Pictures;

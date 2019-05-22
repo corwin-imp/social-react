@@ -1,32 +1,33 @@
-import React from 'react';
-import classNames from 'classnames';
-import styles from './Col.css';
-function Col(_a) {
-    var _b;
-    var textAlign = _a.textAlign, className = _a.className, id = _a.id, children = _a.children, xs = _a.xs, sm = _a.sm, md = _a.md, lg = _a.lg, xl = _a.xl, xxl = _a.xxl, xxxl = _a.xxxl, first = _a.first, firstSm = _a.firstSm, firstMd = _a.firstMd, firstLg = _a.firstLg, firstXl = _a.firstXl, firstXxl = _a.firstXxl, firstXxxl = _a.firstXxxl, last = _a.last, lastSm = _a.lastSm, lastMd = _a.lastMd, lastLg = _a.lastLg, lastXl = _a.lastXl, lastXxl = _a.lastXxl, lastXxxl = _a.lastXxxl;
-    return (React.createElement("div", { id: id, className: classNames(styles.col, (_b = {},
-            _b[styles["textAlign-" + (textAlign || '')]] = textAlign,
-            _b[styles["col" + (xs || '')]] = xs,
-            _b[styles["colSm" + (sm || '')]] = sm,
-            _b[styles["colMd" + (md || '')]] = md,
-            _b[styles["colLg" + (lg || '')]] = lg,
-            _b[styles["colXl" + (xl || '')]] = xl,
-            _b[styles["colXxl" + (xxl || '')]] = xxl,
-            _b[styles["colXxxl" + (xxxl || '')]] = xxxl,
-            _b[styles.orderFirst] = first,
-            _b[styles.orderSmFirst] = firstSm,
-            _b[styles.orderMdFirst] = firstMd,
-            _b[styles.orderLgFirst] = firstLg,
-            _b[styles.orderXlFirst] = firstXl,
-            _b[styles.orderXxlFirst] = firstXxl,
-            _b[styles.orderXxxlFirst] = firstXxxl,
-            _b[styles.orderLast] = last,
-            _b[styles.orderSmLast] = lastSm,
-            _b[styles.orderMdLast] = lastMd,
-            _b[styles.orderLgLast] = lastLg,
-            _b[styles.orderXlLast] = lastXl,
-            _b[styles.orderXxlLast] = lastXxl,
-            _b[styles.orderXxxlLast] = lastXxxl,
-            _b), className) }, children));
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const classnames_1 = tslib_1.__importDefault(require("classnames"));
+const Col_css_1 = tslib_1.__importDefault(require("./Col.css"));
+function Col({ textAlign, className, id, children, xs, sm, md, lg, xl, xxl, xxxl, first, firstSm, firstMd, firstLg, firstXl, firstXxl, firstXxxl, last, lastSm, lastMd, lastLg, lastXl, lastXxl, lastXxxl, }) {
+    return (react_1.default.createElement("div", { id: id, className: classnames_1.default(Col_css_1.default.col, {
+            [Col_css_1.default[`textAlign-${textAlign || ''}`]]: textAlign,
+            [Col_css_1.default[`col${xs || ''}`]]: xs,
+            [Col_css_1.default[`colSm${sm || ''}`]]: sm,
+            [Col_css_1.default[`colMd${md || ''}`]]: md,
+            [Col_css_1.default[`colLg${lg || ''}`]]: lg,
+            [Col_css_1.default[`colXl${xl || ''}`]]: xl,
+            [Col_css_1.default[`colXxl${xxl || ''}`]]: xxl,
+            [Col_css_1.default[`colXxxl${xxxl || ''}`]]: xxxl,
+            [Col_css_1.default.orderFirst]: first,
+            [Col_css_1.default.orderSmFirst]: firstSm,
+            [Col_css_1.default.orderMdFirst]: firstMd,
+            [Col_css_1.default.orderLgFirst]: firstLg,
+            [Col_css_1.default.orderXlFirst]: firstXl,
+            [Col_css_1.default.orderXxlFirst]: firstXxl,
+            [Col_css_1.default.orderXxxlFirst]: firstXxxl,
+            [Col_css_1.default.orderLast]: last,
+            [Col_css_1.default.orderSmLast]: lastSm,
+            [Col_css_1.default.orderMdLast]: lastMd,
+            [Col_css_1.default.orderLgLast]: lastLg,
+            [Col_css_1.default.orderXlLast]: lastXl,
+            [Col_css_1.default.orderXxlLast]: lastXxl,
+            [Col_css_1.default.orderXxxlLast]: lastXxxl,
+        }, className) }, children));
 }
-export default Col;
+exports.default = Col;

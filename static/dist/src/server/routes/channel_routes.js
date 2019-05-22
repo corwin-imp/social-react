@@ -16,12 +16,12 @@ module.exports = function (router) {
     router.post('/delete-channel', function (req, res) {
         Channel.findOne({ id: req.body.channel }, function (err, data) {
             console.log('data', data);
-            var users = data.between;
+            let users = data.between;
             console.log('users', users);
             User.find({ _id: { $in: users } }, function (er, dataUser) {
                 dataUser.forEach(function (item, i, arr) {
                     console.log('arr', dataUser);
-                    var arrUs = item.local.channels;
+                    let arrUs = item.local.channels;
                     arrUs.splice(arrUs.indexOf(req.body.channel), 1);
                     dataUser[i].local.channels = arrUs;
                     dataUser[i].save();
@@ -63,14 +63,14 @@ module.exports = function (router) {
                 console.log(err);
                 return res.status(500).json({ msg: 'internal server error' });
             }
-            var UsersId = req.body.between;
+            let UsersId = req.body.between;
             UsersId.forEach(function (item, i, arr) {
                 User.findById(item, function (err, us) {
                     if (err) {
                         console.log(err);
                         return res.status(500).json({ msg: 'internal server error' });
                     }
-                    var arr = us.local.channels;
+                    let arr = us.local.channels;
                     var strId = req.body.id.toString();
                     arr.push(strId);
                     us.local.channels = arr;

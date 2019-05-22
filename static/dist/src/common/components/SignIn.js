@@ -1,38 +1,38 @@
-import * as tslib_1 from "tslib";
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Button, Input } from 'react-bootstrap';
-import * as authActions from '../store/Auth/actionsAuth';
-var SignIn = /** @class */ (function (_super) {
-    tslib_1.__extends(SignIn, _super);
-    function SignIn(props, context) {
-        var _this = _super.call(this, props, context) || this;
-        _this.state = {
-            username: _this.props.welcomePage || '',
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importStar(require("react"));
+const prop_types_1 = tslib_1.__importDefault(require("prop-types"));
+const react_redux_1 = require("react-redux");
+const react_bootstrap_1 = require("react-bootstrap");
+const authActions = tslib_1.__importStar(require("../store/Auth/actionsAuth"));
+class SignIn extends react_1.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            username: this.props.welcomePage || '',
             password: '',
         };
-        return _this;
     }
-    SignIn.prototype.componentDidMount = function () {
+    componentDidMount() {
         if (this.state.username.length) {
             this.refs.passwordInput.getInputDOMNode().focus();
         }
         else {
             this.refs.usernameInput.getInputDOMNode().focus();
         }
-    };
-    SignIn.prototype.handleChange = function (event) {
+    }
+    handleChange(event) {
         if (event.target.name === 'username') {
             this.setState({ username: event.target.value });
         }
         if (event.target.name === 'password') {
             this.setState({ password: event.target.value });
         }
-    };
-    SignIn.prototype.handleSubmit = function (event) {
+    }
+    handleSubmit(event) {
         event.preventDefault();
-        var dispatch = this.props.dispatch;
+        const { dispatch } = this.props;
         if (this.state.username.length < 1) {
             this.refs.usernameInput.getInputDOMNode().focus();
         }
@@ -47,36 +47,35 @@ var SignIn = /** @class */ (function (_super) {
             dispatch(authActions.signIn(userObj));
             this.setState({ username: '', password: '' });
         }
-    };
-    SignIn.prototype.render = function () {
-        return (React.createElement("div", { className: "autoPages signIn part" },
-            React.createElement("header", { style: {
+    }
+    render() {
+        return (react_1.default.createElement("div", { className: "autoPages signIn part" },
+            react_1.default.createElement("header", { style: {
                     display: 'flex',
                     justifyContent: 'center',
                     flexGrow: '0',
                     order: '0',
                 } }, "Login to Social"),
-            React.createElement("main", { style: { display: 'flex', justifyContent: 'center' } },
-                React.createElement("form", { onSubmit: this.handleSubmit },
-                    React.createElement(Input, { label: "Username", ref: "usernameInput", type: "text", name: "username", placeholder: "Enter username", value: this.state.username, onChange: this.handleChange }),
-                    React.createElement(Input, { label: "Password", ref: "passwordInput", type: "password", name: "password", placeholder: "Enter password", value: this.state.password, onChange: this.handleChange }),
-                    React.createElement(Button, { className: "btnAuto", bsStyle: "success", name: "submitButton", type: "submit" },
-                        React.createElement("p", { style: {
+            react_1.default.createElement("main", { style: { display: 'flex', justifyContent: 'center' } },
+                react_1.default.createElement("form", { onSubmit: this.handleSubmit },
+                    react_1.default.createElement(react_bootstrap_1.Input, { label: "Username", ref: "usernameInput", type: "text", name: "username", placeholder: "Enter username", value: this.state.username, onChange: this.handleChange }),
+                    react_1.default.createElement(react_bootstrap_1.Input, { label: "Password", ref: "passwordInput", type: "password", name: "password", placeholder: "Enter password", value: this.state.password, onChange: this.handleChange }),
+                    react_1.default.createElement(react_bootstrap_1.Button, { className: "btnAuto", bsStyle: "success", name: "submitButton", type: "submit" },
+                        react_1.default.createElement("p", { style: {
                                 color: 'white',
                                 margin: '0',
                                 padding: '0',
                                 fontSize: '1.5em',
                             } }, "Sign In"))))));
-    };
-    SignIn.propTypes = {
-        welcomePage: PropTypes.string.isRequired,
-        dispatch: PropTypes.func.isRequired,
-    };
-    return SignIn;
-}(Component));
+    }
+}
+SignIn.propTypes = {
+    welcomePage: prop_types_1.default.string.isRequired,
+    dispatch: prop_types_1.default.func.isRequired,
+};
 function mapStateToProps(state) {
     return {
         welcomePage: state.welcomePage,
     };
 }
-export default connect(mapStateToProps)(SignIn);
+exports.default = react_redux_1.connect(mapStateToProps)(SignIn);

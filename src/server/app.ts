@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { origin } from './env';
-
+import { router } from './router';
 const app = express();
 
 app.use(cors({ credentials: true, origin }))
@@ -19,10 +19,12 @@ import configDevServer from '../../config/webpack.dev-server.js';
 import configProdClient from '../../config/webpack.prod-client.js';
 import configProdServer from '../../config/webpack.prod-server.js';
 
-const isProd = process.env.NODE_ENV === 'production';
+const isProd: boolean = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
 
 let isBuilt = false;
+
+
 
 /*
 const PORT = process.env.PORT || 8080;
@@ -34,35 +36,46 @@ app.listen(PORT, () => {
 		}\x1b[0m 🌎...`
 	);
 });*/
-
+const configDev = <any>configDevClient;
 const done = () => {
 	!isBuilt && console.log('Done');
 };
+interface configsI {
+	[index: number]: { mode?: string };
+}
+// register routes
+
+const configs: configsI[] = [configDevClient, configDevServer]
+export const  compiler = webpack(configs);
 
 if (isDev) {
-	const compiler = webpack([configDevClient, configDevServer]);
 
-	const clientCompiler = compiler.compilers[0];
+
+
+	const clientCompiler: any = compiler.compilers[0];
 	const serverCompiler = compiler.compilers[1];
 
 	const webpackDevMiddleware = require('webpack-dev-middleware')(
 		compiler,
-		configDevClient.devServer
+		configDev.devServer
 	);
 
 	const webpackHotMiddlware = require('webpack-hot-middleware')(
 		clientCompiler,
-		configDevClient.devServer
+		configDev.devServer
 	);
 
 	app.use(webpackDevMiddleware);
 	app.use(webpackHotMiddlware);
-	app.use('/app', webpackHotServerMiddleware(compiler));
+	//app.use('/app', webpackHotServerMiddleware(compiler));
+	//app.get('/*', webpackHotServerMiddleware(compiler));
 	console.log('Middleware enabled');
 	done();
 
 } else {
-	webpack([configProdClient, configProdServer]).run((err, stats) => {
+	const configs: configsI[] = [configProdClient, configProdServer]
+
+	webpack(configs).run((err: any, stats: any) => {
 		const clientStats = stats.toJson().children[0];
 		const render = require('../../build/prod-server-bundle.js').default;
 		console.log(
@@ -79,5 +92,5 @@ if (isDev) {
 		done();
 	});
 }
-
-export {app};
+router(app);
+export {app };

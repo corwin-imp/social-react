@@ -1,28 +1,29 @@
-import * as tslib_1 from "tslib";
-import React from 'react';
-import ReactHowler from './howler/ReactHowler';
-import raf from 'raf'; // requestAnimationFrame polyfill
-import Button from './Button';
-import * as actions from '../store/Audio/actionsAudio';
-import * as actionsF from '../store/Profile/actionsProfile';
-import List from './List';
-import FontAwesome from 'react-fontawesome';
-import DropzoneComponent from 'react-dropzone-component';
-var Audio = /** @class */ (function (_super) {
-    tslib_1.__extends(Audio, _super);
-    function Audio(props) {
-        var _this = _super.call(this, props) || this;
-        _this.load = function (index) {
-            var dispatch = _this.props.dispatch;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const ReactHowler_1 = tslib_1.__importDefault(require("./howler/ReactHowler"));
+const raf_1 = tslib_1.__importDefault(require("raf")); // requestAnimationFrame polyfill
+const Button_1 = tslib_1.__importDefault(require("./Button"));
+const actions = tslib_1.__importStar(require("../store/Audio/actionsAudio"));
+const actionsF = tslib_1.__importStar(require("../store/Profile/actionsProfile"));
+const List_1 = tslib_1.__importDefault(require("./List"));
+const react_fontawesome_1 = tslib_1.__importDefault(require("react-fontawesome"));
+const react_dropzone_component_1 = tslib_1.__importDefault(require("react-dropzone-component"));
+class Audio extends react_1.default.Component {
+    constructor(props) {
+        super(props);
+        this.load = index => {
+            const { dispatch } = this.props;
             dispatch(actions.load(index));
         };
-        _this.ondelete = function (file, index) {
+        this.ondelete = (file, index) => {
             console.log('onDelete');
-            var dispatch = _this.props.dispatch;
-            dispatch(actionsF.removeFile('music', file + ".mp3", index));
+            const { dispatch } = this.props;
+            dispatch(actionsF.removeFile('music', `${file}.mp3`, index));
         };
-        var _a = _this.props.audio, playing = _a.playing, src = _a.src, progress = _a.progress, seek = _a.seek, volume = _a.volume;
-        _this.state = {
+        const { playing, src, progress, seek, volume } = this.props.audio;
+        this.state = {
             playing: playing,
             src: src,
             loaded: false,
@@ -34,12 +35,12 @@ var Audio = /** @class */ (function (_super) {
             mute: false,
             volume: volume,
         };
-        _this.componentConfig = {
+        this.componentConfig = {
             iconFiletypes: ['.mp3'],
             showFiletypeIcon: true,
             postUrl: '/ftp/add-file',
         };
-        _this.djsConfig = {
+        this.djsConfig = {
             acceptedFiles: "audio/*",
             autoProcessQueue: false,
             uploadMultiple: true,
@@ -47,37 +48,36 @@ var Audio = /** @class */ (function (_super) {
             maxFiles: 10,
             addRemoveLinks: true,
         };
-        _this.dropzone = null;
-        _this.eventHandlers = {
-            init: function (dz) { return _this.dropzone = dz; },
-            successmultiple: _this.completeFile.bind(_this),
+        this.dropzone = null;
+        this.eventHandlers = {
+            init: dz => this.dropzone = dz,
+            successmultiple: this.completeFile.bind(this),
         };
-        _this.Time = "00.00";
-        _this.is_progress_dirty = false;
+        this.Time = `00.00`;
+        this.is_progress_dirty = false;
         if (src === false) {
-            _this.interval_id = setInterval(_this.onUpdate.bind(_this), 500);
+            this.interval_id = setInterval(this.onUpdate.bind(this), 500);
         }
-        else if (!_this.props.top && seek) {
-            _this.interval_id = setInterval(_this.onUpdate.bind(_this), 500);
+        else if (!this.props.top && seek) {
+            this.interval_id = setInterval(this.onUpdate.bind(this), 500);
         }
-        _this.handleToggle = _this.handleToggle.bind(_this);
-        _this.onPlayerNext = _this.onPlayerNext.bind(_this);
-        _this.onPlayerPrev = _this.onPlayerPrev.bind(_this);
-        _this.handleOnLoad = _this.handleOnLoad.bind(_this);
-        _this.handleOnEnd = _this.handleOnEnd.bind(_this);
-        _this.UploadZone = _this.UploadZone.bind(_this);
-        _this.handleOnPlay = _this.handleOnPlay.bind(_this);
-        _this.handleStop = _this.handleStop.bind(_this);
-        _this.renderSeekPos = _this.renderSeekPos.bind(_this);
-        _this.renderSeekPr = _this.renderSeekPr.bind(_this);
-        _this.load = _this.load.bind(_this);
-        _this.ondelete = _this.ondelete.bind(_this);
-        _this.handleLoopToggle = _this.handleLoopToggle.bind(_this);
-        _this.handleMuteToggle = _this.handleMuteToggle.bind(_this);
-        return _this;
+        this.handleToggle = this.handleToggle.bind(this);
+        this.onPlayerNext = this.onPlayerNext.bind(this);
+        this.onPlayerPrev = this.onPlayerPrev.bind(this);
+        this.handleOnLoad = this.handleOnLoad.bind(this);
+        this.handleOnEnd = this.handleOnEnd.bind(this);
+        this.UploadZone = this.UploadZone.bind(this);
+        this.handleOnPlay = this.handleOnPlay.bind(this);
+        this.handleStop = this.handleStop.bind(this);
+        this.renderSeekPos = this.renderSeekPos.bind(this);
+        this.renderSeekPr = this.renderSeekPr.bind(this);
+        this.load = this.load.bind(this);
+        this.ondelete = this.ondelete.bind(this);
+        this.handleLoopToggle = this.handleLoopToggle.bind(this);
+        this.handleMuteToggle = this.handleMuteToggle.bind(this);
     }
-    Audio.prototype.onUpdate = function () {
-        var seek = this.props.audio.seek;
+    onUpdate() {
+        let { seek } = this.props.audio;
         if (this.player) {
             if (!this.is_progress_dirty) {
                 this.setState({
@@ -88,32 +88,32 @@ var Audio = /** @class */ (function (_super) {
                 this.props.onDone(this.state.src);
             }
         }
-    };
-    Audio.prototype.onPlayerNext = function () {
-        var dispatch = this.props.dispatch;
+    }
+    onPlayerNext() {
+        const { dispatch } = this.props;
         dispatch(actions.onPlayerNext());
-    };
+    }
     /* */
-    Audio.prototype.onSongDone = function (src) {
+    onSongDone(src) {
         this.onPlayerNext();
-    };
-    Audio.prototype.onPlayerPrev = function () {
-        var dispatch = this.props.dispatch;
+    }
+    onPlayerPrev() {
+        const { dispatch } = this.props;
         dispatch(actions.onPlayerPrev());
-    };
-    Audio.prototype.componentWillUnmount = function () {
-        var dispatch = this.props.dispatch;
+    }
+    componentWillUnmount() {
+        const { dispatch } = this.props;
         if (!this.props.top) {
             dispatch(actions.trigMount());
         }
         this.clearRAF();
-    };
-    Audio.prototype.handleToggle = function () {
-        var dispatch = this.props.dispatch;
+    }
+    handleToggle() {
+        const { dispatch } = this.props;
         dispatch(actions.handleToggle());
-    };
-    Audio.prototype.handleOnLoad = function () {
-        var seek = this.props.audio.seek;
+    }
+    handleOnLoad() {
+        const { seek } = this.props.audio;
         if (seek) {
             this.player.seek(seek);
         }
@@ -121,117 +121,117 @@ var Audio = /** @class */ (function (_super) {
             loaded: true,
             duration: this.player.duration(),
         });
-    };
-    Audio.prototype.handleOnPlay = function () {
+    }
+    handleOnPlay() {
         this.setState({
             playing: true,
         });
         this.renderSeekPr();
         this.renderSeekPos();
-    };
-    Audio.prototype.handleOnEnd = function () {
+    }
+    handleOnEnd() {
         this.setState({
             playing: false,
         });
         this.clearRAF();
-    };
-    Audio.prototype.handleStop = function () {
+    }
+    handleStop() {
         this.player.stop();
         this.setState({
             playing: false,
         });
         this.renderSeekPos();
         this.renderSeekPr();
-    };
-    Audio.prototype.handleLoopToggle = function () {
+    }
+    handleLoopToggle() {
         this.setState({
             loop: !this.state.loop,
         });
-    };
-    Audio.prototype.handleMuteToggle = function () {
+    }
+    handleMuteToggle() {
         this.setState({
             mute: !this.state.mute,
         });
-    };
-    Audio.prototype.renderSeekPos = function () {
+    }
+    renderSeekPos() {
         if (this.player) {
             var seek = Number(this.player.seek());
             if (!isNaN(seek)) {
                 this.setState({
                     seek: Number(this.player.seek()),
                 });
-                var minutes = parseInt(seek / 60);
-                var seconds = parseInt(seek % 60);
+                let minutes = parseInt(seek / 60);
+                let seconds = parseInt(seek % 60);
                 if (minutes < 10)
                     minutes = '0' + minutes;
                 if (seconds < 10)
                     seconds = '0' + seconds;
-                this.Time = minutes + "." + seconds;
+                this.Time = `${minutes}.${seconds}`;
                 if (this.state.playing) {
-                    this._raf = raf(this.renderSeekPos);
+                    this._raf = raf_1.default(this.renderSeekPos);
                 }
             }
         }
-    };
-    Audio.prototype.renderSeekPr = function () {
+    }
+    renderSeekPr() {
         if (this.player) {
             this.setState({
                 seekPr: this.player.seePr(),
             });
             if (this.state.playing) {
-                this._raf = raf(this.renderSeekPr);
+                this._raf = raf_1.default(this.renderSeekPr);
             }
         }
-    };
-    Audio.prototype.clearRAF = function () {
-        raf.cancel(this._raf);
-    };
-    Audio.prototype.startSetProgress = function (evt) {
+    }
+    clearRAF() {
+        raf_1.default.cancel(this._raf);
+    }
+    startSetProgress(evt) {
         this.setState({
             in_set_progress_mode: true,
         });
         this.setProgress(evt);
-    };
-    Audio.prototype.stopSetProgress = function (evt) {
+    }
+    stopSetProgress(evt) {
         this.setState({
             in_set_progress_mode: false,
         });
         this.setProgress(evt);
-    };
-    Audio.prototype.setProgress = function (evt) {
-        var dispatch = this.props.dispatch;
+    }
+    setProgress(evt) {
+        const { dispatch } = this.props;
         if (this.state.in_set_progress_mode) {
             var prog = (evt.clientX - offsetLeft(this._progress_bar)) /
                 this._progress_bar.clientWidth;
-            var sk = this.state.duration * (100 * prog) / 100 || 0;
+            let sk = this.state.duration * (100 * prog) / 100 || 0;
             dispatch(actions.setProgress(prog, sk));
         }
-    };
-    Audio.prototype.componentWillMount = function () {
-        var mount = this.props.audio.mount;
+    }
+    componentWillMount() {
+        const { mount } = this.props.audio;
         if (!mount && !this.props.top) {
             this.props.dispatch(actions.trigMount());
         }
-    };
-    Audio.prototype.UploadZone = function () {
+    }
+    UploadZone() {
         this.setState({
             upload: !this.state.upload,
         });
-    };
-    Audio.prototype.handlePost = function () {
+    }
+    handlePost() {
         this.dropzone.processQueue();
-    };
-    Audio.prototype.completeFile = function (file) {
-        var dispatch = this.props.dispatch;
+    }
+    completeFile(file) {
+        const { dispatch } = this.props;
         console.log(file);
         this.setState({
             upload: !this.state.upload
         });
         dispatch(actionsF.getFiles('get-music'));
-    };
-    Audio.prototype.componentWillReceiveProps = function (nextProps) {
-        var dispatch = this.props.dispatch;
-        var _a = nextProps.audio, src = _a.src, playing = _a.playing, seek = _a.seek, volume = _a.volume, mount = _a.mount;
+    }
+    componentWillReceiveProps(nextProps) {
+        const { dispatch } = this.props;
+        const { src, playing, seek, volume, mount } = nextProps.audio;
         if (src !== this.state.src) {
             this.setState({
                 src: src,
@@ -263,62 +263,58 @@ var Audio = /** @class */ (function (_super) {
             });
         }
         //console.log('howler',ReactHowler);
-    };
-    Audio.prototype.render = function () {
-        var _this = this;
-        var _a = this.props.audio, music = _a.music, keyWord = _a.keyWord, src = _a.src;
+    }
+    render() {
+        let { music, keyWord, src } = this.props.audio;
         if (!keyWord && this.props.top) {
             return false;
         }
         if (this.state.src === false && music.length) {
             src = 0;
         }
-        var durTime = '00.00';
+        let durTime = '00.00';
         if (this.state.duration) {
-            var dTime = this.state.duration / 60;
-            var dtimeS = dTime - Math.floor(dTime);
+            let dTime = this.state.duration / 60;
+            let dtimeS = dTime - Math.floor(dTime);
             dtimeS = dtimeS * 60 / 100;
             durTime = Number(dTime.toFixed()) + Number(dtimeS.toFixed(2));
         }
-        return (React.createElement("div", { className: "Audio " + (this.props.top &&
+        return (react_1.default.createElement("div", { className: `Audio ${this.props.top &&
                 this.props.path == '/audio' &&
-                'hidden') },
-            React.createElement("div", { className: "audioPlayer" },
-                React.createElement("div", { className: "leftControls" },
-                    React.createElement(Button, { onClick: this.onPlayerPrev, onCl: "btnAudio", text: React.createElement(FontAwesome, { className: "super-crazy-colors", name: "angle-left", size: "2x", style: { textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' } }) }),
-                    React.createElement(Button, { onClick: this.handleToggle, text: this.state.playing ? (React.createElement(FontAwesome, { className: "super-crazy-colors", name: "pause", size: "lg", style: { textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' } })) : (React.createElement(FontAwesome, { className: "super-crazy-colors", name: "play", size: "lg" })) }),
-                    React.createElement(Button, { onClick: this.onPlayerNext, text: React.createElement(FontAwesome, { className: "super-crazy-colors", name: "angle-right", size: "2x", style: { textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' } }) }),
-                    React.createElement("label", { className: "againBtn" },
-                        React.createElement(FontAwesome, { className: "super-crazy-colors", name: "redo", size: "lg" }),
-                        React.createElement("input", { className: "hidden", type: "checkbox", checked: this.state.loop, onChange: this.handleLoopToggle }))),
-                React.createElement("div", { className: "centerAudio" },
-                    src !== false ? (React.createElement("div", { className: "current-song" }, music[src]['name'])) : (''),
-                    React.createElement("div", { onMouseDown: this.startSetProgress.bind(this), onMouseMove: this.setProgress.bind(this), onMouseLeave: this.stopSetProgress.bind(this), onMouseUp: this.stopSetProgress.bind(this), className: "progress" },
-                        React.createElement("div", { ref: function (ref) { return (_this._progress_bar = ref); }, className: "bar" },
-                            React.createElement("div", { style: { width: this.state.progress * 100 + '%' } })))),
-                React.createElement("div", { className: "rightControls" },
-                    React.createElement("div", { className: "time" },
+                'hidden'}` },
+            react_1.default.createElement("div", { className: "audioPlayer" },
+                react_1.default.createElement("div", { className: "leftControls" },
+                    react_1.default.createElement(Button_1.default, { onClick: this.onPlayerPrev, onCl: "btnAudio", text: react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "angle-left", size: "2x", style: { textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' } }) }),
+                    react_1.default.createElement(Button_1.default, { onClick: this.handleToggle, text: this.state.playing ? (react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "pause", size: "lg", style: { textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' } })) : (react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "play", size: "lg" })) }),
+                    react_1.default.createElement(Button_1.default, { onClick: this.onPlayerNext, text: react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "angle-right", size: "2x", style: { textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' } }) }),
+                    react_1.default.createElement("label", { className: "againBtn" },
+                        react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "redo", size: "lg" }),
+                        react_1.default.createElement("input", { className: "hidden", type: "checkbox", checked: this.state.loop, onChange: this.handleLoopToggle }))),
+                react_1.default.createElement("div", { className: "centerAudio" },
+                    src !== false ? (react_1.default.createElement("div", { className: "current-song" }, music[src]['name'])) : (''),
+                    react_1.default.createElement("div", { onMouseDown: this.startSetProgress.bind(this), onMouseMove: this.setProgress.bind(this), onMouseLeave: this.stopSetProgress.bind(this), onMouseUp: this.stopSetProgress.bind(this), className: "progress" },
+                        react_1.default.createElement("div", { ref: ref => (this._progress_bar = ref), className: "bar" },
+                            react_1.default.createElement("div", { style: { width: this.state.progress * 100 + '%' } })))),
+                react_1.default.createElement("div", { className: "rightControls" },
+                    react_1.default.createElement("div", { className: "time" },
                         this.Time,
                         ' / ',
                         durTime),
-                    React.createElement("div", { className: "volume" },
-                        React.createElement("label", null,
+                    react_1.default.createElement("div", { className: "volume" },
+                        react_1.default.createElement("label", null,
                             this.state.volume.toFixed(2),
-                            React.createElement("span", { className: "slider-container" },
-                                React.createElement("input", { type: "range", min: "0", max: "1", step: ".05", value: this.state.volume, onChange: function (e) {
-                                        return _this.props.dispatch(actions.volume(parseFloat(e.target.value)));
-                                    }, style: { verticalAlign: 'bottom' } }))))),
-                src !== false ? (React.createElement(ReactHowler, { src: music[src]['href'], playing: this.state.playing, onLoad: this.handleOnLoad, onPlay: this.handleOnPlay, onEnd: this.handleOnEnd, loop: this.state.loop, mute: this.state.mute, volume: this.props.top ? this.state.volume : 0, ref: function (ref) { return (_this.player = ref); } })) : ('')),
-            React.createElement("button", { onClick: this.UploadZone, className: "btn btnZone" },
-                React.createElement("span", { className: "up" }, "Upload"),
-                React.createElement(FontAwesome, { className: "super-crazy-colors", name: "upload", size: "lg" })),
-            this.state.upload && (React.createElement("div", { className: "dropZoneCont" },
-                React.createElement(DropzoneComponent, { eventHandlers: this.eventHandlers, djsConfig: this.djsConfig, config: this.componentConfig }),
-                React.createElement("button", { className: "btnUp btn", onClick: this.handlePost.bind(this) }, "Upload"))),
-            music ? (React.createElement(List, { classValue: "audioList", title: "Playlist", playing: this.state.playing ? src : false, onChoose: function (href, name) { return _this.load(href, name); }, classN: "playList", ondelete: this.ondelete, items: music })) : ('')));
-    };
-    return Audio;
-}(React.Component));
+                            react_1.default.createElement("span", { className: "slider-container" },
+                                react_1.default.createElement("input", { type: "range", min: "0", max: "1", step: ".05", value: this.state.volume, onChange: e => this.props.dispatch(actions.volume(parseFloat(e.target.value))), style: { verticalAlign: 'bottom' } }))))),
+                src !== false ? (react_1.default.createElement(ReactHowler_1.default, { src: music[src]['href'], playing: this.state.playing, onLoad: this.handleOnLoad, onPlay: this.handleOnPlay, onEnd: this.handleOnEnd, loop: this.state.loop, mute: this.state.mute, volume: this.props.top ? this.state.volume : 0, ref: ref => (this.player = ref) })) : ('')),
+            react_1.default.createElement("button", { onClick: this.UploadZone, className: "btn btnZone" },
+                react_1.default.createElement("span", { className: "up" }, "Upload"),
+                react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "upload", size: "lg" })),
+            this.state.upload && (react_1.default.createElement("div", { className: "dropZoneCont" },
+                react_1.default.createElement(react_dropzone_component_1.default, { eventHandlers: this.eventHandlers, djsConfig: this.djsConfig, config: this.componentConfig }),
+                react_1.default.createElement("button", { className: "btnUp btn", onClick: this.handlePost.bind(this) }, "Upload"))),
+            music ? (react_1.default.createElement(List_1.default, { classValue: "audioList", title: "Playlist", playing: this.state.playing ? src : false, onChoose: (href, name) => this.load(href, name), classN: "playList", ondelete: this.ondelete, items: music })) : ('')));
+    }
+}
 function offsetLeft(el) {
     var left = 0;
     while (el && el !== document) {
@@ -327,4 +323,4 @@ function offsetLeft(el) {
     }
     return left;
 }
-export default Audio;
+exports.default = Audio;

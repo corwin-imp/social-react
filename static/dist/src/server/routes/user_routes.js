@@ -13,9 +13,9 @@ module.exports = function loadUserRoutes(router, passport) {
         successRedirect: '/chat',
         failureRedirect: '/',
     }));
-    router.post('/items/add', function (req, res) {
-        var dbata = req.body;
-        var newUser = new User({
+    router.post('/items/add', (req, res) => {
+        let dbata = req.body;
+        const newUser = new User({
             username: dbata[0],
             age: dbata[1],
             gender: dbata[2],
@@ -36,8 +36,8 @@ module.exports = function loadUserRoutes(router, passport) {
             res.json(data);
         });
     });
-    router.post('/items/delete', function (req, res) {
-        var id = req.body.id;
+    router.post('/items/delete', (req, res) => {
+        let id = req.body.id;
         console.log(id);
         User.findById(id).remove(function (err, doc) {
             if (err) {
@@ -47,10 +47,10 @@ module.exports = function loadUserRoutes(router, passport) {
             res.json('success');
         });
     });
-    router.post('/items/update', function (req, res) {
+    router.post('/items/update', (req, res) => {
         console.log('update', req.body);
-        var id = req.body.id;
-        var data = req.body.data;
+        let id = req.body.id;
+        let data = req.body.data;
         User.findById(id).update({ $set: {
                 "local.username": data.name,
                 "local.age": data.age,
@@ -66,10 +66,10 @@ module.exports = function loadUserRoutes(router, passport) {
             res.json('update');
         });
     });
-    router.post('/set-picture', function (req, res) {
+    router.post('/set-picture', (req, res) => {
         console.log('update', req.body);
-        var id = req.body.id;
-        var choose = req.body.choose;
+        let id = req.body.id;
+        let choose = req.body.choose;
         User.findById(id).update({
             $set: {
                 'local.picture': choose,
@@ -118,21 +118,21 @@ module.exports = function loadUserRoutes(router, passport) {
             res.json(data);
         });
     });
-    router.post('/items/', function (req, res) {
-        var findObj = {};
+    router.post('/items/', (req, res) => {
+        let findObj = {};
         if (Object.keys(req.body).length) {
             findObj = req.body;
             if (req.body.name) {
-                var name_1 = new RegExp(req.body.name, "i");
-                findObj['local.username'] = name_1;
+                let name = new RegExp(req.body.name, "i");
+                findObj['local.username'] = name;
                 delete findObj.name;
             }
             if (req.body['local.country']) {
-                var country = new RegExp(req.body['local.country'], "i");
+                let country = new RegExp(req.body['local.country'], "i");
                 findObj['local.country'] = country;
             }
             if (req.body['local.city']) {
-                var city = new RegExp(req.body['local.city'], "i");
+                let city = new RegExp(req.body['local.city'], "i");
                 findObj['local.city'] = city;
             }
             if (req.body['ageTo'] && req.body['ageFr']) {

@@ -1,19 +1,34 @@
-import * as tslib_1 from "tslib";
-import { LOAD_USERVALIDATION, LOAD_USERVALIDATION_SUCCESS, LOAD_USERVALIDATION_FAIL, } from '../Chat/TypesChat';
-var initialState = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const TypesChat_1 = require("../Chat/TypesChat");
+const initialState = {
     loaded: false,
     data: [],
 };
-export default function userValidation(state, action) {
-    if (state === void 0) { state = initialState; }
+function userValidation(state = initialState, action) {
     switch (action.type) {
-        case LOAD_USERVALIDATION:
-            return tslib_1.__assign({}, state, { loading: true });
-        case LOAD_USERVALIDATION_SUCCESS:
-            return tslib_1.__assign({}, state, { loading: false, loaded: true, data: action.json });
-        case LOAD_USERVALIDATION_FAIL:
-            return tslib_1.__assign({}, state, { loading: false, loaded: false, error: action.error, data: state.data.slice() });
+        case TypesChat_1.LOAD_USERVALIDATION:
+            return {
+                ...state,
+                loading: true,
+            };
+        case TypesChat_1.LOAD_USERVALIDATION_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                loaded: true,
+                data: action.json,
+            };
+        case TypesChat_1.LOAD_USERVALIDATION_FAIL:
+            return {
+                ...state,
+                loading: false,
+                loaded: false,
+                error: action.error,
+                data: [...state.data],
+            };
         default:
             return state;
     }
 }
+exports.default = userValidation;

@@ -1,5 +1,11 @@
-import About from './About';
-import Home from './Home';
-import Chats from './Chats';
-import NotFound from './NotFound';
-export { NotFound, Home, About, Chats };
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const About_1 = tslib_1.__importDefault(require("./About"));
+exports.About = About_1.default;
+const Home_1 = tslib_1.__importDefault(require("./Home"));
+exports.Home = Home_1.default;
+const Chats_1 = tslib_1.__importDefault(require("./Chats"));
+exports.Chats = Chats_1.default;
+const NotFound_1 = tslib_1.__importDefault(require("./NotFound"));
+exports.NotFound = NotFound_1.default;

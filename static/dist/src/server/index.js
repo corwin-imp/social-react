@@ -1,14 +1,17 @@
-import http from 'http';
-import { app } from './app';
-import { origin, port } from './env';
-import { server } from './serverApollo';
-server.applyMiddleware({
-    app: app,
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const http_1 = tslib_1.__importDefault(require("http"));
+const app_1 = require("./app");
+const env_1 = require("./env");
+const serverApollo_1 = require("./serverApollo");
+serverApollo_1.server.applyMiddleware({
+    app: app_1.app,
     path: '/graphql',
-    cors: { credentials: true, origin: origin },
+    cors: { credentials: true, origin: env_1.origin },
 });
-var httpServer = http.createServer(app);
-server.installSubscriptionHandlers(httpServer);
-httpServer.listen(port, function () {
-    console.log("Server is listening on port " + port);
+const httpServer = http_1.default.createServer(app_1.app);
+serverApollo_1.server.installSubscriptionHandlers(httpServer);
+httpServer.listen(env_1.port, () => {
+    console.log(`Server is listening on port ${env_1.port}`);
 });

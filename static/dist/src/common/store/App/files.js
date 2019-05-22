@@ -1,49 +1,58 @@
-import * as tslib_1 from "tslib";
-import * as types from '../../constants/ActionTypes-items';
-import url from 'url';
-var initialState = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const types = tslib_1.__importStar(require("../../constants/ActionTypes-items"));
+const url_1 = tslib_1.__importDefault(require("url"));
+const initialState = {
     music: [],
     pictures: []
 };
-export default function audio(state, action) {
-    if (state === void 0) { state = initialState; }
+function audio(state = initialState, action) {
     function getMusicName(value) {
-        var path_parts = url.parse(value).path.split('/');
-        var songName = decodeURIComponent(path_parts[path_parts.length - 1]);
+        var path_parts = url_1.default.parse(value).path.split('/');
+        let songName = decodeURIComponent(path_parts[path_parts.length - 1]);
         songName = songName.replace(/.mp3/g, '');
         return songName;
     }
     function getName(value) {
-        var path_parts = url.parse(value).path.split('/');
+        var path_parts = url_1.default.parse(value).path.split('/');
         return decodeURIComponent(path_parts[path_parts.length - 1]);
     }
     switch (action.type) {
         case types.GET_MUSIC:
-            var files_1 = [];
-            action.files.map(function (value, index) {
-                files_1[index] = {
+            let files = [];
+            action.files.map((value, index) => {
+                files[index] = {
                     href: value,
                     name: getMusicName(value),
                 };
             });
-            return tslib_1.__assign({}, state, { music: files_1 });
+            return {
+                ...state,
+                music: files
+            };
             break;
         case types.GET_PICTURES:
-            var pictures_1 = [];
-            action.files.map(function (value, index) {
-                pictures_1[index] = {
+            let pictures = [];
+            action.files.map((value, index) => {
+                pictures[index] = {
                     src: value,
                     name: getName(value),
                 };
             });
-            return tslib_1.__assign({}, state, { pictures: pictures_1 });
+            return {
+                ...state,
+                pictures: pictures,
+            };
             break;
         case types.REMOVE_FILE:
             console.log('files', state[action.typeFile]);
             var Upfiles = Object.assign([], state[action.typeFile]);
             console.log('up', action.file);
             Upfiles.splice(action.file, 1);
-            var newState = tslib_1.__assign({}, state);
+            let newState = {
+                ...state,
+            };
             newState[action.typeFile] = Upfiles;
             console.log('state', newState);
             return newState;
@@ -53,3 +62,4 @@ export default function audio(state, action) {
             break;
     }
 }
+exports.default = audio;

@@ -1,7 +1,9 @@
-import React from 'react';
-import Button from './Button';
-var Switcher = function (_a) {
-    var feature = _a.feature, isSwitch = _a.isSwitch, onChangeLeft = _a.onChangeLeft, onChangeRight = _a.onChangeRight, leftButtonText = _a.leftButtonText, rightButtontext = _a.rightButtontext;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const Button_1 = tslib_1.__importDefault(require("./Button"));
+const Switcher = ({ feature, isSwitch, onChangeLeft, onChangeRight, leftButtonText, rightButtontext, }) => {
     if (feature) {
         var classOn = 'on';
         var classOff = '';
@@ -11,16 +13,16 @@ var Switcher = function (_a) {
         var classOff = 'off';
     }
     if (isSwitch != 'power') {
-        var label = React.createElement("div", { className: "btnLabel" }, feature);
+        var label = react_1.default.createElement("div", { className: "btnLabel" }, feature);
         var classOn = '';
         var classOff = '';
     }
     else {
         var label = '';
     }
-    return (React.createElement("div", { className: 'switcher ' + isSwitch },
+    return (react_1.default.createElement("div", { className: 'switcher ' + isSwitch },
         label,
-        React.createElement(Button, { onCl: classOn, onClick: onChangeLeft, text: leftButtonText }),
-        React.createElement(Button, { onCl: classOff, onClick: onChangeRight, text: rightButtontext })));
+        react_1.default.createElement(Button_1.default, { onCl: classOn, onClick: onChangeLeft, text: leftButtonText }),
+        react_1.default.createElement(Button_1.default, { onCl: classOff, onClick: onChangeRight, text: rightButtontext })));
 };
-export default Switcher;
+exports.default = Switcher;

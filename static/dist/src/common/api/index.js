@@ -1,38 +1,41 @@
-import axios from 'axios';
-import config from '../../../config/config';
-var apiPrefix = config.apiPrefix;
-export default {
-    getItems: function (data) {
-        return axios.post(apiPrefix + "/api/items/", data);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const axios_1 = tslib_1.__importDefault(require("axios"));
+const config_1 = tslib_1.__importDefault(require("../../../config/config"));
+const apiPrefix = config_1.default.apiPrefix;
+exports.default = {
+    getItems(data) {
+        return axios_1.default.post(`${apiPrefix}/api/items/`, data);
     },
-    removeFile: function (data) {
-        return axios.post(apiPrefix + "/ftp/remove/", data);
+    removeFile(data) {
+        return axios_1.default.post(`${apiPrefix}/ftp/remove/`, data);
     },
-    getItem: function (data) {
-        return axios.post(apiPrefix + "/api/get_user/", data);
+    getItem(data) {
+        return axios_1.default.post(`${apiPrefix}/api/get_user/`, data);
     },
-    getVideo: function (data) {
-        return axios.get(apiPrefix + "/api/video", data);
+    getVideo(data) {
+        return axios_1.default.get(`${apiPrefix}/api/video`, data);
     },
-    addVideo: function (data) {
-        return axios.post(apiPrefix + "/api/add-video", data);
+    addVideo(data) {
+        return axios_1.default.post(`${apiPrefix}/api/add-video`, data);
     },
-    addItem: function (data) {
-        return axios.post(apiPrefix + "/api/items/add", data);
+    addItem(data) {
+        return axios_1.default.post(`${apiPrefix}/api/items/add`, data);
     },
-    delItem: function (data) {
-        return axios.post(apiPrefix + "/api/items/delete", data);
+    delItem(data) {
+        return axios_1.default.post(`${apiPrefix}/api/items/delete`, data);
     },
-    delVideo: function (data) {
-        return axios.post(apiPrefix + "/api/video/delete", data);
+    delVideo(data) {
+        return axios_1.default.post(`${apiPrefix}/api/video/delete`, data);
     },
-    list: function (data) {
-        return axios.post(apiPrefix + "/api/items/list", data);
+    list(data) {
+        return axios_1.default.post(`${apiPrefix}/api/items/list`, data);
     },
-    updateItem: function (data) {
-        return axios.post(apiPrefix + "/api/items/update", data);
+    updateItem(data) {
+        return axios_1.default.post(`${apiPrefix}/api/items/update`, data);
     },
-    deleteCollect: function () {
-        return axios.get(apiPrefix + "/api/items/delcol");
+    deleteCollect() {
+        return axios_1.default.get(`${apiPrefix}/api/items/delcol`);
     },
 };

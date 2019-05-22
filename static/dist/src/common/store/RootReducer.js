@@ -1,30 +1,33 @@
-import messages from './Chat/messages';
-import channels from './Chat/channels';
-import activeChannel from './Chat/activeChannel';
-import authReducer from './Auth/reducerAuth';
-import typers from './Chat/typers';
-import files from './App/files';
-import reducerProfile from './Profile/reducerProfile';
-import audio from './Audio/reducerAudio';
-import reducerVideo from './Video/reducerVideo';
-import welcomePage from './App/welcomePage';
-import userValidation from './App/userValidation';
-import environment from './App/environment';
-import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
-var rootReducer = combineReducers({
-    messages: messages,
-    channels: channels,
-    activeChannel: activeChannel,
-    auth: authReducer,
-    files: files,
-    typers: typers,
-    audio: audio,
-    reducerItems: reducerProfile,
-    reducerVideo: reducerVideo,
-    welcomePage: welcomePage,
-    userValidation: userValidation,
-    environment: environment,
-    formReducer: formReducer,
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const messages_1 = tslib_1.__importDefault(require("./Chat/messages"));
+const channels_1 = tslib_1.__importDefault(require("./Chat/channels"));
+const activeChannel_1 = tslib_1.__importDefault(require("./Chat/activeChannel"));
+const reducerAuth_1 = tslib_1.__importDefault(require("./Auth/reducerAuth"));
+const typers_1 = tslib_1.__importDefault(require("./Chat/typers"));
+const files_1 = tslib_1.__importDefault(require("./App/files"));
+const reducerProfile_1 = tslib_1.__importDefault(require("./Profile/reducerProfile"));
+const reducerAudio_1 = tslib_1.__importDefault(require("./Audio/reducerAudio"));
+const reducerVideo_1 = tslib_1.__importDefault(require("./Video/reducerVideo"));
+const welcomePage_1 = tslib_1.__importDefault(require("./App/welcomePage"));
+const userValidation_1 = tslib_1.__importDefault(require("./App/userValidation"));
+const environment_1 = tslib_1.__importDefault(require("./App/environment"));
+const redux_1 = require("redux");
+const redux_form_1 = require("redux-form");
+const rootReducer = redux_1.combineReducers({
+    messages: messages_1.default,
+    channels: channels_1.default,
+    activeChannel: activeChannel_1.default,
+    auth: reducerAuth_1.default,
+    files: files_1.default,
+    typers: typers_1.default,
+    audio: reducerAudio_1.default,
+    reducerItems: reducerProfile_1.default,
+    reducerVideo: reducerVideo_1.default,
+    welcomePage: welcomePage_1.default,
+    userValidation: userValidation_1.default,
+    environment: environment_1.default,
+    formReducer: redux_form_1.reducer,
 });
-export default rootReducer;
+exports.default = rootReducer;

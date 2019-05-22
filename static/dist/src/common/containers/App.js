@@ -1,55 +1,55 @@
-import * as tslib_1 from "tslib";
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { browserHistory } from 'react-router';
-import { initEnvironment } from '../store/App/actionsApp';
-import { connect } from 'react-redux';
-import { receiveAuth } from '../store/Auth/actionsAuth';
-import * as authActions from '../store/Auth/actionsAuth';
-import * as actionsD from '../store/Profile/actionsProfile';
-import Search from '../components/Search';
-import { DropdownButton, Dropdown, } from 'react-bootstrap';
-import Audio from '../components/Audio';
-import FontAwesome from 'react-fontawesome';
-var App = /** @class */ (function (_super) {
-    tslib_1.__extends(App, _super);
-    function App(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const react_router_dom_1 = require("react-router-dom");
+const react_router_1 = require("react-router");
+const actionsApp_1 = require("../store/App/actionsApp");
+const react_redux_1 = require("react-redux");
+const actionsAuth_1 = require("../store/Auth/actionsAuth");
+const authActions = tslib_1.__importStar(require("../store/Auth/actionsAuth"));
+const actionsD = tslib_1.__importStar(require("../store/Profile/actionsProfile"));
+const Search_1 = tslib_1.__importDefault(require("../components/Search"));
+const react_bootstrap_1 = require("react-bootstrap");
+const Audio_1 = tslib_1.__importDefault(require("../components/Audio"));
+const react_fontawesome_1 = tslib_1.__importDefault(require("react-fontawesome"));
+class App extends react_1.default.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             search: '',
         };
-        return _this;
     }
-    App.prototype.onSearch = function (event) {
+    onSearch(event) {
         this.setState({
             gender: event.target.value,
         });
-    };
-    App.prototype.componentDidMount = function () {
-        var _a = this.props, dispatch = _a.dispatch, user = _a.user, location = _a.location;
+    }
+    componentDidMount() {
+        const { dispatch, user, location } = this.props;
         if (!user.id) {
-            dispatch(receiveAuth());
+            dispatch(actionsAuth_1.receiveAuth());
         }
         else {
             if (location.pathname == '/') {
-                browserHistory.push('/my-profile');
+                react_router_1.browserHistory.push('/my-profile');
             }
         }
         if (!this.props.music.length) {
             dispatch(actionsD.getFiles('get-music'));
         }
-        dispatch(initEnvironment());
+        dispatch(actionsApp_1.initEnvironment());
         actionsD.getItems(dispatch);
-    };
-    App.prototype.handleSignOut = function () {
-        var dispatch = this.props.dispatch;
+    }
+    handleSignOut() {
+        const { dispatch } = this.props;
         dispatch(authActions.signOut());
-    };
-    App.prototype.render = function () {
-        var _a = this.props, user = _a.user, location = _a.location, audio = _a.audio;
+    }
+    render() {
+        const { user, location, audio } = this.props;
         audio['music'] = this.props.music;
-        var username = this.props.user.username;
-        var _b = this.props.environment, screenHeight = _b.screenHeight, isMobile = _b.isMobile, screenWidth = _b.screenWidth;
+        const username = this.props.user.username;
+        const { screenHeight, isMobile, screenWidth } = this.props.environment;
         /*    const searchForm = (
               <form role="form">
                 <Input
@@ -69,40 +69,39 @@ var App = /** @class */ (function (_super) {
                 </Button>
               </form>
             )*/
-        var dropDownMenu = (React.createElement("div", { className: "myProfile" },
-            React.createElement(Link, { id: "personLink", to: "/my-profile" },
+        const dropDownMenu = (react_1.default.createElement("div", { className: "myProfile" },
+            react_1.default.createElement(react_router_dom_1.Link, { id: "personLink", to: "/my-profile" },
                 ' ',
-                React.createElement(FontAwesome, { className: "super-crazy-colors", name: "chess-rook", size: "lg", style: { textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' } })),
-            React.createElement(DropdownButton, { key: 1, style: { width: '21rem' }, id: "user-menu", title: username },
-                React.createElement(Dropdown.Item, { style: { width: '21rem' }, eventKey: "4", onSelect: this.handleSignOut }, "Signout"))));
+                react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "chess-rook", size: "lg", style: { textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' } })),
+            react_1.default.createElement(react_bootstrap_1.DropdownButton, { key: 1, style: { width: '21rem' }, id: "user-menu", title: username },
+                react_1.default.createElement(react_bootstrap_1.Dropdown.Item, { style: { width: '21rem' }, eventKey: "4", onSelect: this.handleSignOut }, "Signout"))));
         if (isMobile) {
-            return (React.createElement("div", { style: { height: screenHeight + "px", width: screenWidth + "px" } }, (this.props.items.size) && this.props.children));
+            return (react_1.default.createElement("div", { style: { height: `${screenHeight}px`, width: `${screenWidth}px` } }, (this.props.items.size) && this.props.children));
         }
-        return (React.createElement("div", { id: "mainApp" },
-            React.createElement("header", { id: "headApp" },
-                React.createElement("div", { className: "topItem", id: "headAppLinks" },
-                    user.id ? (dropDownMenu) : (React.createElement(Link, { className: "autoLink", to: "/" }, "Auto")),
+        return (react_1.default.createElement("div", { id: "mainApp" },
+            react_1.default.createElement("header", { id: "headApp" },
+                react_1.default.createElement("div", { className: "topItem", id: "headAppLinks" },
+                    user.id ? (dropDownMenu) : (react_1.default.createElement(react_router_dom_1.Link, { className: "autoLink", to: "/" }, "Auto")),
                     (location.pathname != '/profiles') &&
-                        React.createElement(Search, { dispatch: this.props.dispatch, fullSearch: false, userId: this.props.user.id })),
-                React.createElement("div", { className: "topItem", id: "headAppAudio" },
-                    React.createElement(Audio, { path: location.pathname, top: true, audio: audio, dispatch: this.props.dispatch }))),
-            React.createElement("div", { id: "contentApp" },
-                React.createElement("aside", { id: "sideApp" },
-                    React.createElement("ul", { className: "sideAppNav" },
-                        React.createElement("li", null,
-                            React.createElement(Link, { to: "/profiles" }, "Profiles")),
-                        React.createElement("li", null,
-                            React.createElement(Link, { to: "/audio" }, "Audio")),
-                        React.createElement("li", null,
-                            React.createElement(Link, { to: "/video" }, "Video")),
-                        React.createElement("li", null,
-                            React.createElement(Link, { to: "/pictures" }, "Pictures")),
-                        React.createElement("li", null,
-                            React.createElement(Link, { to: "/chat" }, "Chat")))),
-                React.createElement("div", { id: "AppContent" }, (this.props.items.size) ? this.props.children : ''))));
-    };
-    return App;
-}(React.Component));
+                        react_1.default.createElement(Search_1.default, { dispatch: this.props.dispatch, fullSearch: false, userId: this.props.user.id })),
+                react_1.default.createElement("div", { className: "topItem", id: "headAppAudio" },
+                    react_1.default.createElement(Audio_1.default, { path: location.pathname, top: true, audio: audio, dispatch: this.props.dispatch }))),
+            react_1.default.createElement("div", { id: "contentApp" },
+                react_1.default.createElement("aside", { id: "sideApp" },
+                    react_1.default.createElement("ul", { className: "sideAppNav" },
+                        react_1.default.createElement("li", null,
+                            react_1.default.createElement(react_router_dom_1.Link, { to: "/profiles" }, "Profiles")),
+                        react_1.default.createElement("li", null,
+                            react_1.default.createElement(react_router_dom_1.Link, { to: "/audio" }, "Audio")),
+                        react_1.default.createElement("li", null,
+                            react_1.default.createElement(react_router_dom_1.Link, { to: "/video" }, "Video")),
+                        react_1.default.createElement("li", null,
+                            react_1.default.createElement(react_router_dom_1.Link, { to: "/pictures" }, "Pictures")),
+                        react_1.default.createElement("li", null,
+                            react_1.default.createElement(react_router_dom_1.Link, { to: "/chat" }, "Chat")))),
+                react_1.default.createElement("div", { id: "AppContent" }, (this.props.items.size) ? this.props.children : ''))));
+    }
+}
 function mapStateToProps(state) {
     return {
         environment: state.environment,
@@ -114,4 +113,4 @@ function mapStateToProps(state) {
         pictures: state.files.pictures,
     };
 }
-export default connect(mapStateToProps)(App);
+exports.default = react_redux_1.connect(mapStateToProps)(App);

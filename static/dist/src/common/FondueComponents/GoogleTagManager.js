@@ -1,31 +1,28 @@
-import * as tslib_1 from "tslib";
-import React from 'react';
-import gtmParts from 'react-google-tag-manager';
-var GoogleTagManager = /** @class */ (function (_super) {
-    tslib_1.__extends(GoogleTagManager, _super);
-    function GoogleTagManager() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    GoogleTagManager.prototype.componentDidMount = function () {
-        var dataLayerName = this.props.dataLayerName || 'dataLayer';
-        var scriptId = this.props.scriptId || 'react-google-tag-manager-gtm';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const react_google_tag_manager_1 = tslib_1.__importDefault(require("react-google-tag-manager"));
+class GoogleTagManager extends react_1.default.Component {
+    componentDidMount() {
+        const dataLayerName = this.props.dataLayerName || 'dataLayer';
+        const scriptId = this.props.scriptId || 'react-google-tag-manager-gtm';
         if (!window[dataLayerName]) {
-            var gtmScriptNode = document.getElementById(scriptId);
+            const gtmScriptNode = document.getElementById(scriptId);
             eval(gtmScriptNode.textContent);
         }
-    };
-    GoogleTagManager.prototype.render = function () {
-        var gtm = gtmParts({
+    }
+    render() {
+        const gtm = react_google_tag_manager_1.default({
             id: this.props.gtmId,
             dataLayerName: this.props.dataLayerName || 'dataLayer',
             additionalEvents: this.props.additionalEvents || {},
             previewVariables: this.props.previewVariables || false,
             scheme: this.props.scheme || 'https:',
         });
-        return (React.createElement("div", null,
-            React.createElement("div", null, gtm.noScriptAsReact()),
-            React.createElement("div", { id: this.props.scriptId || 'react-google-tag-manager-gtm' }, gtm.scriptAsReact())));
-    };
-    return GoogleTagManager;
-}(React.Component));
-export default GoogleTagManager;
+        return (react_1.default.createElement("div", null,
+            react_1.default.createElement("div", null, gtm.noScriptAsReact()),
+            react_1.default.createElement("div", { id: this.props.scriptId || 'react-google-tag-manager-gtm' }, gtm.scriptAsReact())));
+    }
+}
+exports.default = GoogleTagManager;

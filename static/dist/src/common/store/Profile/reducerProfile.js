@@ -1,55 +1,61 @@
-import * as tslib_1 from "tslib";
-import Profile from './Profile';
-import * as types from '../../constants/ActionTypes-items';
-import api from '../../api';
-import { browserHistory } from 'react-router';
-var newItems = new Map();
-var initialState = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const Profile_1 = tslib_1.__importDefault(require("./Profile"));
+const types = tslib_1.__importStar(require("../../constants/ActionTypes-items"));
+const api_1 = tslib_1.__importDefault(require("../../api"));
+const react_router_1 = require("react-router");
+let newItems = new Map();
+const initialState = {
     items: newItems,
     nameDuplicate: false,
 };
-var reducerProfile = function (state, action) {
-    if (state === void 0) { state = initialState; }
-    var newItems;
+const reducerProfile = (state = initialState, action) => {
+    let newItems;
     switch (action.type) {
         case types.ADD:
-            var flagName = true;
-            for (var _i = 0, _a = state.items.values(); _i < _a.length; _i++) {
-                var value = _a[_i];
+            let flagName = true;
+            for (let value of state.items.values()) {
                 if (value.name == action.name) {
                     flagName = false;
                 }
             }
             if (flagName) {
                 newItems = new Map();
-                for (var _b = 0, _c = state.items.keys(); _b < _c.length; _b++) {
-                    var item = _c[_b];
+                for (let item of state.items.keys()) {
                     newItems.set(item, state.items.get(item));
                 }
-                var newItem_1 = new Profile(action.item);
-                var id = newItems.size + 1;
-                newItems.set(id, newItem_1);
-                var bdata_1 = [action.item];
-                var promice_1 = new Promise(function (resolve, reject) {
-                    api.addItem(bdata_1);
+                let newItem = new Profile_1.default(action.item);
+                let id = newItems.size + 1;
+                newItems.set(id, newItem);
+                let bdata = [action.item];
+                let promice = new Promise(function (resolve, reject) {
+                    api_1.default.addItem(bdata);
                 });
-                var newState_1 = tslib_1.__assign({}, state, { items: newItems, nameDuplicate: false });
-                return newState_1;
+                let newState = {
+                    ...state,
+                    items: newItems,
+                    nameDuplicate: false,
+                };
+                return newState;
             }
             else {
-                var newState_2 = Object.assign({}, state);
-                newState_2.nameDuplicate = true;
-                return newState_2;
+                let newState = Object.assign({}, state);
+                newState.nameDuplicate = true;
+                return newState;
             }
             break;
         case types.LIST:
             newItems = new Map();
-            for (var _d = 0, _e = state.items.keys(); _d < _e.length; _d++) {
-                var item = _e[_d];
+            for (let item of state.items.keys()) {
                 newItems.set(item, state.items.get(item));
             }
             newItems.get(action.name).list = list;
-            return tslib_1.__assign({}, state, { items: newItems, nameDuplicate: false });
+            return {
+                ...state,
+                items: newItems,
+                nameDuplicate: false,
+            };
             break;
         case types.LEAVE_ITEM:
             if (state.items.size) {
@@ -57,7 +63,10 @@ var reducerProfile = function (state, action) {
                 var updateStat = ItemsNEw.get(action.id);
                 updateStat.status = 0;
                 ItemsNEw.set(action.id, updateStat);
-                return tslib_1.__assign({}, state, { items: newItems });
+                return {
+                    ...state,
+                    items: newItems,
+                };
             }
             else {
                 return state;
@@ -69,7 +78,10 @@ var reducerProfile = function (state, action) {
                 var updateStat = ItemsNEw.get(action.id);
                 updateStat.status = 1;
                 ItemsNEw.set(action.id, updateStat);
-                return tslib_1.__assign({}, state, { items: newItems });
+                return {
+                    ...state,
+                    items: newItems,
+                };
             }
             else {
                 return state;
@@ -77,25 +89,31 @@ var reducerProfile = function (state, action) {
             break;
         case types.DEL_ITEM:
             newItems = new Map();
-            for (var _f = 0, _g = state.items.keys(); _f < _g.length; _f++) {
-                var item = _g[_f];
+            for (let item of state.items.keys()) {
                 newItems.set(item, state.items.get(item));
             }
             newItems.delete(action.id);
-            return tslib_1.__assign({}, state, { items: newItems, nameDuplicate: false });
+            return {
+                ...state,
+                items: newItems,
+                nameDuplicate: false,
+            };
             break;
         case types.CHOOSE:
             newItems = new Map();
-            for (var _h = 0, _j = state.items.keys(); _h < _j.length; _h++) {
-                var item = _j[_h];
+            for (let item of state.items.keys()) {
                 newItems.set(item, state.items.get(item));
             }
             newItems.get(action.id).choose = choose;
-            return tslib_1.__assign({}, state, { items: newItems, nameDuplicate: false });
+            return {
+                ...state,
+                items: newItems,
+                nameDuplicate: false,
+            };
             break;
         case types.UPDATE_ITEM:
-            var user = action.data;
-            var updateItem = {
+            let user = action.data;
+            let updateItem = {
                 name: user.name,
                 age: user.age,
                 gender: user.gender,
@@ -103,7 +121,7 @@ var reducerProfile = function (state, action) {
                 city: user.city,
                 country: user.country,
             };
-            var dataItem = {
+            let dataItem = {
                 local: {
                     username: user.name,
                     age: user.age,
@@ -113,41 +131,57 @@ var reducerProfile = function (state, action) {
                     country: user.country,
                 },
             };
-            var newItem = new Profile(dataItem);
+            let newItem = new Profile_1.default(dataItem);
             state.items.set(action.data.dataItem, updateItem);
-            var bdata_2 = { data: updateItem, id: action.idBase };
-            var promice = new Promise(function (resolve, reject) {
-                api.updateItem(bdata_2).then(function (result) {
-                    browserHistory.push("/profiles/" + action.idBase);
-                }, function (error) {
+            let bdata = { data: updateItem, id: action.idBase };
+            let promice = new Promise(function (resolve, reject) {
+                api_1.default.updateItem(bdata).then(result => {
+                    react_router_1.browserHistory.push(`/profiles/${action.idBase}`);
+                }, error => {
                     console.log('err');
                     console.log(error);
                 });
             });
-            promice.then(function (result) {
+            promice.then(result => {
                 console.log('createToBase');
             });
-            var newState = tslib_1.__assign({}, state, { items: state.items, item: newItem, nameDuplicate: false });
+            let newState = {
+                ...state,
+                items: state.items,
+                item: newItem,
+                nameDuplicate: false,
+            };
             return newState;
             break;
         case types.GET_ITEM:
-            var baseS = tslib_1.__assign({}, state);
+            var baseS = {
+                ...state,
+            };
             if (typeof action.item != 'string') {
                 var thisItem = state.items.get(action.id);
                 if (thisItem) {
                     action.status = thisItem.status;
                 }
-                var newItem_2 = new Profile(action.item);
-                baseS = tslib_1.__assign({}, state, { item: newItem_2 });
+                let newItem = new Profile_1.default(action.item);
+                baseS = {
+                    ...state,
+                    item: newItem,
+                };
             }
             console.log('baseS', baseS);
             return baseS;
             break;
         case types.FULL_SEARCH:
-            return tslib_1.__assign({}, state, { findSearch: action.name });
+            return {
+                ...state,
+                findSearch: action.name,
+            };
             break;
         case types.GET_ITEMS:
-            return tslib_1.__assign({}, state, { items: action.items });
+            return {
+                ...state,
+                items: action.items,
+            };
             break;
         default:
             if (state.items == []) {
@@ -156,4 +190,4 @@ var reducerProfile = function (state, action) {
             return state;
     }
 };
-export default reducerProfile;
+exports.default = reducerProfile;

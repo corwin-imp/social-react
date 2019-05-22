@@ -1,8 +1,10 @@
-import React from 'react';
-import classNames from 'classnames';
-import styles from './Content.css';
-function Content(_a) {
-    var className = _a.className, children = _a.children;
-    return React.createElement("div", { className: classNames(styles.content, className) }, children);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const classnames_1 = tslib_1.__importDefault(require("classnames"));
+const Content_css_1 = tslib_1.__importDefault(require("./Content.css"));
+function Content({ className, children }) {
+    return react_1.default.createElement("div", { className: classnames_1.default(Content_css_1.default.content, className) }, children);
 }
-export default Content;
+exports.default = Content;

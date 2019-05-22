@@ -1,36 +1,39 @@
-import * as types from "./TypesChat";
-import fetch from "isomorphic-fetch";
-import moment from "moment";
-import { createAction } from "redux-actions";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const types = tslib_1.__importStar(require("./TypesChat"));
+const isomorphic_fetch_1 = tslib_1.__importDefault(require("isomorphic-fetch"));
+const moment_1 = tslib_1.__importDefault(require("moment"));
+const redux_actions_1 = require("redux-actions");
 // NOTE:Chat actions
-export var addMessage = createAction(types.ADD_MESSAGE, function (data) { return ({ data: data }); });
-export var receiveRawMessage = createAction(types.RECEIVE_MESSAGE, function (data) { return ({
-    data: data
-}); });
-export var receiveRawChannel = createAction(types.RECEIVE_CHANNEL, function (data) { return ({
-    data: data
-}); });
-export var addChannel = createAction(types.ADD_CHANNEL, function (data) { return ({ data: data }); });
-export var typing = createAction(types.TYPING, function (data) { return ({ data: data }); });
-export var stopTyping = createAction(types.STOP_TYPING, function (data) { return ({ data: data }); });
-export var changeChannel = createAction(types.CHANGE_CHANNEL, function (data) { return ({
-    data: data
-}); });
-export var requestChannels = createAction(types.LOAD_CHANNELS, function (data) { return ({
-    data: data
-}); });
-export var receiveChannels = createAction(types.LOAD_CHANNELS_SUCCESS, function (data) { return ({ data: data }); });
-export var requestMessages = createAction(types.LOAD_MESSAGES, function (data) { return ({
-    data: data
-}); });
-export var loadingValidationList = createAction(types.LOAD_USERVALIDATION, function (data) { return ({ data: data }); });
-export var receiveValidationList = createAction(types.LOAD_USERVALIDATION_SUCCESS, function (data) { return ({ data: data }); });
-export var receiveMessages = createAction(types.LOAD_MESSAGES_SUCCESS, function (json, channel) {
-    var date = moment().format("lll");
+exports.addMessage = redux_actions_1.createAction(types.ADD_MESSAGE, data => ({ data }));
+exports.receiveRawMessage = redux_actions_1.createAction(types.RECEIVE_MESSAGE, data => ({
+    data
+}));
+exports.receiveRawChannel = redux_actions_1.createAction(types.RECEIVE_CHANNEL, data => ({
+    data
+}));
+exports.addChannel = redux_actions_1.createAction(types.ADD_CHANNEL, data => ({ data }));
+exports.typing = redux_actions_1.createAction(types.TYPING, data => ({ data }));
+exports.stopTyping = redux_actions_1.createAction(types.STOP_TYPING, data => ({ data }));
+exports.changeChannel = redux_actions_1.createAction(types.CHANGE_CHANNEL, data => ({
+    data
+}));
+exports.requestChannels = redux_actions_1.createAction(types.LOAD_CHANNELS, data => ({
+    data
+}));
+exports.receiveChannels = redux_actions_1.createAction(types.LOAD_CHANNELS_SUCCESS, data => ({ data }));
+exports.requestMessages = redux_actions_1.createAction(types.LOAD_MESSAGES, data => ({
+    data
+}));
+exports.loadingValidationList = redux_actions_1.createAction(types.LOAD_USERVALIDATION, data => ({ data }));
+exports.receiveValidationList = redux_actions_1.createAction(types.LOAD_USERVALIDATION_SUCCESS, data => ({ data }));
+exports.receiveMessages = redux_actions_1.createAction(types.LOAD_MESSAGES_SUCCESS, (json, channel) => {
+    const date = moment_1.default().format("lll");
     return {
-        json: json,
-        channel: channel,
-        date: date
+        json,
+        channel,
+        date
     };
 });
 /*
@@ -122,110 +125,116 @@ function receiveMessages(json, channel) {
   };
 }
 */
-export function deleteChannel(channel) {
-    var channelObj = { channel: channel.id };
-    return function (dispatch) {
-        return fetch("/api/delete-channel", {
+function deleteChannel(channel) {
+    let channelObj = { channel: channel.id };
+    return dispatch => {
+        return isomorphic_fetch_1.default("/api/delete-channel", {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(channelObj)
-        }).then(function (response) {
+        }).then(response => {
             if (response.ok) {
                 dispatch({
                     type: types.DELETE_CHANNEL,
                     channel: channel.id
                 });
-                var channelSt = {
+                let channelSt = {
                     name: "Lobby",
                     id: 0
                 };
-                dispatch(changeChannel(channelSt));
+                dispatch(exports.changeChannel(channelSt));
             }
         });
     };
 }
-export function fetchMyChannels(channels) {
-    var channelObj = { channels: channels };
-    return function (dispatch) {
-        dispatch(requestChannels());
-        return fetch("/api/my-channels", {
+exports.deleteChannel = deleteChannel;
+function fetchMyChannels(channels) {
+    let channelObj = { channels: channels };
+    return dispatch => {
+        dispatch(exports.requestChannels());
+        return isomorphic_fetch_1.default("/api/my-channels", {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(channelObj)
         })
-            .then(function (response) { return response.json(); })
-            .then(function (json) {
-            dispatch(receiveChannels(json));
+            .then(response => response.json())
+            .then(json => {
+            dispatch(exports.receiveChannels(json));
         })
-            .catch(function (error) {
+            .catch(error => {
             throw error;
         });
     };
 }
-export function fetchMessages(channel) {
-    return function (dispatch) {
-        dispatch(requestMessages());
-        return fetch("/api/messages/" + channel)
-            .then(function (response) { return response.json(); })
-            .then(function (json) { return dispatch(receiveMessages(json, channel)); })
-            .catch(function (error) {
+exports.fetchMyChannels = fetchMyChannels;
+function fetchMessages(channel) {
+    return dispatch => {
+        dispatch(exports.requestMessages());
+        return isomorphic_fetch_1.default(`/api/messages/${channel}`)
+            .then(response => response.json())
+            .then(json => dispatch(exports.receiveMessages(json, channel)))
+            .catch(error => {
             throw error;
         });
     };
 }
-export function usernameValidationList() {
-    return function (dispatch) {
-        dispatch(loadingValidationList());
-        return fetch("/api/all_usernames")
-            .then(function (response) {
+exports.fetchMessages = fetchMessages;
+function usernameValidationList() {
+    return dispatch => {
+        dispatch(exports.loadingValidationList());
+        return isomorphic_fetch_1.default("/api/all_usernames")
+            .then(response => {
             return response.json();
         })
-            .then(function (json) {
-            return dispatch(receiveValidationList(json.map(function (item) { return item.local.username; })));
+            .then(json => {
+            return dispatch(exports.receiveValidationList(json.map(item => item.local.username)));
         })
-            .catch(function (error) {
+            .catch(error => {
             throw error;
         });
     };
 }
-export function createMessage(message) {
-    return function (dispatch) {
-        dispatch(addMessage(message));
-        return fetch("/api/newmessage", {
+exports.usernameValidationList = usernameValidationList;
+function createMessage(message) {
+    return dispatch => {
+        dispatch(exports.addMessage(message));
+        return isomorphic_fetch_1.default("/api/newmessage", {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(message)
-        }).catch(function (error) {
+        }).catch(error => {
             throw error;
         });
     };
 }
-export function createChannel(channel) {
-    return function (dispatch) {
-        return fetch("/api/channels/new_channel", {
+exports.createMessage = createMessage;
+function createChannel(channel) {
+    return dispatch => {
+        return isomorphic_fetch_1.default("/api/channels/new_channel", {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(channel)
         })
-            .then(function (response) {
+            .then(response => {
             return response.json();
         })
-            .then(function (json) {
-            return dispatch(addChannel(json));
+            .then(json => {
+            return dispatch(exports.addChannel(json));
         })
-            .catch(function (error) {
+            .catch(error => {
             throw error;
         })
-            .then(function (val) { }, function () {
-            dispatch(addChannel(channel));
+            .then(val => { }, () => {
+            dispatch(exports.addChannel(channel));
         });
     };
 }
+exports.createChannel = createChannel;

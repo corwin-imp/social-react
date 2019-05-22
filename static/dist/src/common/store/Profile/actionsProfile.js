@@ -1,15 +1,18 @@
-import * as types from '../../constants/ActionTypes-items';
-import api from '../../api';
-import load_files from '../../modules/files';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const types = tslib_1.__importStar(require("../../constants/ActionTypes-items"));
+const api_1 = tslib_1.__importDefault(require("../../api"));
+const files_1 = tslib_1.__importDefault(require("../../modules/files"));
 //import remote from '../modules/remote'
-import cookie from 'react-cookie';
-import { browserHistory } from 'react-router';
-import io from 'socket.io-client';
-var socket = io('', { path: '/api/chat' });
-var request = require('superagent');
-import { createAction } from 'redux-actions';
-export var addItem = createAction(types.ADD, function (data) {
-    var profile = {
+const react_cookie_1 = tslib_1.__importDefault(require("react-cookie"));
+const react_router_1 = require("react-router");
+const socket_io_client_1 = tslib_1.__importDefault(require("socket.io-client"));
+const socket = socket_io_client_1.default('', { path: '/api/chat' });
+let request = require('superagent');
+const redux_actions_1 = require("redux-actions");
+exports.addItem = redux_actions_1.createAction(types.ADD, data => {
+    let profile = {
         local: {
             username: data.name,
         },
@@ -19,16 +22,15 @@ export var addItem = createAction(types.ADD, function (data) {
         name: data.name,
     };
 });
-export var setSongAction = createAction(types.CHOOSE, function (song) {
+exports.setSongAction = redux_actions_1.createAction(types.CHOOSE, (song) => {
     return {
-        song: song,
+        song,
     };
 });
-export var removeFileAction = createAction(types.REMOVE_FILE, function (_a) {
-    var file = _a.file, typeFile = _a.typeFile;
+exports.removeFileAction = redux_actions_1.createAction(types.REMOVE_FILE, ({ file, typeFile }) => {
     return {
-        file: file,
-        typeFile: typeFile
+        file,
+        typeFile
     };
 });
 /*export const addItem = data => {
@@ -43,29 +45,29 @@ export var removeFileAction = createAction(types.REMOVE_FILE, function (_a) {
     name: data.name,
   }
 }*/
-export var setSong = function (song) { return function (dispatch) {
-    dispatch(setSongAction(song));
-}; };
-export var removeFile = function (type, file, index) { return function (dispatch) {
-    api.removeFile({ type: type, 'file': file }).then(function (result) {
-        dispatch(removeFileAction({ file: index,
+exports.setSong = song => dispatch => {
+    dispatch(exports.setSongAction(song));
+};
+exports.removeFile = (type, file, index) => dispatch => {
+    api_1.default.removeFile({ type: type, 'file': file }).then(result => {
+        dispatch(exports.removeFileAction({ file: index,
             typeFile: type }));
-    }, function (error) {
+    }, error => {
         console.log('err');
         console.log(error);
     });
-}; };
-export var addFile = function (file, type) { return function (dispatch) {
-    api.add({ type: type, 'file': file }).then(function (result) {
+};
+exports.addFile = (file, type) => dispatch => {
+    api_1.default.add({ type: type, 'file': file }).then(result => {
         console.log('done');
         //browserHistory.push(`/profiles/${index}`);
-    }, function (error) {
+    }, error => {
         console.log('err');
         console.log(error);
     });
-}; };
-export var getFiles = function (some) { return function (dispatch) {
-    load_files(some, function (err, files) {
+};
+exports.getFiles = some => dispatch => {
+    files_1.default(some, (err, files) => {
         if (files.length) {
             var someVar = some.toUpperCase().replace('-', '_');
             dispatch({
@@ -74,20 +76,20 @@ export var getFiles = function (some) { return function (dispatch) {
             });
         }
     });
-}; };
-export var getItems = function (dispatch) {
-    var userId = cookie.load('userId');
-    api.getItems([])
-        .then(function (result) {
-        var itemsBase = result['data'];
-        var newItems = new Map();
-        var ids = [];
+};
+exports.getItems = (dispatch) => {
+    const userId = react_cookie_1.default.load('userId');
+    api_1.default.getItems([])
+        .then(result => {
+        let itemsBase = result['data'];
+        let newItems = new Map();
+        let ids = [];
         itemsBase.forEach(function (item, i, arr) {
-            var user = item['local'];
+            let user = item['local'];
             if (item._id == userId) {
                 return;
             }
-            var newItem = {
+            let newItem = {
                 name: user.username,
                 age: user.age,
                 gender: user.gender,
@@ -101,20 +103,19 @@ export var getItems = function (dispatch) {
             ids.push(item._id);
             newItems.set(item._id, newItem);
         });
-        var dataTHen = { ids: ids, newItems: newItems };
+        let dataTHen = { ids, newItems };
         return dataTHen;
-    }, function (error) {
+    }, error => {
         console.log('err');
         console.log(error);
     })
-        .then(function (dataTHen) {
-        var ids = dataTHen.ids;
+        .then(dataTHen => {
+        let ids = dataTHen.ids;
         socket.emit('get users', ids);
         socket.on('server users', function (message) {
             var people = JSON.parse(message);
-            var NewMap = new Map();
-            for (var _i = 0, _a = dataTHen.newItems; _i < _a.length; _i++) {
-                var value = _a[_i];
+            let NewMap = new Map();
+            for (let value of dataTHen.newItems) {
                 if (people.indexOf(value[0]) != -1) {
                     var status = 1;
                 }
@@ -134,47 +135,47 @@ export var getItems = function (dispatch) {
         });
     });
 };
-export var offItem = function (id) { return function (dispatch) {
+exports.offItem = id => dispatch => {
     socket.emit('leave user', id);
     return {
         type: types.LEAVE_ITEM,
         id: id,
     };
-}; };
-export var onItem = function (id) { return function (dispatch) {
+};
+exports.onItem = id => dispatch => {
     //  return {'type': types.IN_ITEM, id: id};
-}; };
-export var getItem = function (index) { return function (dispatch) {
-    var userId = { userId: index };
-    api.getItem(userId).then(function (result) {
-        var itemB = result['data'];
+};
+exports.getItem = index => dispatch => {
+    let userId = { userId: index };
+    api_1.default.getItem(userId).then(result => {
+        let itemB = result['data'];
         dispatch({
             type: types.GET_ITEM,
             item: itemB,
             id: index,
         });
         //browserHistory.push(`/profiles/${index}`);
-    }, function (error) {
+    }, error => {
         console.log('err');
         console.log(error);
     });
-}; };
-export var getVideo = function () { return function (dispatch) {
-    api.getVideo([]).then(function (result) {
-        var videoBase = result['data'];
+};
+exports.getVideo = () => dispatch => {
+    api_1.default.getVideo([]).then(result => {
+        let videoBase = result['data'];
         dispatch({
             type: types.GET_VIDEO,
             video: videoBase,
         });
-    }, function (error) {
+    }, error => {
         console.log('err');
         console.log(error);
     });
-}; };
-export var addVideo = function (data, dispatch) {
-    var bdata = [data.name, data.src];
-    api.addVideo(bdata).then(function (result) {
-        var id = result.data['_id'];
+};
+exports.addVideo = (data, dispatch) => {
+    let bdata = [data.name, data.src];
+    api_1.default.addVideo(bdata).then(result => {
+        let id = result.data['_id'];
         dispatch({
             type: types.ADD_VIDEO,
             name: data.name,
@@ -183,28 +184,28 @@ export var addVideo = function (data, dispatch) {
         });
     });
 };
-export var delVideo = function (idBase) {
-    var bdata = { id: idBase };
-    return function (dispatch) {
-        return api
+exports.delVideo = idBase => {
+    let bdata = { id: idBase };
+    return dispatch => {
+        return api_1.default
             .delVideo(bdata)
-            .then(function (response) {
+            .then(response => {
             console.log('res', response);
             dispatch({
                 type: types.DEL_VIDEO,
                 id: idBase,
             });
         })
-            .catch(function (error) {
+            .catch(error => {
             throw error;
         });
     };
 };
-export var delItem = function (idBase) {
-    var bdata = { id: idBase };
-    api.delItem(bdata).then(function (result) {
-        browserHistory.push('/profiles');
-    }, function (error) {
+exports.delItem = idBase => {
+    let bdata = { id: idBase };
+    api_1.default.delItem(bdata).then(result => {
+        react_router_1.browserHistory.push('/profiles');
+    }, error => {
         console.log('err');
         console.log(error);
     });
@@ -213,51 +214,51 @@ export var delItem = function (idBase) {
         id: idBase,
     };
 };
-export var list = function (id, list) {
-    var bdata = [id, list];
-    api.list(bdata);
+exports.list = (id, list) => {
+    let bdata = [id, list];
+    api_1.default.list(bdata);
     return {
         type: types.LIST,
-        list: list,
-        id: id,
+        list,
+        id,
     };
 };
-export var choose = function (id, choose) {
+exports.choose = (id, choose) => {
     return {
         type: types.CHOOSE,
-        id: id,
-        choose: choose,
+        id,
+        choose,
     };
 };
-export var on = function (id) {
+exports.on = id => {
     return {
         type: types.ON,
-        id: id,
+        id,
     };
 };
-export var quickSearch = function (name) {
-    return api.getItems(name);
+exports.quickSearch = name => {
+    return api_1.default.getItems(name);
 };
-export var clearSearch = function (name) {
+exports.clearSearch = name => {
     return {
         type: types.FULL_SEARCH,
         name: false
     };
 };
-export var fullSearch = function (name) {
-    browserHistory.push('/profiles');
+exports.fullSearch = name => {
+    react_router_1.browserHistory.push('/profiles');
     return {
         type: types.FULL_SEARCH,
         name: name
     };
 };
-export var off = function (id) {
+exports.off = id => {
     return {
         type: types.OFF,
-        id: id,
+        id,
     };
 };
-export var updateItem = function (data, id) {
+exports.updateItem = (data, id) => {
     return {
         type: types.UPDATE_ITEM,
         data: data,

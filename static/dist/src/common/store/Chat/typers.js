@@ -1,16 +1,18 @@
-import { TYPING, STOP_TYPING } from './TypesChat';
-var initialState = [];
-export default function typers(state, action) {
-    if (state === void 0) { state = initialState; }
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const TypesChat_1 = require("./TypesChat");
+const initialState = [];
+function typers(state = initialState, action) {
     switch (action.type) {
-        case TYPING:
+        case TypesChat_1.TYPING:
             if (state.indexOf(action.username) === -1) {
-                return state.concat([action.username]);
+                return [...state, action.username];
             }
             return state;
-        case STOP_TYPING:
-            return state.filter(function (user) { return user !== action.username; });
+        case TypesChat_1.STOP_TYPING:
+            return state.filter(user => user !== action.username);
         default:
             return state;
     }
 }
+exports.default = typers;

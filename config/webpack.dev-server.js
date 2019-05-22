@@ -22,7 +22,7 @@ module.exports = {
 	name: 'server',
 	target: 'node',
 	externals,
-	entry: './src/server/render.js',
+	entry: './src/server/controllers/renderer/render.tsx',
 	mode: 'development',
 	output: {
 		filename: 'dev-server-bundle.js',

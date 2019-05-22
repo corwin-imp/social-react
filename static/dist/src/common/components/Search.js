@@ -1,87 +1,86 @@
-import * as tslib_1 from "tslib";
-import React from "react";
-import * as actions from "../store/Profile/actionsProfile";
-import { Button, Form } from "react-bootstrap";
-import InputMy from "./Input";
-import FontAwesome from "react-fontawesome";
-import ItemsList from "./ItemsList";
-var Search = /** @class */ (function (_super) {
-    tslib_1.__extends(Search, _super);
-    function Search(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            searchName: _this.props.findSearch ? _this.props.findSearch : "",
-            nameSend: _this.props.findSearch ? 1 : 0,
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const actions = tslib_1.__importStar(require("../store/Profile/actionsProfile"));
+const react_bootstrap_1 = require("react-bootstrap");
+const Input_1 = tslib_1.__importDefault(require("./Input"));
+const react_fontawesome_1 = tslib_1.__importDefault(require("react-fontawesome"));
+const ItemsList_1 = tslib_1.__importDefault(require("./ItemsList"));
+class Search extends react_1.default.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            searchName: this.props.findSearch ? this.props.findSearch : "",
+            nameSend: this.props.findSearch ? 1 : 0,
             items: []
             //  age: "",
             //  gender: "male",
             //  email: "",
         };
-        _this.onSearch = _this.onSearch.bind(_this);
-        _this.searchItems = _this.searchItems.bind(_this);
-        _this.findFUll = _this.findFUll.bind(_this);
-        _this.onFullSearch = _this.onFullSearch.bind(_this);
-        _this.getItem = _this.getItem.bind(_this);
-        return _this;
+        this.onSearch = this.onSearch.bind(this);
+        this.searchItems = this.searchItems.bind(this);
+        this.findFUll = this.findFUll.bind(this);
+        this.onFullSearch = this.onFullSearch.bind(this);
+        this.getItem = this.getItem.bind(this);
     }
-    Search.prototype.onFullSearch = function (event) {
-        var value = event.target.value;
+    onFullSearch(event) {
+        let value = event.target.value;
         this.setState({
             searchName: value
         });
-    };
-    Search.prototype.findFUll = function () {
-        var NameSend = 0;
+    }
+    findFUll() {
+        let NameSend = 0;
         if (this.state.searchName) {
             NameSend = 1;
         }
         this.setState({
             nameSend: NameSend
         });
-        var findObj = {
+        const findObj = {
             name: this.state.searchName
         };
         console.log(111);
         this.props.onFindSearch(findObj);
-    };
-    Search.prototype.onSearch = function (event) {
-        var _this = this;
+    }
+    onSearch(event) {
         console.log(111);
-        var value = event.target.value;
+        let value = event.target.value;
         this.setState({
             searchName: value
         });
         if (value.length > 2) {
-            actions.quickSearch({ name: value }).then(function (result) {
-                var itemsBase = result["data"];
+            actions.quickSearch({ name: value }).then(result => {
+                let itemsBase = result["data"];
                 if (itemsBase.length) {
-                    var newItems_1 = new Map();
-                    var ids_1 = [];
-                    itemsBase.forEach(function (item, i, arr) {
-                        var user = item["local"];
-                        if (item._id == _this.props.userId) {
+                    let newItems = new Map();
+                    let ids = [];
+                    itemsBase.forEach((item, i, arr) => {
+                        let user = item["local"];
+                        if (item._id == this.props.userId) {
                             return;
                         }
-                        var newItem = {
+                        let newItem = {
                             name: user.username,
                             city: user.city,
                             picture: user.picture,
                             country: user.country
                         };
                         newItem["dataId"] = item._id;
-                        ids_1.push(item._id);
-                        newItems_1.set(item._id, newItem);
+                        ids.push(item._id);
+                        newItems.set(item._id, newItem);
                     });
-                    _this.setState({
-                        items: newItems_1
+                    this.setState({
+                        items: newItems
                     });
                 }
                 else {
-                    _this.setState({
+                    this.setState({
                         items: []
                     });
                 }
-            }, function (error) {
+            }, error => {
                 console.log("err");
                 console.log(error);
             });
@@ -91,39 +90,38 @@ var Search = /** @class */ (function (_super) {
                 items: []
             });
         }
-    };
-    Search.prototype.searchItems = function () {
+    }
+    searchItems() {
         if (this.state.searchName) {
-            var dispatch = this.props.dispatch;
+            const { dispatch } = this.props;
             dispatch(actions.fullSearch(this.state.searchName));
             console.log("search");
         }
-    };
-    Search.prototype.getItem = function (item, id) {
+    }
+    getItem(item, id) {
         this.setState({
             searchName: "",
             items: []
         });
-        var dispatch = this.props.dispatch;
+        const { dispatch } = this.props;
         dispatch(actions.getItem(item, id));
-    };
-    Search.prototype.render = function () {
+    }
+    render() {
         if (this.props.fullSearch) {
-            return (React.createElement("div", { id: "searchForm", className: "form-inline" },
-                React.createElement("div", { className: "form-group searchCont" },
-                    React.createElement(InputMy, { placeholder: "Find", type: "text", name: "searchName", placeholder: "Find", onKeyPress: this.findFUll, value: this.state.searchName, onChange: this.onFullSearch }),
-                    React.createElement(Button, { className: "btnSearch " + (this.state.nameSend ? " act" : "") + " ", onClick: this.findFUll, type: "button" },
-                        React.createElement(FontAwesome, { className: "super-crazy-colors", name: "search", size: "lg" })))));
+            return (react_1.default.createElement("div", { id: "searchForm", className: "form-inline" },
+                react_1.default.createElement("div", { className: "form-group searchCont" },
+                    react_1.default.createElement(Input_1.default, { placeholder: "Find", type: "text", name: "searchName", placeholder: "Find", onKeyPress: this.findFUll, value: this.state.searchName, onChange: this.onFullSearch }),
+                    react_1.default.createElement(react_bootstrap_1.Button, { className: `btnSearch ${this.state.nameSend ? " act" : ""} `, onClick: this.findFUll, type: "button" },
+                        react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "search", size: "lg" })))));
         }
         else {
-            return (React.createElement("div", { id: "searchForm", className: "form-inline" },
-                React.createElement("div", { className: "form-group searchCont" },
-                    React.createElement(FontAwesome, { className: "super-crazy-colors", name: "search", size: "lg" }),
-                    React.createElement(Form.Control, { placeholder: "Find", value: this.state.searchName, onChange: this.onSearch, autoFocus: false, name: "searchName", hasfeedback: "true", type: "text", ref: "friendName" })),
-                this.state.items.size ? (React.createElement(ItemsList, tslib_1.__assign({}, this.props, { className: "simle", items: this.state.items, getItem: this.getItem }))) : (""),
-                this.state.searchName && (React.createElement(Button, { className: "btnSearch", onClick: this.searchItems, type: "button" }, "View All"))));
+            return (react_1.default.createElement("div", { id: "searchForm", className: "form-inline" },
+                react_1.default.createElement("div", { className: "form-group searchCont" },
+                    react_1.default.createElement(react_fontawesome_1.default, { className: "super-crazy-colors", name: "search", size: "lg" }),
+                    react_1.default.createElement(react_bootstrap_1.Form.Control, { placeholder: "Find", value: this.state.searchName, onChange: this.onSearch, autoFocus: false, name: "searchName", hasfeedback: "true", type: "text", ref: "friendName" })),
+                this.state.items.size ? (react_1.default.createElement(ItemsList_1.default, Object.assign({}, this.props, { className: "simle", items: this.state.items, getItem: this.getItem }))) : (""),
+                this.state.searchName && (react_1.default.createElement(react_bootstrap_1.Button, { className: "btnSearch", onClick: this.searchItems, type: "button" }, "View All"))));
         }
-    };
-    return Search;
-}(React.Component));
-export default Search;
+    }
+}
+exports.default = Search;

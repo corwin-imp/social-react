@@ -1,19 +1,15 @@
-import * as tslib_1 from "tslib";
-import { Component } from 'react';
-import { withRouter } from 'react-router';
-var ScrollToTop = /** @class */ (function (_super) {
-    tslib_1.__extends(ScrollToTop, _super);
-    function ScrollToTop() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ScrollToTop.prototype.componentDidUpdate = function (prevProps) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_router_1 = require("react-router");
+class ScrollToTop extends react_1.Component {
+    componentDidUpdate(prevProps) {
         if (this.props.location !== prevProps.location) {
             window.scrollTo(0, 0);
         }
-    };
-    ScrollToTop.prototype.render = function () {
+    }
+    render() {
         return this.props.children;
-    };
-    return ScrollToTop;
-}(Component));
-export default withRouter(ScrollToTop);
+    }
+}
+exports.default = react_router_1.withRouter(ScrollToTop);

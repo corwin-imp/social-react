@@ -1,30 +1,30 @@
-import * as tslib_1 from "tslib";
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import { Input } from 'react-bootstrap';
-import uuid from 'node-uuid';
-var MessageComposer = /** @class */ (function (_super) {
-    tslib_1.__extends(MessageComposer, _super);
-    function MessageComposer(props, context) {
-        var _this = _super.call(this, props, context) || this;
-        _this.state = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importStar(require("react"));
+const prop_types_1 = tslib_1.__importDefault(require("prop-types"));
+const moment_1 = tslib_1.__importDefault(require("moment"));
+const react_bootstrap_1 = require("react-bootstrap");
+const node_uuid_1 = tslib_1.__importDefault(require("node-uuid"));
+class MessageComposer extends react_1.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
             text: '',
             typing: false,
         };
-        return _this;
     }
-    MessageComposer.prototype.handleSubmit = function (event) {
-        var _a = this.props, user = _a.user, socket = _a.socket, activeChannel = _a.activeChannel;
-        var text = event.target.value.trim();
+    handleSubmit(event) {
+        const { user, socket, activeChannel } = this.props;
+        const text = event.target.value.trim();
         if (event.which === 13) {
             event.preventDefault();
             var newMessage = {
-                id: "" + Date.now() + uuid.v4(),
+                id: `${Date.now()}${node_uuid_1.default.v4()}`,
                 channelID: this.props.activeChannel,
                 text: text,
                 user: user,
-                time: moment.utc().format('lll'),
+                time: moment_1.default.utc().format('lll'),
             };
             socket.emit('new message', newMessage);
             socket.emit('stop typing', {
@@ -34,9 +34,9 @@ var MessageComposer = /** @class */ (function (_super) {
             this.props.onSave(newMessage);
             this.setState({ text: '', typing: false });
         }
-    };
-    MessageComposer.prototype.handleChange = function (event) {
-        var _a = this.props, socket = _a.socket, user = _a.user, activeChannel = _a.activeChannel;
+    }
+    handleChange(event) {
+        const { socket, user, activeChannel } = this.props;
         this.setState({ text: event.target.value });
         if (event.target.value.length > 0 && !this.state.typing) {
             socket.emit('typing', { user: user.username, channel: activeChannel });
@@ -49,17 +49,16 @@ var MessageComposer = /** @class */ (function (_super) {
             });
             this.setState({ typing: false });
         }
-    };
-    MessageComposer.prototype.render = function () {
-        return (React.createElement("div", { className: "messComposer" },
-            React.createElement(Input, { className: "areaMessage", type: "textarea", name: "message", ref: "messageComposer", autoFocus: "true", placeholder: "Type here to chat!", value: this.state.text, onChange: this.handleChange, onKeyDown: this.handleSubmit })));
-    };
-    MessageComposer.propTypes = {
-        activeChannel: PropTypes.string.isRequired,
-        onSave: PropTypes.func.isRequired,
-        user: PropTypes.object.isRequired,
-        socket: PropTypes.object.isRequired,
-    };
-    return MessageComposer;
-}(Component));
-export default MessageComposer;
+    }
+    render() {
+        return (react_1.default.createElement("div", { className: "messComposer" },
+            react_1.default.createElement(react_bootstrap_1.Input, { className: "areaMessage", type: "textarea", name: "message", ref: "messageComposer", autoFocus: "true", placeholder: "Type here to chat!", value: this.state.text, onChange: this.handleChange, onKeyDown: this.handleSubmit })));
+    }
+}
+MessageComposer.propTypes = {
+    activeChannel: prop_types_1.default.string.isRequired,
+    onSave: prop_types_1.default.func.isRequired,
+    user: prop_types_1.default.object.isRequired,
+    socket: prop_types_1.default.object.isRequired,
+};
+exports.default = MessageComposer;

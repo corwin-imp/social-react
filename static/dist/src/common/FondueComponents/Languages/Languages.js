@@ -1,24 +1,30 @@
-import * as tslib_1 from "tslib";
-import de from './de';
-import en from './en';
-var language = 'de';
-var translationsDe = tslib_1.__assign({}, de);
-var translationsEn = tslib_1.__assign({}, en);
-var t = function (lang, key, params) {
-    var langTranslations = lang === 'de' ? translationsDe : translationsEn;
-    var translation = key
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const de_1 = tslib_1.__importDefault(require("./de"));
+const en_1 = tslib_1.__importDefault(require("./en"));
+const language = 'de';
+const translationsDe = {
+    ...de_1.default,
+};
+const translationsEn = {
+    ...en_1.default,
+};
+const t = (lang, key, params) => {
+    const langTranslations = lang === 'de' ? translationsDe : translationsEn;
+    const translation = key
         .split('.')
-        .reduce(function (acc, currKey) { return (acc ? acc[currKey] : undefined); }, langTranslations);
+        .reduce((acc, currKey) => (acc ? acc[currKey] : undefined), langTranslations);
     if (typeof translation !== 'string') {
         console.warn('No translation found for', key);
         return key;
     }
     if (params) {
-        return translation.replace(/\$\{\w+\}/g, function (match) {
-            var param = match.substring(2, match.length - 1);
+        return translation.replace(/\$\{\w+\}/g, match => {
+            const param = match.substring(2, match.length - 1);
             return params[param] || match;
         });
     }
     return translation;
 };
-export { t };
+exports.t = t;

@@ -1,33 +1,31 @@
-import * as tslib_1 from "tslib";
-import React from 'react';
-import Input from './Input';
-import Button from './Button';
-var Choose = /** @class */ (function (_super) {
-    tslib_1.__extends(Choose, _super);
-    function Choose(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const Input_1 = tslib_1.__importDefault(require("./Input"));
+const Button_1 = tslib_1.__importDefault(require("./Button"));
+class Choose extends react_1.default.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             choose: '',
         };
-        _this.onChange = _this.onChange.bind(_this);
-        return _this;
+        this.onChange = this.onChange.bind(this);
     }
-    Choose.prototype.onChange = function (event) {
+    onChange(event) {
         this.setState({
             choose: event.target.value,
         });
-    };
-    Choose.prototype.render = function () {
-        var _this = this;
-        return (React.createElement("div", { className: "choose" },
-            React.createElement("form", null,
-                React.createElement("label", { className: "btnLabel" },
+    }
+    render() {
+        return (react_1.default.createElement("div", { className: "choose" },
+            react_1.default.createElement("form", null,
+                react_1.default.createElement("label", { className: "btnLabel" },
                     this.props.feature,
                     ":"),
-                React.createElement("div", { className: "form-group" },
-                    React.createElement(Input, { type: "text", onChange: this.onChange, value: this.state.choose }),
-                    React.createElement(Button, { onClick: function () { return _this.choose(_this.state.choose, _this.props.name); }, text: "Choose" })))));
-    };
-    return Choose;
-}(React.Component));
-export default Choose;
+                react_1.default.createElement("div", { className: "form-group" },
+                    react_1.default.createElement(Input_1.default, { type: "text", onChange: this.onChange, value: this.state.choose }),
+                    react_1.default.createElement(Button_1.default, { onClick: () => this.choose(this.state.choose, this.props.name), text: "Choose" })))));
+    }
+}
+exports.default = Choose;

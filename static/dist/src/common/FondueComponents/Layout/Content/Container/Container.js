@@ -1,11 +1,12 @@
-import React from 'react';
-import classNames from 'classnames';
-import styles from './Container.css';
-var Container = function (_a) {
-    var _b;
-    var className = _a.className, children = _a.children, _c = _a.fluid, fluid = _c === void 0 ? false : _c;
-    return (React.createElement("div", { className: classNames(styles.container, (_b = {},
-            _b[styles.containerFluid] = fluid,
-            _b), className) }, children));
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const classnames_1 = tslib_1.__importDefault(require("classnames"));
+const Container_css_1 = tslib_1.__importDefault(require("./Container.css"));
+const Container = ({ className, children, fluid = false }) => {
+    return (react_1.default.createElement("div", { className: classnames_1.default(Container_css_1.default.container, {
+            [Container_css_1.default.containerFluid]: fluid,
+        }, className) }, children));
 };
-export default Container;
+exports.default = Container;

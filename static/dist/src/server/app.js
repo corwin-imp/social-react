@@ -1,22 +1,26 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import { origin } from './env';
-var app = express();
-app.use(cors({ credentials: true, origin: origin }));
-app.use(bodyParser.json());
-app.use(cookieParser());
-var expressStaticGzip = require('express-static-gzip');
-import webpack from 'webpack';
-import webpackHotServerMiddleware from 'webpack-hot-server-middleware';
-import configDevClient from '../../config/webpack.dev-client.js';
-import configDevServer from '../../config/webpack.dev-server.js';
-import configProdClient from '../../config/webpack.prod-client.js';
-import configProdServer from '../../config/webpack.prod-server.js';
-var isProd = process.env.NODE_ENV === 'production';
-var isDev = !isProd;
-var isBuilt = false;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const express_1 = tslib_1.__importDefault(require("express"));
+const body_parser_1 = tslib_1.__importDefault(require("body-parser"));
+const cors_1 = tslib_1.__importDefault(require("cors"));
+const cookie_parser_1 = tslib_1.__importDefault(require("cookie-parser"));
+const env_1 = require("./env");
+const app = express_1.default();
+exports.app = app;
+app.use(cors_1.default({ credentials: true, origin: env_1.origin }));
+app.use(body_parser_1.default.json());
+app.use(cookie_parser_1.default());
+const expressStaticGzip = require('express-static-gzip');
+const webpack_1 = tslib_1.__importDefault(require("webpack"));
+const webpack_hot_server_middleware_1 = tslib_1.__importDefault(require("webpack-hot-server-middleware"));
+const webpack_dev_client_js_1 = tslib_1.__importDefault(require("../../config/webpack.dev-client.js"));
+const webpack_dev_server_js_1 = tslib_1.__importDefault(require("../../config/webpack.dev-server.js"));
+const webpack_prod_client_js_1 = tslib_1.__importDefault(require("../../config/webpack.prod-client.js"));
+const webpack_prod_server_js_1 = tslib_1.__importDefault(require("../../config/webpack.prod-server.js"));
+const isProd = process.env.NODE_ENV === 'production';
+const isDev = !isProd;
+let isBuilt = false;
 /*
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
@@ -27,33 +31,34 @@ app.listen(PORT, () => {
         }\x1b[0m 🌎...`
     );
 });*/
-var done = function () {
+const done = () => {
     !isBuilt && console.log('Done');
 };
 if (isDev) {
-    var compiler = webpack([configDevClient, configDevServer]);
-    var clientCompiler = compiler.compilers[0];
-    var serverCompiler = compiler.compilers[1];
-    var webpackDevMiddleware = require('webpack-dev-middleware')(compiler, configDevClient.devServer);
-    var webpackHotMiddlware = require('webpack-hot-middleware')(clientCompiler, configDevClient.devServer);
+    const configs = [webpack_dev_client_js_1.default, webpack_dev_server_js_1.default];
+    const compiler = webpack_1.default(configs);
+    const clientCompiler = compiler.compilers[0];
+    const serverCompiler = compiler.compilers[1];
+    const webpackDevMiddleware = require('webpack-dev-middleware')(compiler);
+    const webpackHotMiddlware = require('webpack-hot-middleware')(clientCompiler);
     app.use(webpackDevMiddleware);
     app.use(webpackHotMiddlware);
-    app.use('/app', webpackHotServerMiddleware(compiler));
+    app.use('/app', webpack_hot_server_middleware_1.default(compiler));
     console.log('Middleware enabled');
     done();
 }
 else {
-    webpack([configProdClient, configProdServer]).run(function (err, stats) {
-        var clientStats = stats.toJson().children[0];
-        var render = require('../../build/prod-server-bundle.js').default;
+    const configs = [webpack_prod_client_js_1.default, webpack_prod_server_js_1.default];
+    webpack_1.default(configs).run((err, stats) => {
+        const clientStats = stats.toJson().children[0];
+        const render = require('../../build/prod-server-bundle.js').default;
         console.log(stats.toString({
             colors: true,
         }));
         app.use(expressStaticGzip('dist', {
             enableBrotli: true,
         }));
-        app.use(render({ clientStats: clientStats }));
+        app.use(render({ clientStats }));
         done();
     });
 }
-export { app };

@@ -1,46 +1,25 @@
-import { GraphQLDateTime } from 'graphql-iso-date';
-import { chats, messages } from '../db';
-var resolvers = {
-    Date: GraphQLDateTime,
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const graphql_iso_date_1 = require("graphql-iso-date");
+const db_1 = require("../db");
+const resolvers = {
+    Date: graphql_iso_date_1.GraphQLDateTime,
     Chat: {
-        messages: function (chat) {
-            return messages.filter(function (m) { return chat.messages.includes(m.id); });
+        messages(chat) {
+            return db_1.messages.filter(m => chat.messages.includes(m.id));
         },
-        lastMessage: function (chat) {
-            var lastMessage = chat.messages[chat.messages.length - 1];
-            return messages.find(function (m) { return m.id === lastMessage; });
+        lastMessage(chat) {
+            const lastMessage = chat.messages[chat.messages.length - 1];
+            return db_1.messages.find(m => m.id === lastMessage);
         },
     },
     Query: {
-        chats: function () {
-            return chats;
+        chats() {
+            return db_1.chats;
         },
-        chat: function (root, _a) {
-            var chatId = _a.chatId;
-            return chats.find(function (c) { return c.id === chatId; });
+        chat(root, { chatId }) {
+            return db_1.chats.find(c => c.id === chatId);
         },
     },
-    Mutation: {
-        addMessage: function (root, _a) {
-            var chatId = _a.chatId, content = _a.content;
-            var chatIndex = chats.findIndex(function (c) { return c.id === chatId; });
-            if (chatIndex === -1)
-                return null;
-            var chat = chats[chatIndex];
-            var recentMessage = messages[messages.length - 1];
-            var messageId = String(Number(recentMessage.id) + 1);
-            var message = {
-                id: messageId,
-                createdAt: new Date(),
-                content: content,
-            };
-            messages.push(message);
-            chat.messages.push(messageId);
-            // The chat will appear at the top of the ChatsList component
-            chats.splice(chatIndex, 1);
-            chats.unshift(chat);
-            return message;
-        }
-    }
 };
-export default resolvers;
+exports.default = resolvers;

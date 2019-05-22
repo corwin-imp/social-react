@@ -1,1 +1,3 @@
-export var ROUTING = 'ROUTING';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ROUTING = 'ROUTING';

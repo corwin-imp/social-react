@@ -1,45 +1,45 @@
-import * as tslib_1 from "tslib";
-import React from 'react';
-import { connect } from 'react-redux';
-import ItemUpdate from './../components/ItemUpdate';
-import * as actions from '../store/Profile/actionsProfile';
-var AppUpdate = /** @class */ (function (_super) {
-    tslib_1.__extends(AppUpdate, _super);
-    function AppUpdate(props) {
-        return _super.call(this, props) || this;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importDefault(require("react"));
+const react_redux_1 = require("react-redux");
+const ItemUpdate_1 = tslib_1.__importDefault(require("./../components/ItemUpdate"));
+const actions = tslib_1.__importStar(require("../store/Profile/actionsProfile"));
+class AppUpdate extends react_1.default.Component {
+    constructor(props) {
+        super(props);
     }
-    AppUpdate.prototype.componentDidMount = function () {
-        var _a = this.props, item = _a.item, params = _a.params, getItem = _a.getItem;
+    componentDidMount() {
+        const { item, params, getItem } = this.props;
         if (!item) {
             getItem(params.Chats);
         }
         else if (item.id != params.Chats) {
             getItem(params.Chats);
         }
-    };
-    AppUpdate.prototype.render = function () {
-        var id = this.props.params.Chats;
+    }
+    render() {
+        let id = this.props.params.Chats;
         if (this.props.item && this.props.item.id == this.props.params.Chats) {
-            return (React.createElement("div", { className: "page DevicePage" },
-                React.createElement(ItemUpdate, { item: this.props.item, updateItem: this.props.updateItem, history: this.props.history, idItem: id })));
+            return (react_1.default.createElement("div", { className: "page DevicePage" },
+                react_1.default.createElement(ItemUpdate_1.default, { item: this.props.item, updateItem: this.props.updateItem, history: this.props.history, idItem: id })));
         }
         else {
             return false;
         }
-    };
-    return AppUpdate;
-}(React.Component));
-var mapStateToProps = function (state) {
+    }
+}
+const mapStateToProps = state => {
     return {
         state: state.reducerItems,
         item: state.reducerItems.item,
     };
 };
-var mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = dispatch => {
     return {
-        delItem: function (idBase) { return actions.delItem(idBase, dispatch); },
-        updateItem: function (data, idBase) { return dispatch(actions.updateItem(data, idBase)); },
-        getItem: function (id) { return dispatch(actions.getItem(id)); },
+        delItem: idBase => actions.delItem(idBase, dispatch),
+        updateItem: (data, idBase) => dispatch(actions.updateItem(data, idBase)),
+        getItem: id => dispatch(actions.getItem(id)),
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(AppUpdate);
+exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(AppUpdate);

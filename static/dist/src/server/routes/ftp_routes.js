@@ -17,8 +17,8 @@ console.log('process', process.version);
   }
 }*/
 var chilkat = 1;
-var ftp = new chilkat.Ftp2();
-var success;
+let ftp = new chilkat.Ftp2();
+let success;
 //  Any string unlocks the component for the 1st 30-days.
 success = ftp.UnlockComponent('Anything for 30-day trial');
 if (success !== true) {
@@ -31,30 +31,29 @@ ftp.Password = '1007810069';
 var bodyparser = require('body-parser');
 module.exports = function (router) {
     router.use(bodyparser.json());
-    router.post('/add-file', function (req, res) {
+    router.post('/add-file', (req, res) => {
         success = ftp.Connect();
-        var complete = true;
+        let complete = true;
         if (success !== true) {
             console.log('CONN_ERROR', ftp.LastErrorText);
             complete = false;
         }
         //  console.log('add', req.files);
-        var firstName = req.files['file[0]'].name;
+        let firstName = req.files['file[0]'].name;
         if (firstName.toLowerCase().indexOf('.mp3') != -1) {
-            success = ftp.ChangeRemoteDir("/public_html/music");
+            success = ftp.ChangeRemoteDir(`/public_html/music`);
         }
         else {
-            success = ftp.ChangeRemoteDir("/public_html/pictures");
+            success = ftp.ChangeRemoteDir(`/public_html/pictures`);
         }
         // console.log('name', firstName.toLowerCase().indexOf('.mp3'));
         if (success !== true) {
             console.log('DIR_ERROR', ftp.LastErrorText);
             complete = false;
         }
-        for (var _i = 0, _a = Object.values(req.files); _i < _a.length; _i++) {
-            var item = _a[_i];
-            var file = item.data;
-            var fileName = item.name;
+        for (let item of Object.values(req.files)) {
+            let file = item.data;
+            let fileName = item.name;
             var remoteFilename = fileName;
             success = ftp.PutFileFromBinaryData(remoteFilename, file);
             if (success !== true) {
@@ -67,15 +66,15 @@ module.exports = function (router) {
             res.json('success');
         }
     });
-    router.post('/remove', function (req, res) {
-        var complete = true;
+    router.post('/remove', (req, res) => {
+        let complete = true;
         success = ftp.Connect();
         if (success !== true) {
             console.log('CONN_ERROR', ftp.LastErrorText);
             complete = false;
         }
-        var data = req.body;
-        success = ftp.ChangeRemoteDir("/public_html/" + data.type);
+        let data = req.body;
+        success = ftp.ChangeRemoteDir(`/public_html/${data.type}`);
         //  console.log('remove', `/public_html/${data.type}`);
         if (success !== true) {
             console.log('DIR_ERROR', ftp.LastErrorText);

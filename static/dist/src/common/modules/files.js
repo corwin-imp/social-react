@@ -1,18 +1,21 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
 var url = require('url');
 var request = require('superagent');
-import config from '../../../config/config';
-var apiPrefix = config.apiPrefix, music = config.music, pictures = config.pictures;
+const config_1 = tslib_1.__importDefault(require("../../../config/config"));
+const { apiPrefix, music, pictures } = config_1.default;
 function load_files(root, cb) {
     if (!root.endsWith('/')) {
         root += '/';
     }
     if (root == 'get-music/') {
-        var room = apiPrefix + "/proxy/" + music;
+        var room = `${apiPrefix}/proxy/${music}`;
     }
     else {
-        var room = apiPrefix + "/proxy/" + pictures;
+        var room = `${apiPrefix}/proxy/${pictures}`;
     }
-    request.get(room).end(function (err, res) {
+    request.get(room).end((err, res) => {
         if (err) {
             console.log(err);
             // return cb(err);
@@ -21,7 +24,7 @@ function load_files(root, cb) {
         el.innerHTML = res.text;
         var links = el.querySelectorAll('a');
         var files = [];
-        links.forEach(function (link_el) {
+        links.forEach(link_el => {
             var parsed = url.parse(link_el.href);
             var path = parsed.path.substr(1);
             var src = url.resolve(room, path);
@@ -42,4 +45,4 @@ function load_files(root, cb) {
         cb(null, files);
     });
 }
-export default load_files;
+exports.default = load_files;

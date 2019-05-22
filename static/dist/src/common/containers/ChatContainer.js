@@ -1,38 +1,38 @@
-import * as tslib_1 from "tslib";
-import React, { Component } from 'react';
-import * as actions from '../store/Chat/actions';
-import PropTypes from 'prop-types';
-import Chat from '../components/Chat';
-import { connect } from 'react-redux';
-import io from 'socket.io-client';
-var socket = io('', { path: '/api/chat' });
-var initialChannel = 'Lobby'; // NOTE: I hard coded this value for my example.  Change this as you see fit
-var ChatContainer = /** @class */ (function (_super) {
-    tslib_1.__extends(ChatContainer, _super);
-    function ChatContainer(props) {
-        return _super.call(this, props) || this;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importStar(require("react"));
+const actions = tslib_1.__importStar(require("../store/Chat/actions"));
+const prop_types_1 = tslib_1.__importDefault(require("prop-types"));
+const Chat_1 = tslib_1.__importDefault(require("../components/Chat"));
+const react_redux_1 = require("react-redux");
+const socket_io_client_1 = tslib_1.__importDefault(require("socket.io-client"));
+const socket = socket_io_client_1.default('', { path: '/api/chat' });
+const initialChannel = 'Lobby'; // NOTE: I hard coded this value for my example.  Change this as you see fit
+class ChatContainer extends react_1.Component {
+    constructor(props) {
+        super(props);
     }
-    ChatContainer.prototype.componentDidMount = function () {
-        var _a = this.props, dispatch = _a.dispatch, channels = _a.channels, user = _a.user;
+    componentDidMount() {
+        const { dispatch, channels, user } = this.props;
         if (!channels) {
             dispatch(actions.fetchMessages(initialChannel));
         }
-    };
-    ChatContainer.prototype.render = function () {
+    }
+    render() {
         if (!this.props.user.id) {
-            return React.createElement("div", { className: "part" }, "First you need to sign In to Social");
+            return react_1.default.createElement("div", { className: "part" }, "First you need to sign In to Social");
         }
-        return React.createElement(Chat, tslib_1.__assign({}, this.props, { socket: socket }));
-    };
-    return ChatContainer;
-}(Component));
+        return react_1.default.createElement(Chat_1.default, Object.assign({}, this.props, { socket: socket }));
+    }
+}
 ChatContainer.propTypes = {
-    messages: PropTypes.array.isRequired,
-    user: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    channels: PropTypes.array.isRequired,
-    activeChannel: PropTypes.object.isRequired,
-    typers: PropTypes.array.isRequired,
+    messages: prop_types_1.default.array.isRequired,
+    user: prop_types_1.default.object.isRequired,
+    dispatch: prop_types_1.default.func.isRequired,
+    channels: prop_types_1.default.array.isRequired,
+    activeChannel: prop_types_1.default.object.isRequired,
+    typers: prop_types_1.default.array.isRequired,
 };
 function mapStateToProps(state) {
     return {
@@ -46,4 +46,4 @@ function mapStateToProps(state) {
         screenWidth: state.environment.screenWidth,
     };
 }
-export default connect(mapStateToProps)(ChatContainer);
+exports.default = react_redux_1.connect(mapStateToProps)(ChatContainer);

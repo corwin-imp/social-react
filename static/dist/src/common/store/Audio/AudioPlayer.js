@@ -1,38 +1,33 @@
 'use strict';
-import * as tslib_1 from "tslib";
-import Device from './Device';
-var AudioPlayer = /** @class */ (function (_super) {
-    tslib_1.__extends(AudioPlayer, _super);
-    function AudioPlayer(name, volumeM) {
-        var _this = _super.call(this, name) || this;
-        _this._volumeM = volumeM;
-        _this._playing = false;
-        return _this;
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const Device_1 = tslib_1.__importDefault(require("./Device"));
+class AudioPlayer extends Device_1.default {
+    constructor(name, volumeM) {
+        super(name);
+        this._volumeM = volumeM;
+        this._playing = false;
     }
-    Object.defineProperty(AudioPlayer.prototype, "volume", {
-        get: function () {
-            return this._volumeM.volume;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    AudioPlayer.prototype.incVolume = function () {
+    get volume() {
+        return this._volumeM.volume;
+    }
+    incVolume() {
         if (!this._power) {
             throw new Error('powerError');
         }
         this._volumeM.incVolume();
-    };
-    AudioPlayer.prototype.decVolume = function () {
+    }
+    decVolume() {
         if (!this._power) {
             throw new Error('powerError');
         }
         this._volumeM.decVolume();
-    };
-    AudioPlayer.prototype.choose = function (choose) {
+    }
+    choose(choose) {
         this._playing = true;
-        _super.prototype.choose.call(this, choose);
-    };
-    AudioPlayer.prototype.play = function () {
+        super.choose(choose);
+    }
+    play() {
         if (!this._power) {
             throw new Error('powerError');
         }
@@ -42,15 +37,14 @@ var AudioPlayer = /** @class */ (function (_super) {
         else {
             throw new Error('choose song');
         }
-    };
-    AudioPlayer.prototype.pause = function () {
+    }
+    pause() {
         if (!this._power) {
             throw new Error('powerError');
         }
         if (this._playing) {
             this._playing = false;
         }
-    };
-    return AudioPlayer;
-}(Device));
-export default AudioPlayer;
+    }
+}
+exports.default = AudioPlayer;

@@ -1,14 +1,17 @@
-import * as tslib_1 from "tslib";
-import * as React from 'react';
-import styled from 'styled-components';
-import ChatsNavbar from './ChatsNavbar';
-import ChatsList from './ChatsList';
-var Container = styled.div(templateObject_1 || (templateObject_1 = tslib_1.__makeTemplateObject(["\n  height: 100vh;\n"], ["\n  height: 100vh;\n"])));
-var ChatsListScreen = function () {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const React = tslib_1.__importStar(require("react"));
+const styled_components_1 = tslib_1.__importDefault(require("styled-components"));
+const ChatsNavbar_1 = tslib_1.__importDefault(require("./ChatsNavbar"));
+const ChatsList_1 = tslib_1.__importDefault(require("./ChatsList"));
+const Container = styled_components_1.default.div `
+  height: 100vh;
+`;
+const ChatsListScreen = () => {
     return (React.createElement(Container, null,
         "33333",
-        React.createElement(ChatsNavbar, null),
-        React.createElement(ChatsList, null)));
+        React.createElement(ChatsNavbar_1.default, null),
+        React.createElement(ChatsList_1.default, null)));
 };
-export default ChatsListScreen;
-var templateObject_1;
+exports.default = ChatsListScreen;

@@ -1,30 +1,33 @@
-import '../common/css/mainApp.sass';
-import '../common/css/chatapp.css';
-import '../common/css/itemsList.css';
-import '../common/css/pageProfile.css';
-import '../common/css/pageProfiles.css';
-import '../common/css/pageVideo.css';
-import '../common/css/dropzone.min.css';
-import '../common/css/addVideo.css';
-import '../common/css/audio.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import ProviderWrap from "./Provider";
-var rootElement = document.getElementById('react');
-var renderMethod = module.hot ? ReactDOM.render : ReactDOM.hydrate;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+require("../common/css/mainApp.sass");
+require("../common/css/chatapp.css");
+require("../common/css/itemsList.css");
+require("../common/css/pageProfile.css");
+require("../common/css/pageProfiles.css");
+require("../common/css/pageVideo.css");
+require("../common/css/dropzone.min.css");
+require("../common/css/addVideo.css");
+require("../common/css/audio.css");
+const react_1 = tslib_1.__importDefault(require("react"));
+const react_dom_1 = tslib_1.__importDefault(require("react-dom"));
+const react_hot_loader_1 = require("react-hot-loader");
+const Provider_1 = tslib_1.__importDefault(require("./Provider"));
+const rootElement = document.getElementById('react');
+const renderMethod = module.hot ? react_dom_1.default.render : react_dom_1.default.hydrate;
 function render(Component) {
-    renderMethod(React.createElement(AppContainer, null,
-        React.createElement(Component, null)), document.getElementById('react-root'));
+    renderMethod(react_1.default.createElement(react_hot_loader_1.AppContainer, null,
+        react_1.default.createElement(Component, null)), document.getElementById('react-root'));
 }
-render(ProviderWrap);
+render(Provider_1.default);
 if (module.hot) {
-    module.hot.accept('./Provider.js', function () {
-        var NewAppRoot = require('./Provider.js').default;
+    module.hot.accept('./Provider.js', () => {
+        const NewAppRoot = require('./Provider.js').default;
         render(NewAppRoot);
     });
-    module.hot.accept('./Provider.js', function () {
-        var Provider = require('./Provider.js').ProviderWrap;
+    module.hot.accept('./Provider.js', () => {
+        const { ProviderWrap: Provider } = require('./Provider.js');
         render(Provider);
     });
 }

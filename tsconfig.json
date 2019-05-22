@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "target": "es5",
-    "module": "esNext",
+    "target": "es2018",
+    "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
     "emitDecoratorMetadata": true,
@@ -17,6 +17,7 @@
     "removeComments": false,
     "jsx": "react",
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "outDir": "./static/dist/",
     "lib": [
       "es6",
@@ -27,6 +28,8 @@
       "es2016",
       "es2017",
       "es2017.object",
+      "es2018",
+      "esnext.asynciterable",
       "scripthost",
       "dom"
     ],

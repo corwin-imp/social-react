@@ -1,16 +1,17 @@
 import React from 'react';
+import express from 'express';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 //import Routes from '../common/routes';
-import Routes from '../common/containers/Routes';
+import Routes from '../../../common/containers/Routes';
 import { Helmet } from 'react-helmet';
 import { flushChunkNames, clearChunks,  } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
-import extractLocalesFromReq from './client-locale/extractLocalesFromReq';
-import guessLocale from './client-locale/guessLocale';
-import { LOCALE_COOKIE_NAME, COOKIE_MAX_AGE } from './client-locale/constants';
+import extractLocalesFromReq from '../../client-locale/extractLocalesFromReq';
+import guessLocale from '../../client-locale/guessLocale';
+import { LOCALE_COOKIE_NAME, COOKIE_MAX_AGE } from '../../client-locale/constants';
 
-export default ({ clientStats }) => (req, res) => {
+export default ({ clientStats }: any) => (req: express.Request, res: express.Response): express.RequestHandler => {
 	const userLocales = extractLocalesFromReq(req);
 	let lang = guessLocale(['de', 'en'], userLocales, 'en');
 
@@ -22,7 +23,7 @@ export default ({ clientStats }) => (req, res) => {
 		lang = 'en';
 	}
 
-	const context = {};
+	const context: {status?: number, url?: string} = {};
 	const app = renderToString(
 		<StaticRouter location={req.originalUrl} context={context}>
 			<Routes lang={lang} />

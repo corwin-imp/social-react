@@ -1,9 +1,9 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
-var OptimizeCssFondueAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-var CompressionPlugin = require('compression-webpack-plugin');
-var BrotliPlugin = require('brotli-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const OptimizeCssFondueAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const BrotliPlugin = require('brotli-webpack-plugin');
 module.exports = {
     name: 'client',
     entry: {

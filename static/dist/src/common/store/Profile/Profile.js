@@ -1,6 +1,7 @@
 'use strict';
-var Profile = /** @class */ (function () {
-    function Profile(person) {
+Object.defineProperty(exports, "__esModule", { value: true });
+class Profile {
+    constructor(person) {
         this.name = person.local.username;
         this.username = person.local.username;
         this.city = person.local.city;
@@ -19,7 +20,7 @@ var Profile = /** @class */ (function () {
         this._photosList = [];
         this._videoList = [];
     }
-    Profile.prototype.choose = function (choose, typeList) {
+    choose(choose, typeList) {
         if (choose === undefined) {
             return this._choose;
         }
@@ -34,14 +35,14 @@ var Profile = /** @class */ (function () {
                 throw new Error('not in list');
             }
         }
-    };
-    Profile.prototype.getlist = function (typeList) {
+    }
+    getlist(typeList) {
         if (!this._status) {
             throw new Error('statusError');
         }
         return this.typeList;
-    };
-    Profile.prototype.setlist = function (list, typeList) {
+    }
+    setlist(list, typeList) {
         //
         if (!this._status) {
             throw new Error('statusError');
@@ -52,19 +53,14 @@ var Profile = /** @class */ (function () {
         else {
             throw new Error('list must be array');
         }
-    };
-    Object.defineProperty(Profile.prototype, "status", {
-        get: function () {
-            return this._status;
-        },
-        set: function (status) {
-            if (typeof status == 'boolean') {
-                this._status = status;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return Profile;
-}());
-export default Profile;
+    }
+    set status(status) {
+        if (typeof status == 'boolean') {
+            this._status = status;
+        }
+    }
+    get status() {
+        return this._status;
+    }
+}
+exports.default = Profile;

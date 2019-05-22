@@ -1,31 +1,28 @@
-import * as tslib_1 from "tslib";
-import React, { Component } from 'react';
-var Main = /** @class */ (function (_super) {
-    tslib_1.__extends(Main, _super);
-    function Main() {
-        return _super !== null && _super.apply(this, arguments) || this;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const react_1 = tslib_1.__importStar(require("react"));
+class Main extends react_1.Component {
+    render() {
+        return (react_1.default.createElement("div", { className: "page homePage" },
+            react_1.default.createElement("div", { className: "category_name heading_second" }, "rooms"),
+            react_1.default.createElement("div", { className: "homeSection roomsSection" },
+                react_1.default.createElement("div", { className: "add" },
+                    react_1.default.createElement("b", null, "Add room"),
+                    react_1.default.createElement("input", { value: "" })),
+                react_1.default.createElement("div", { className: "selects rooms" },
+                    react_1.default.createElement("a", { href: "leasure_room" },
+                        react_1.default.createElement("b", null, "leasure room")),
+                    react_1.default.createElement("a", { href: "kitchen" },
+                        react_1.default.createElement("b", null, "kitchen")))),
+            react_1.default.createElement("div", { className: "category_name heading_second" }, "Types"),
+            react_1.default.createElement("div", { className: "homeSection TypeSection" },
+                react_1.default.createElement("div", { className: "add" },
+                    react_1.default.createElement("b", null, "Add type"),
+                    react_1.default.createElement("input", { value: "" })),
+                react_1.default.createElement("div", { className: "selects types" },
+                    react_1.default.createElement("a", { href: "leasure" }, "leasure"),
+                    react_1.default.createElement("a", { href: "security" }, "security")))));
     }
-    Main.prototype.render = function () {
-        return (React.createElement("div", { className: "page homePage" },
-            React.createElement("div", { className: "category_name heading_second" }, "rooms"),
-            React.createElement("div", { className: "homeSection roomsSection" },
-                React.createElement("div", { className: "add" },
-                    React.createElement("b", null, "Add room"),
-                    React.createElement("input", { value: "" })),
-                React.createElement("div", { className: "selects rooms" },
-                    React.createElement("a", { href: "leasure_room" },
-                        React.createElement("b", null, "leasure room")),
-                    React.createElement("a", { href: "kitchen" },
-                        React.createElement("b", null, "kitchen")))),
-            React.createElement("div", { className: "category_name heading_second" }, "Types"),
-            React.createElement("div", { className: "homeSection TypeSection" },
-                React.createElement("div", { className: "add" },
-                    React.createElement("b", null, "Add type"),
-                    React.createElement("input", { value: "" })),
-                React.createElement("div", { className: "selects types" },
-                    React.createElement("a", { href: "leasure" }, "leasure"),
-                    React.createElement("a", { href: "security" }, "security")))));
-    };
-    return Main;
-}(Component));
-export default Main;
+}
+exports.default = Main;
