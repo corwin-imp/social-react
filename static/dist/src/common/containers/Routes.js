@@ -18,15 +18,16 @@ var UniversalComponent = universal(function (props) {
     },
     ignoreBabelRename: true,
 });
-var Routes = function (_a) {
-    var lang = _a.lang;
+var Routes = function (props) {
+    var lang = props.lang;
     return (React.createElement(Fragment, null,
         isProd ? React.createElement(GoogleTagManager, { gtmId: "GTM-WFTXGC8" }) : '',
         React.createElement(Head, null),
         React.createElement(Nav, { lang: lang }),
         React.createElement(Switch, null,
-            React.createElement(Route, { exact: true, path: "/:lang", render: function (routeProps) { return React.createElement(UniversalComponent, tslib_1.__assign({ page: "Home" }, routeProps)); } }),
-            React.createElement(Route, { exact: true, path: "/:lang/about", render: function (routeProps) { return React.createElement(UniversalComponent, tslib_1.__assign({ page: "About" }, routeProps)); } }),
+            React.createElement(Route, { exact: true, path: "/app/:lang", render: function (routeProps) { return React.createElement(UniversalComponent, tslib_1.__assign({ page: "Home" }, routeProps)); } }),
+            React.createElement(Route, { exact: true, path: "/app/:lang/about", render: function (routeProps) { return React.createElement(UniversalComponent, tslib_1.__assign({ page: "About" }, routeProps)); } }),
+            React.createElement(Route, { exact: true, path: "/app/:lang/chats", render: function (routeProps) { return React.createElement(UniversalComponent, tslib_1.__assign({ page: "Chats" }, routeProps)); } }),
             React.createElement(RedirectWithStatus, { status: 301, exact: true, from: "/", to: "/" + lang }),
             React.createElement(Route, { render: function (routeProps) { return React.createElement(UniversalComponent, tslib_1.__assign({ page: "NotFound" }, routeProps)); } })),
         React.createElement(Footer, null)));

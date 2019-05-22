@@ -24,7 +24,7 @@ var AppItem = /** @class */ (function (_super) {
     AppItem.prototype.render = function () {
         var audio = this.props.audio;
         audio['music'] = this.props.music;
-        var id = this.props.params.index;
+        var id = this.props.params.Chats;
         if (!this.props.item) {
             return false;
         }
@@ -45,7 +45,7 @@ var mapStateToProps = function (state) {
     };
 };
 var mapDispatchToProps = function (dispatch, props) {
-    dispatch(actions.getItem(props.params.index));
+    dispatch(actions.getItem(props.params.Chats));
     return {
         delItem: function (idBase) { return dispatch(actions.delItem(idBase)); },
         setPicture: function (picture, id) { return authActions.setPicture(picture, id, dispatch); },

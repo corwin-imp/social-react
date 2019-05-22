@@ -27,27 +27,37 @@ const UniversalComponent: React.FC<{page: string} & RouteComponentProps<{}>> = u
 	ignoreBabelRename: true,
 });
 
-const Routes = ({  lang }:{lang: string}) => (
-	<Fragment>
-		{isProd ? <GoogleTagManager gtmId="GTM-WFTXGC8" /> : ''}
-		<Head />
-		<Nav lang={lang} />
-		<Switch>
-			<Route
-				exact
-				path="/:lang"
-				render={(routeProps: interfaceProp) => <UniversalComponent page="Home" {...routeProps} />}
-			/>
-			<Route
-				exact
-				path="/:lang/about"
-				render={(routeProps: interfaceProp) => <UniversalComponent page="About" {...routeProps} />}
-			/>
-			<RedirectWithStatus status={301} exact from="/" to={`/${lang}`} />
-			<Route render={(routeProps: interfaceProp) => <UniversalComponent page="NotFound" {...routeProps} />} />
-		</Switch>
-		<Footer />
-	</Fragment>
-);
+const Routes = (props:any) => {
+
+	const {lang} = props
+
+	return (
+		<Fragment>
+			{isProd ? <GoogleTagManager gtmId="GTM-WFTXGC8" /> : ''}
+			<Head />
+			<Nav lang={lang} />
+			<Switch>
+				<Route
+					exact
+					path="/app/:lang"
+					render={(routeProps: interfaceProp) => <UniversalComponent page="Home" {...routeProps} />}
+				/>
+				<Route
+					exact
+					path="/app/:lang/about"
+					render={(routeProps: interfaceProp) => <UniversalComponent page="About" {...routeProps} />}
+				/>
+				<Route
+					exact
+					path="/app/:lang/chats"
+					render={(routeProps: interfaceProp) => <UniversalComponent page="Chats" {...routeProps} />}
+				/>
+				<RedirectWithStatus status={301} exact from="/" to={`/${lang}`} />
+				<Route render={(routeProps: interfaceProp) => <UniversalComponent page="NotFound" {...routeProps} />} />
+			</Switch>
+			<Footer />
+		</Fragment>
+	);
+}
 
 export default Routes;

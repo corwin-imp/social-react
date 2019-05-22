@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+//import * as favicon from './FondueAssets/img/favicon.ico';
 var isProd = process.env.NODE_ENV === 'production';
 var Head = function (_a) {
     var _b = _a.title, title = _b === void 0 ? 'ReactFondue • Minimal boilerplate with code splitting, hot module reload and server side rendering' : _b, _c = _a.description, description = _c === void 0 ? 'ReactFondue is minimal React boilerplate with support for code splitting, hot module reload and server side rendering.' : _c, _d = _a.image, image = _d === void 0 ? 'https://i.postimg.cc/543n5bF6/preview.jpg' : _d, children = _a.children;
@@ -15,4 +16,5 @@ var Head = function (_a) {
         children && children,
         React.createElement("title", null, title)));
 };
+//<link rel="shortcut icon" href={favicon} type="image/x-icon" />
 export { Head };

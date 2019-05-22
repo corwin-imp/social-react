@@ -13,15 +13,15 @@ class AppUpdate extends React.Component {
   componentDidMount() {
     const { item, params, getItem } = this.props
     if (!item) {
-      getItem(params.index)
-    } else if (item.id != params.index) {
-      getItem(params.index)
+      getItem(params.Chats)
+    } else if (item.id != params.Chats) {
+      getItem(params.Chats)
     }
   }
 
   render() {
-    let id = this.props.params.index
-    if (this.props.item && this.props.item.id == this.props.params.index) {
+    let id = this.props.params.Chats
+    if (this.props.item && this.props.item.id == this.props.params.Chats) {
       return (
         <div className="page DevicePage">
           <ItemUpdate

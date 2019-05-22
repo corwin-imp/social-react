@@ -99,22 +99,13 @@ app.use("/api", usersRouter);
 app.use("/api", channelRouter);
 app.use("/api", profilesRouter);
 app.use("/ftp", ftpRouter);
+app.use("/", express.static(path.join(__dirname, "..", "static")));
+
+
+/*
 import extractLocalesFromReq from './client-locale/extractLocalesFromReq';
 import guessLocale from './client-locale/guessLocale';
 import { LOCALE_COOKIE_NAME, COOKIE_MAX_AGE } from './client-locale/constants';
-app.use("/", express.static(path.join(__dirname, "..", "static")));
-
-/*app.get("/!*", function(req, res) {
-
-  const InitialView = (Provider);
-  const finalState = store.getState();
-  const html = renderToString(InitialView);
-  //res.send(renderFullPage(html, finalState));
-   res.status(200).end(renderFullPage(html, finalState))
-});*/
-
-
-
 module.exports = function render(initialState={}) {
   // Model the initial state
   const userLocales = extractLocalesFromReq(req);
@@ -141,6 +132,8 @@ module.exports = function render(initialState={}) {
   return {content, preloadedState};
 }
 
+
+
 const server = app.listen(port, function(err) {
   if (err) {
     console.log(err);
@@ -149,26 +142,6 @@ const server = app.listen(port, function(err) {
   console.log("server listening on port: %s", process.env.PORT);
 });
 
+//socketIo
 const io = new SocketIo(server, { path: "/api/chat" });
-const socketEvents = require("./socketEvents")(io);
-
-function renderFullPage(html) {
-  return `
-    <!doctype html>
-    <html lang="en">
-      <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-        <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" type="text/css" href="/dist/bundle.css">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-        <title>React Redux Socket.io Chat</title>
-      </head>
-      <body>
-        <container id="react">${html}</container>
-        <script src="/dist/bundle.js"></script>
-      </body>
-    </html>
-  `;
-}
+const socketEvents = require("./socketEvents")(io);*/

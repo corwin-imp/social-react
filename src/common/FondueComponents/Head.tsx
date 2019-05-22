@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import * as favicon from './FondueAssets/img/favicon.ico';
+//import * as favicon from './FondueAssets/img/favicon.ico';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -18,7 +18,7 @@ const Head: React.SFC<{title?:string,description?:string, image?:string}> =({
 			<meta property="og:title" content={title} />
 			<meta property="og:description" content={description} />
 			<meta property="og:image" content={image} />
-			<link rel="shortcut icon" href={favicon} type="image/x-icon" />
+
 			<link rel="icon" sizes="192x192" href="https://i.postimg.cc/FRsbCkJ1/192.jpg" />
 			<link rel="apple-touch-icon-precomposed" href="https://i.postimg.cc/FRsbCkJ1/192.jpg" />
 			{children && children}
@@ -26,5 +26,5 @@ const Head: React.SFC<{title?:string,description?:string, image?:string}> =({
 		</Helmet>
 	);
 }
-
+//<link rel="shortcut icon" href={favicon} type="image/x-icon" />
 export {Head};

@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var Dotenv = require('dotenv-webpack');
 var production = process.env.NODE_ENV === 'production' || process.argv.indexOf('-p') !== -1;
 var CSSModuleLoader = {
     loader: 'css-loader',
@@ -131,12 +132,7 @@ module.exports = {
         new webpack.DefinePlugin({
             favicon: 'src/common/FondueComponents/FondueAssets/img/favicon.ico'
         }),
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('development'),
-                WEBPACK: true,
-            },
-        }),
+        new Dotenv(),
         new CheckerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
     ],

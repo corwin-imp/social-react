@@ -15,9 +15,11 @@ import ProviderWrap from "./Provider";
 
 const rootElement = document.getElementById('react')
 
+const renderMethod = module.hot ? ReactDOM.render : ReactDOM.hydrate;
 
 function render(Component) {
-    ReactDOM.hydrate(
+
+    renderMethod(
         <AppContainer>
             <Component />
         </AppContainer>,
@@ -31,5 +33,11 @@ if (module.hot) {
     module.hot.accept('./Provider.js', () => {
         const NewAppRoot = require('./Provider.js').default;
         render(NewAppRoot);
+    });
+
+    module.hot.accept('./Provider.js', () => {
+        const { ProviderWrap: Provider } = require('./Provider.js');
+
+        render(Provider);
     });
 }

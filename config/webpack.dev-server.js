@@ -125,7 +125,7 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.optimize.LimitChunkCountPlugin({
-			maxChunks: 1,
+			maxChunks: 10,
 		}),
 		new webpack.DefinePlugin({
 			favicon: 'src/common/FondueComponents/FondueAssets/img/favicon.ico'}),

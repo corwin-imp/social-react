@@ -11,15 +11,15 @@ var AppUpdate = /** @class */ (function (_super) {
     AppUpdate.prototype.componentDidMount = function () {
         var _a = this.props, item = _a.item, params = _a.params, getItem = _a.getItem;
         if (!item) {
-            getItem(params.index);
+            getItem(params.Chats);
         }
-        else if (item.id != params.index) {
-            getItem(params.index);
+        else if (item.id != params.Chats) {
+            getItem(params.Chats);
         }
     };
     AppUpdate.prototype.render = function () {
-        var id = this.props.params.index;
-        if (this.props.item && this.props.item.id == this.props.params.index) {
+        var id = this.props.params.Chats;
+        if (this.props.item && this.props.item.id == this.props.params.Chats) {
             return (React.createElement("div", { className: "page DevicePage" },
                 React.createElement(ItemUpdate, { item: this.props.item, updateItem: this.props.updateItem, history: this.props.history, idItem: id })));
         }

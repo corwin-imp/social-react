@@ -27,7 +27,7 @@ class AppItem extends React.Component {
   render() {
     const {audio} = this.props;
     audio['music'] =  this.props.music;
-    let id = this.props.params.index
+    let id = this.props.params.Chats
 
     if (!this.props.item) {
       return false
@@ -65,7 +65,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch, props) => {
-  dispatch(actions.getItem(props.params.index))
+  dispatch(actions.getItem(props.params.Chats))
 
   return {
     delItem: idBase => dispatch(actions.delItem(idBase)),

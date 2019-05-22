@@ -1,8 +1,15 @@
 import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
-const server = express();
-server.use(cookieParser());
-import path from 'path';
+import { origin } from './env';
+
+const app = express();
+
+app.use(cors({ credentials: true, origin }))
+app.use(bodyParser.json())
+app.use(cookieParser());
+
 const expressStaticGzip = require('express-static-gzip');
 import webpack from 'webpack';
 import webpackHotServerMiddleware from 'webpack-hot-server-middleware';
@@ -14,17 +21,19 @@ import configProdServer from '../../config/webpack.prod-server.js';
 
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
-const PORT = process.env.PORT || 8080;
+
 let isBuilt = false;
 
-server.listen(PORT, () => {
+/*
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
 	isBuilt = true;
 	console.log(
 		`Server listening on \x1b[42m\x1b[1mhttp://localhost:${PORT}\x1b[0m in \x1b[41m${
 			process.env.NODE_ENV
 		}\x1b[0m 🌎...`
 	);
-});
+});*/
 
 const done = () => {
 	!isBuilt && console.log('Done');
@@ -46,12 +55,11 @@ if (isDev) {
 		configDevClient.devServer
 	);
 
-	server.use(webpackDevMiddleware);
-	server.use(webpackHotMiddlware);
-	server.use(webpackHotServerMiddleware(compiler));
+	app.use(webpackDevMiddleware);
+	app.use(webpackHotMiddlware);
+	app.use('/app', webpackHotServerMiddleware(compiler));
 	console.log('Middleware enabled');
 	done();
-
 
 } else {
 	webpack([configProdClient, configProdServer]).run((err, stats) => {
@@ -62,12 +70,14 @@ if (isDev) {
 				colors: true,
 			})
 		);
-		server.use(
+		app.use(
 			expressStaticGzip('dist', {
 				enableBrotli: true,
 			})
 		);
-		server.use(render({ clientStats }));
+		app.use(render({ clientStats }));
 		done();
 	});
 }
+
+export {app};
