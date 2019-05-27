@@ -25,11 +25,10 @@ module.exports = {
 	    entry: './src/server/controllers/renderer/render.tsx',
 	    mode: 'development',
 	    output: {
-			filename: "render.js",
-		    chunkFilename: '[name].js',
-		    libraryTarget: 'commonjs2',
-			path: __dirname + "/build/server",
-			publicPath: "/static/",
+			filename: 'dev-server-bundle.js',
+			chunkFilename: '[name].js',
+			path: path.resolve(__dirname, '../build'),
+			libraryTarget: 'commonjs2',
 	},
 	    module: {
 		    rules: [
@@ -125,9 +124,9 @@ module.exports = {
 		],
 	},
 	    plugins: [
-		    new webpack.optimize.LimitChunkCountPlugin({
-			    maxChunks: 10,
-		}),
+			new webpack.optimize.LimitChunkCountPlugin({
+				maxChunks: 1,
+			}),
 		    new webpack.DefinePlugin({
 			    favicon: 'src/common/FondueComponents/FondueAssets/img/favicon.ico'}),
 		    new MiniCssExtractPlugin({

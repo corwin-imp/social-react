@@ -15,21 +15,15 @@ import { HtmlBuilder } from "./htmlBuilder";
 import { getBundles } from 'react-loadable/webpack'
 
 
-let reactLoadableStats: any = {};
-if (process.env.NODE_ENV === "development") {
-	// tslint:disable-next-line:no-var-requires
-	reactLoadableStats = require("../../react-loadable.json");
-}
+
+const stats: any = require('../../react-loadable.json')
+
+export default ({ clientStats }: any) => {
 
 
-export default ({ stats }: any) => {
-	if (process.env.NODE_ENV === "development") {
-		stats = reactLoadableStats;
-	}
+	//const html = new HtmlBuilder(stats);
 
-	const html = new HtmlBuilder(stats);
-
-	return (req: express.Request, res: express.Response): express.RequestHandler => {
+	return (req: express.Request, res: express.Response): any => {
 		const modules: any[] = [];
 		const context: {status?: number, url?: string} = {};
 
@@ -46,7 +40,7 @@ export default ({ stats }: any) => {
 
 		const component = renderToString(
 			<Loadable.Capture report={(moduleName: any) => modules.push(moduleName)}>
-				<StaticRouter location={req.originalUrl} context={context}>
+				<StaticRouter location={req.url} context={context}>
 					<Routes lang={lang} />
 				</StaticRouter>
 			</Loadable.Capture>
@@ -58,14 +52,31 @@ export default ({ stats }: any) => {
 		if (context.status == 404) {
 			console.log('Error 404: ', req.originalUrl);
 		}
+		const buildStyle = (url: string) => `
+        <link rel="stylesheet" type="text/css" href="${url}">`
 
-		if (context.url) {
+		let bundles: any = getBundles(stats, modules);
+		const styles: string = bundles
+			.filter((bundle: any) => bundle.file.endsWith(".css"))
+			.map((bundle:any) => buildStyle(bundle.file))
+			.join("\n");
+		const buildTag = (url: string) => `<script src="${url}"></script>`;
+		const scripts: string = bundles
+			.filter((bundle: any) => bundle.file.endsWith(".js"))
+			.map((bundle: any) => buildTag(bundle.file))
+			.join("\n");
+		/*if (context.url) {
 			const redirectStatus = context.status || 302;
 			res.redirect(redirectStatus, context.url);
 			return;
-		}
+		}*/
 
-		res.send(html.renderToString(component, modules));
+		//res.send(html.renderToString(component, modules));
+		res.send(
+			`<!DOCTYPE html><html ><head><meta name="theme-color" content="#000000"/>${styles}${
+				helmet.title
+				}${helmet.meta.toString()}${helmet.link.toString()}</head><body><div id="react-root">${component}</div>${scripts}</body></html>`
+		);
 	}
 
 

@@ -17,6 +17,7 @@
     "removeComments": false,
     "jsx": "react",
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "outDir": "./static/dist/",
     "lib": [

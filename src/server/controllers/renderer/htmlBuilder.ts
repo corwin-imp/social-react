@@ -77,11 +77,11 @@ export class HtmlBuilder {
 
     private buildTag = (url: string) => {
         console.log('url', url);
-        return `<script src="/static/${url}"></script>`;
+        return `<script src="${url}"></script>`;
     }
 
     private buildStyle = (url: string) => `
-        <link rel="stylesheet" type="text/css" href="/static/${url}">`
+        <link rel="stylesheet" type="text/css" href="${url}">`
     private getAsset(chunkName: string, extension = ".js") {
         let chunks = this.stats && this.stats.assetsByChunkName
             && this.stats.assetsByChunkName[chunkName];

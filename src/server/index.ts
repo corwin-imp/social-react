@@ -33,7 +33,7 @@ interface configsI {
 
 const configs: configsI[] = [configDevClient, configDevServer]
 export const  compiler = webpack(configs);
-app.use("/static/", express.static(config.staticPath));
+app.use("/", express.static(config.staticPath));
 if (isDev) {
 
 
@@ -47,7 +47,6 @@ if (isDev) {
 		clientCompiler,
 		configDev.devServer
 	);
-
 	app.use(webpackDevMiddleware(
 		compiler,{
 			publicPath: '/',

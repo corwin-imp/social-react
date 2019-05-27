@@ -30,8 +30,8 @@ module.exports = {
 	  output: {
 		  filename: '[name]-bundle.[hash].js',
 		  chunkFilename: '[name].[hash].js',
-		  //path: path.resolve(__dirname, '../dist/'),
-		  publicPath: '/static/',
+		  path: path.resolve(__dirname, '../dist'),
+		  publicPath: '/',
 	},
 	  devtool: 'source-map',
 	  module: {
@@ -155,13 +155,14 @@ module.exports = {
 			  filename: '[name].css',
 			  chunkFilename: '[name].css',
 		}),
-		  new ReactLoadablePlugin({
-			  filename: 'src/server/react-loadable.json',
-		}),
+
 		  new webpack.DefinePlugin({
 			  favicon: 'src/common/FondueComponents/FondueAssets/img/favicon.ico'}),
 		  new Dotenv(),
-		  new webpack.NamedModulesPlugin(),
+		  new CheckerPlugin(),
+		  new ReactLoadablePlugin({
+			  filename: 'src/server/react-loadable.json',
+		  }),
 		  new webpack.HotModuleReplacementPlugin(),
 	],
 };
