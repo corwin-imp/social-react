@@ -6,6 +6,7 @@ import DevTools from "../common/containers/DevTools";
 import {BrowserRouter as Router} from "react-router-dom";
 //import Routes from "../common/routes";
 import Routes from "../common/containers/Routes";
+import {hot} from "react-hot-loader";
 
 class ProviderWrap extends React.Component  {
   constructor(props) {
@@ -26,4 +27,4 @@ class ProviderWrap extends React.Component  {
   }
 }
 
-export default ProviderWrap;
+export default hot(module)(ProviderWrap);

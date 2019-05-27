@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import {Head} from '../../FondueComponents/Head';
 import { RouteComponentProps } from 'react-router-dom';
 import { ContentPusher, Container, Readable } from '../../FondueComponents/Layout';
-
+import { hot } from "react-hot-loader";
 const dataEn = require('./data-home-en.md');
 const dataDe = require('./data-home-de.md');
 
@@ -64,4 +64,4 @@ class Home extends Component<RouteComponentProps<{lang: string}>> {
 	}
 }
 
-export default Home;
+export default hot(module)(Home);

@@ -5,7 +5,7 @@ import * as health from './controllers/health';
 import * as renderer from './controllers/renderer';
 import { resolvers, schema } from '../graphql/schema';
 import { endpoint } from '../graphql/constants';
-import { compiler } from './app';
+import { compiler } from './index';
 
 
 export function router(app: express.Application) {
@@ -14,5 +14,5 @@ export function router(app: express.Application) {
     //app.use('/public', express.static('dist/client'));
     app.get('/api/health', health.get);
     //app.get('*', renderer.get);
-    app.get('/*', webpackHotServerMiddleware(compiler));
+    //app.get('/*', webpackHotServerMiddleware(compiler));
 }

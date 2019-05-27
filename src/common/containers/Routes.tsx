@@ -4,6 +4,8 @@ import GoogleTagManager from '../FondueComponents/GoogleTagManager';
 import {Head} from '../FondueComponents/Head';
 import Nav from '../FondueComponents/Nav';
 import {Footer} from '../FondueComponents/Footer';
+import Loadable from "react-loadable";
+import { hot } from "react-hot-loader";
 import { Route, Switch, RouteComponentProps } from 'react-router';
 import { RedirectWithStatus } from '../FondueComponents/RedirectStatus';
 import { Loading } from '../FondueComponents/Layout';
@@ -15,18 +17,21 @@ interface interfaceProp extends RouteComponentProps<{
 	todoListId: string
 }> {}
 
-const UniversalComponent: React.FC<{page: string} & RouteComponentProps<{}>> = universal(props => {
+// @ts-ignore
+const UniversalComponent: React.FC<{page?: string} & RouteComponentProps<{}>> = (props) =>  Loadable({
+	loader: () => {
+		return import(`../Views/${props.page}`)
+	},
+	loading: Loading,
+	modules: [`../Views/${props.page}`],
 
-	return import(`../Views/${props.page}`)
-}, {
-
-	loading: () => {
-
-	    return <Loading />
-    },
-	ignoreBabelRename: true,
 });
+const AsyncHomePage = Loadable({
+	loader: () => import("../Views/Home"),
+	loading: Loading,
+	modules: ['../Views/Home'],
 
+});
 const Routes = (props:any) => {
 
 	const {lang} = props
@@ -39,9 +44,10 @@ const Routes = (props:any) => {
 			<Switch>
 				<Route
 					exact
-					path="/:lang"
-					render={(routeProps: interfaceProp) => <UniversalComponent page="Home" {...routeProps} />}
+					path="/en"
+					component={AsyncHomePage}
 				/>
+
 				<Route
 					exact
 					path="/:lang/about"
@@ -60,4 +66,4 @@ const Routes = (props:any) => {
 	);
 }
 
-export default Routes;
+export default hot(module)(Routes);
