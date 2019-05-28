@@ -1,5 +1,6 @@
 // tslint:disable-next-line:no-var-requires
 const { getBundles } = require("react-loadable/webpack");
+import Helmet from 'react-helmet';
 
 export interface IStats {
     assetsByChunkName: { [key: string]: string | string[] } | undefined;
@@ -15,6 +16,7 @@ export class HtmlBuilder {
     private chunkPlaceholder = "<//-CHUNKS-//>";
     private stylePlaceholder = "<//-STYLES-//>";
     private componentPlaceHolder = "<//-ROOT-//>";
+    private metaPlaceHolder = "<//-META-//>";
     private htmlString = "";
 
     constructor(stats: IStats | undefined) {
@@ -24,7 +26,12 @@ export class HtmlBuilder {
 
     public renderToString(component: string, modules: any) {
         const bundles: IBundle[] = getBundles(this.stats, modules);
-
+        const helmetContent = Helmet.renderStatic();
+        const meta = `
+      ${helmetContent.meta.toString()}
+      ${helmetContent.title.toString()}
+      ${helmetContent.link.toString()}
+    `.trim();
         const scripts: string = bundles
             .filter((bundle: IBundle) => bundle.file.endsWith(".js"))
             .map((bundle) => this.buildTag(bundle.file))
@@ -38,8 +45,10 @@ export class HtmlBuilder {
         return this.htmlString
             .replace(this.chunkPlaceholder, scripts)
             .replace(this.stylePlaceholder, styles)
-            .replace(this.componentPlaceHolder, component);
+            .replace(this.componentPlaceHolder, component)
+            .replace(this.metaPlaceHolder, meta);
     }
+
 
     private cacheHtmlString() {
         console.log('process.env.NODE_ENV', process.env.NODE_ENV);
@@ -49,6 +58,7 @@ export class HtmlBuilder {
                 <head>
                     <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />
                     <title>react-typescript-ssr</title>
+                    ${this.metaPlaceHolder}
                     ${process.env.NODE_ENV === "production" && this.getAsset("vendors", ".css") || ""}
                     ${process.env.NODE_ENV === "production" && this.getAsset("main", ".css") || ""}
                     ${this.stylePlaceholder}
@@ -76,12 +86,11 @@ export class HtmlBuilder {
     }
 
     private buildTag = (url: string) => {
-        console.log('url', url);
-        return `<script src="${url}"></script>`;
+
+        return `<script src="/static/${url}"></script>`;
     }
 
-    private buildStyle = (url: string) => `
-        <link rel="stylesheet" type="text/css" href="${url}">`
+    private buildStyle = (url: string) => `<link rel="stylesheet" type="text/css" href="/static/${url}">`
     private getAsset(chunkName: string, extension = ".js") {
         let chunks = this.stats && this.stats.assetsByChunkName
             && this.stats.assetsByChunkName[chunkName];

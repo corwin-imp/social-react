@@ -1,25 +1,27 @@
-import '../common/css/mainApp.sass';
-import '../common/css/chatapp.css';
-import '../common/css/itemsList.css';
-import '../common/css/pageProfile.css';
-import '../common/css/pageProfiles.css';
-import '../common/css/pageVideo.css';
-import '../common/css/dropzone.min.css';
-
-import '../common/css/addVideo.css';
-import '../common/css/audio.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Loadable from 'react-loadable';
+import ProviderWrap from "./Provider";
+import Loadable from "react-loadable";
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader';
-import ProviderWrap from './Provider';
+
+import '../common/css/mainApp.sass'
+import '../common/css/chatapp.css'
+import '../common/css/itemsList.css'
+import '../common/css/pageProfile.css'
+import '../common/css/pageProfiles.css'
+import '../common/css/pageVideo.css'
+import '../common/css/dropzone.min.css'
+
+import '../common/css/addVideo.css'
+import '../common/css/audio.css'
 
 
-const renderMethod = module.hot ? ReactDOM.render : ReactDOM.hydrate;
+const rootElement = document.getElementById('react')
+
+const renderMethod = ReactDOM.hydrate;
 
 function render(Component) {
-
-  renderMethod(
+    renderMethod(
         <AppContainer>
             <Component />
         </AppContainer>,
@@ -27,20 +29,14 @@ function render(Component) {
     );
 }
 
-Loadable.preloadReady()
-    .then(() => {
-        render(ProviderWrap);
+
+Loadable.preloadReady().then(() => {
+    render(ProviderWrap);
 });
 
-
 if (module.hot) {
-
-
-  module.hot.accept('./Provider.js', () => {
-    const { ProviderWrap: Provider } = require('./Provider.js');
-      Loadable.preloadReady()
-          .then(() => {
-              render(Provider);
-          });
-  });
+    module.hot.accept('./Provider.js', () => {
+        const { ProviderWrap: Provider } = require('./Provider.js');
+        render(Provider);
+    });
 }

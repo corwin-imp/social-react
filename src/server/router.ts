@@ -14,5 +14,5 @@ export function router(app: express.Application) {
     //app.use('/public', express.static('dist/client'));
     app.get('/api/health', health.get);
     //app.get('*', renderer.get);
-    //app.get('/*', webpackHotServerMiddleware(compiler));
+    app.get('/*', webpackHotServerMiddleware(compiler));
 }

@@ -2,30 +2,38 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import Loadable from "react-loadable";
 import { origin } from './env';
 import { router } from './router';
-import { config } from "./config";
 const app = express();
 
 app.use(cors({ credentials: true, origin }))
 app.use(bodyParser.json())
 app.use(cookieParser());
-
+import Loadable from "react-loadable";
 const expressStaticGzip = require('express-static-gzip');
 import webpack from 'webpack';
-import webpackHotServerMiddleware from 'webpack-hot-server-middleware';
 
-import configDevClient from '../../config/webpack.dev-client.js';
-import configDevServer from '../../config/webpack.dev-server.js';
-import configProdClient from '../../config/webpack.prod-client.js';
-import configProdServer from '../../config/webpack.prod-server.js';
+import path from "path";
+const configDevClient = require('../../config/webpack.dev-client.js').default;
+const configDevServer = require('../../config/webpack.dev-server.js').default;
+const configProdClient = require('../../config/webpack.prod-client.js').default;
+const configProdServer = require('../../config/webpack.prod-server.js').default;
+
+
+const webpackDevMiddleware = require("webpack-dev-middleware");
+const webpackHotMiddleware = require("webpack-hot-middleware");
 
 const isProd: boolean = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
 
-const configDev = <any>configDevClient;
+let isBuilt = false;
 
+
+
+const configDev = <any>configDevClient;
+const done = () => {
+	!isBuilt && console.log('Done');
+};
 interface configsI {
 	[index: number]: { mode?: string };
 }
@@ -33,7 +41,7 @@ interface configsI {
 
 const configs: configsI[] = [configDevClient, configDevServer]
 export const  compiler = webpack(configs);
-app.use("/", express.static(config.staticPath));
+app.use("/static/", express.static(path.resolve(__dirname, "../src/public")));
 if (isDev) {
 
 
@@ -41,21 +49,16 @@ if (isDev) {
 	const clientCompiler: any = compiler.compilers[0];
 	const serverCompiler = compiler.compilers[1];
 
-	const webpackDevMiddleware = require('webpack-dev-middleware');
-
-	const webpackHotMiddlware = require('webpack-hot-middleware')(
-		clientCompiler,
-		configDev.devServer
-	);
 	app.use(webpackDevMiddleware(
 		compiler,{
-			publicPath: '/',
+			publicPath: '/static/',
 			serverSideRender: true,
 		}
 
 	));
-	app.use(webpackHotMiddlware);
-	app.use(webpackHotServerMiddleware(compiler));
+
+	app.use(webpackHotMiddleware(clientCompiler));
+
 	let started = false;
 	// tslint:disable-next-line:no-console
 	console.log("Compiling:....");
@@ -65,6 +68,10 @@ if (isDev) {
 			startServer();
 		}
 	});
+
+	console.log('Middleware enabled');
+	router(app);
+
 
 } else {
 	const configs: configsI[] = [configProdClient, configProdServer]
@@ -83,25 +90,24 @@ if (isDev) {
 			})
 		);
 		app.use(render({ clientStats }));
-
+		done();
 	});
 }
-//router(app);
+
 
 function startServer() {
 	Loadable.preloadAll()
 		.then(() => {
-			app.listen(config.serverPort, (err: any) => {
+			app.listen(4000, (err: any) => {
 				if (err) {
 					// tslint:disable-next-line:no-console
 					return console.error(err);
 				}
 				// tslint:disable-next-line:no-console
-				console.log(`running at http://localhost:${config.serverPort}`);
+				console.log(`running at http://localhost:4000`);
 				// tslint:disable-next-line:no-console
-				console.log(`environemt: ${config.env}`);
+				console.log(`environemt: dev`);
 			});
 		});
 }
-
 export {app };

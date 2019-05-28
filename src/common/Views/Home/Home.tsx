@@ -34,8 +34,6 @@ class Home extends Component<RouteComponentProps<{lang: string}>> {
 		if(this.props.match){
 			lang = this.props.match.params.lang;
 		}
-
-
 		return (
 			<Fragment>
 				<Head />

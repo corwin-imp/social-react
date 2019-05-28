@@ -2,13 +2,14 @@ import React, { Component, Fragment } from 'react';
 import {Head} from '../../FondueComponents/Head';
 import { RouteComponentProps } from 'react-router-dom';
 import { ContentPusher, Container, Readable } from '../../FondueComponents/Layout';
-
+import { hot } from "react-hot-loader";
 const dataEn = require('./data-about-en.md');
 const dataDe = require('./data-about-de.md');
 import hljs from 'highlight.js/lib/highlight';
 import javascript from 'highlight.js/lib/languages/javascript';
 import css from 'highlight.js/lib/languages/css';
 import { t } from '../../FondueComponents/Languages';
+
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('css', css);
 
@@ -52,4 +53,4 @@ class About extends Component<RouteComponentProps<{lang: string}>> {
 	}
 }
 
-export default About;
+export default hot(module)(About);

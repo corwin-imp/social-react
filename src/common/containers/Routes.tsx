@@ -17,15 +17,6 @@ interface interfaceProp extends RouteComponentProps<{
 	todoListId: string
 }> {}
 
-// @ts-ignore
-const UniversalComponent: React.FC<{page?: string} & RouteComponentProps<{}>> = (props) =>  Loadable({
-	loader: () => {
-		return import(`../Views/${props.page}`)
-	},
-	loading: Loading,
-	modules: [`../Views/${props.page}`],
-
-});
 const AsyncHomePage = Loadable({
 	loader: () => import("../Views/Home"),
 	loading: Loading,
@@ -48,13 +39,31 @@ const Routes = (props:any) => {
 					component={AsyncHomePage}
 				/>
 
-
-
+				<RedirectWithStatus status={301} exact from="/" to={`/${lang}`} />
 
 			</Switch>
 			<Footer />
 		</Fragment>
 	);
 }
+/*
+<Route
+	exact
+	path="/:lang"
+	render={(routeProps: interfaceProp) => <UniversalComponent page="Home" {...routeProps} />}
+/>
+<Route
+exact
+path="/:lang/about"
+render={(routeProps: interfaceProp) => <UniversalComponent page="About" {...routeProps} />}
+/>
+<Route
+	exact
+	path="/:lang/chats"
+	render={(routeProps: interfaceProp) => <UniversalComponent page="Chats" {...routeProps} />}
+/>
+<Route render={(routeProps: interfaceProp) => <UniversalComponent page="NotFound" {...routeProps} />} />
+
+*/
 
 export default hot(module)(Routes);
