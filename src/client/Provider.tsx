@@ -8,8 +8,8 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import Routes from '../common/containers/Routes';
 
-class ProviderWrap extends React.Component {
-  constructor(props) {
+class ProviderWrap extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
   }
   render() {
@@ -18,9 +18,7 @@ class ProviderWrap extends React.Component {
           {process.env.NODE_ENV !== 'production' && <DevTools />}
           <Router>
             <Routes />
-
           </Router>
-
         </Provider>
     );
   }

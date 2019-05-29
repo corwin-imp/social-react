@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const Device_1 = tslib_1.__importDefault(require("./Device"));
+const Device_1 = tslib_1.__importDefault(require("../Device"));
 class AudioPlayer extends Device_1.default {
     constructor(name, volumeM) {
         super(name);

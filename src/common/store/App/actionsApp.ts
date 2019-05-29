@@ -1,12 +1,13 @@
 import * as types from "./AppTypes";
+import { Dispatch, AnyAction } from 'redux'
 import { createActions, createAction, handleActions, combineActions } from 'redux-actions';
-import { createSignalAction } from "../typeSettings";
+//import { createSignalAction } from "../typeSettings";
 
 
-export const {welcomePage, changeIsMobile, changeWidthAndHeight} = createActions({
-    [types.SAVE_USERNAME]: data => ({ data }), // payload creator
-    [types.CHANGE_IS_MOBILE]: data => ({ data }),
-    [types.CHANGE_WIDTH_AND_HEIGHT]: data => ({ data }),
+export const {welcomePage, changeIsMobile, changeWidthAndHeight}= createActions({
+    [types.SAVE_USERNAME]: (data: AnyAction) => ({ data }), // payload creator
+    [types.CHANGE_IS_MOBILE]: (data: AnyAction) => ({ data }),
+    [types.CHANGE_WIDTH_AND_HEIGHT]: (data: AnyAction) => ({ data }),
 });
 
 
@@ -35,7 +36,7 @@ function changeWidthAndHeight(screenHeight, screenWidth) {
 */
 
 export function initEnvironment() {
-    return dispatch => {
+    return (dispatch: Dispatch) => {
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
             navigator.userAgent
         )

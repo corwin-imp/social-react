@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions'
 import * as actions from "./actionsAuth";
 
 
-const initialState = {
+const initialState: any = {
   loaded: false,
   user: {
     username: 'test',
@@ -13,19 +13,19 @@ const initialState = {
 
 const reducerAuth = handleActions(
     {
-      [actions.requestSignUp]: (state) => {
+      [`${actions.requestSignUp}`]: (state) => {
         return {
           ...state,
           signingUp: true,
         }
       },
-      [actions.requestSignOut]: (state, action) => {
+      [`${actions.requestSignOut}`]: (state:any, action:any) => {
         return {
           ...state,
           signingOut: true,
         }
       },
-      [actions.receiveSignOut]: (state, action) =>  {
+        [`actions.receiveSignOut`]: (state:any, action:any) =>  {
 
             return {
               ...state,
@@ -37,14 +37,14 @@ const reducerAuth = handleActions(
               },
             }
       },
-      [actions.requestSignIn]: (state, action) => {
+      [`${actions.requestSignIn}`]: (state:any, action:any) => {
 
         return {
           ...state,
           signingIn: true,
         }
       },
-      [actions.loadUser]: (state, action) => {
+      [`${actions.loadUser}`]: (state:any, action:any) => {
 
         return {
           ...state,
@@ -53,7 +53,7 @@ const reducerAuth = handleActions(
           user: action.user,
         }
       },
-      [actions.receiveSocket]: (state, action) => {
+      [`${actions.receiveSocket}`]: (state:any, action:any) => {
 
         return {
           ...state,
@@ -63,7 +63,7 @@ const reducerAuth = handleActions(
           },
         }
       },
-      [actions.receiveUser]: (state, action) => {
+      [`${actions.receiveUser}`]: (state:any, action:any) => {
 
         return {
           ...state,
@@ -72,7 +72,7 @@ const reducerAuth = handleActions(
           user: action.user,
         }
       },
-      [actions.receiveSignIn]: (state, action) => {
+      [`${actions.receiveSignIn}`]: (state:any, action:any) => {
 
         return {
           ...state,
@@ -80,7 +80,7 @@ const reducerAuth = handleActions(
           user: action.user,
         }
       },
-      [actions.setPictureAction]: (state, action) => {
+      [`${actions.setPictureAction}`]: (state:any, action:any) => {
 
         return {
           ...state,

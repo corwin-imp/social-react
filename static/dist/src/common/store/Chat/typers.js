@@ -10,7 +10,7 @@ function typers(state = initialState, action) {
             }
             return state;
         case TypesChat_1.STOP_TYPING:
-            return state.filter(user => user !== action.username);
+            return state.filter((user) => user !== action.username);
         default:
             return state;
     }

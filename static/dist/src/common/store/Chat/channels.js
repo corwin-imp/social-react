@@ -31,7 +31,7 @@ function channels(state = initialState, action) {
                 data: state.data,
             };
         case TypesChat_1.RECEIVE_CHANNEL:
-            if (state.data.filter(channel => channel.name === action.channel.name)
+            if (state.data.filter((channel) => channel.name === action.channel.name)
                 .length !== 0) {
                 return state;
             }

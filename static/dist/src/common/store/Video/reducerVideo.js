@@ -10,7 +10,7 @@ const reducerVideo = (state = initialState, action) => {
     switch (action.type) {
         case types.ADD_VIDEO:
             let newVideo = { name: action.name, href: action.src };
-            var videoIn = Object.assign({}, state.video);
+            let videoIn = Object.assign({}, state.video);
             videoIn[action.id] = newVideo;
             return {
                 ...state,
@@ -33,15 +33,15 @@ const reducerVideo = (state = initialState, action) => {
             };
             break;
         case types.GET_VIDEO: // another reducerApp
-            var newState = {
+            let newState = {
                 ...state,
                 video: state.video,
             };
-            var dev = action.video;
+            let dev = action.video;
             if (typeof dev != 'string') {
-                var baseS = [];
+                let baseS = [];
                 action.video.forEach(function (item, i, arr) {
-                    var newv = { name: item.name, href: item.src };
+                    let newv = { name: item.name, href: item.src };
                     //  newItems.set(item._id, newItem);
                     baseS[item['_id']] = newv;
                 });
@@ -54,7 +54,7 @@ const reducerVideo = (state = initialState, action) => {
             break;
         default:
             if (state.video == []) {
-                reducerVideo({ type: types.GET_VIDEO });
+                reducerVideo(initialState, { type: types.GET_VIDEO });
             }
             return state;
     }

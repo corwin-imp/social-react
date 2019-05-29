@@ -1,7 +1,7 @@
 import { TYPING, STOP_TYPING } from './TypesChat'
 
-const initialState = []
-export default function typers(state = initialState, action) {
+const initialState:any = []
+export default function typers(state = initialState, action:any) {
   switch (action.type) {
     case TYPING:
       if (state.indexOf(action.username) === -1) {
@@ -9,7 +9,7 @@ export default function typers(state = initialState, action) {
       }
       return state
     case STOP_TYPING:
-      return state.filter(user => user !== action.username)
+      return state.filter((user:any) => user !== action.username)
     default:
       return state
   }

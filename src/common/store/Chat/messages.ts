@@ -9,12 +9,12 @@ import {
 
 import {  AUTH_SIGNOUT_SUCCESS} from '../Auth/types'
 
-const initialState = {
+const initialState: any = {
   loaded: false,
   data: [],
   fetchHistory: [],
 }
-export default function messages(state = initialState, action) {
+export default function messages(state = initialState, action:any) {
   switch (action.type) {
     case ADD_MESSAGE:
       return {
@@ -41,7 +41,7 @@ export default function messages(state = initialState, action) {
           { lastFetch: action.date, channelName: action.channel },
         ],
         data: [
-          ...state.data.filter(message => message.channelID !== action.channel),
+          ...state.data.filter((message:any) => message.channelID !== action.channel),
           ...action.json,
         ],
       }

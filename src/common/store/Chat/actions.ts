@@ -1,44 +1,44 @@
 import * as types from "./TypesChat";
-import { browserHistory } from "react-router";
+//import { browserHistory } from "react-router";
 import fetch from "isomorphic-fetch";
 import moment from "moment";
 import { createAction, createActions } from "redux-actions";
 // NOTE:Chat actions
+import { Dispatch } from 'redux'
+export const addMessage = createAction(types.ADD_MESSAGE, (data: any) => ({ data }));
+export const receiveRawMessage = createAction(types.RECEIVE_MESSAGE, (data: any) => ({
+  data
+}));
+export const receiveRawChannel = createAction(types.RECEIVE_CHANNEL, (data: any) => ({
+  data
+}));
+export const addChannel = createAction(types.ADD_CHANNEL, (data: any) => ({ data }));
+export const typing = createAction(types.TYPING, (data: any) => ({ data }));
+export const stopTyping = createAction(types.STOP_TYPING, (data: any) => ({ data }));
+export const changeChannel = createAction(types.CHANGE_CHANNEL, (data: any) => ({
+  data
+}));
+export const requestChannels = createAction(types.LOAD_CHANNELS, () => ({
 
-export const addMessage = createAction(types.ADD_MESSAGE, data => ({ data }));
-export const receiveRawMessage = createAction(types.RECEIVE_MESSAGE, data => ({
-  data
-}));
-export const receiveRawChannel = createAction(types.RECEIVE_CHANNEL, data => ({
-  data
-}));
-export const addChannel = createAction(types.ADD_CHANNEL, data => ({ data }));
-export const typing = createAction(types.TYPING, data => ({ data }));
-export const stopTyping = createAction(types.STOP_TYPING, data => ({ data }));
-export const changeChannel = createAction(types.CHANGE_CHANNEL, data => ({
-  data
-}));
-export const requestChannels = createAction(types.LOAD_CHANNELS, data => ({
-  data
 }));
 export const receiveChannels = createAction(
   types.LOAD_CHANNELS_SUCCESS,
-  data => ({ data })
+    (data: any) => ({ data })
 );
-export const requestMessages = createAction(types.LOAD_MESSAGES, data => ({
-  data
+export const requestMessages = createAction(types.LOAD_MESSAGES, () => ({
+
 }));
 export const loadingValidationList = createAction(
   types.LOAD_USERVALIDATION,
-  data => ({ data })
+    () => ({  })
 );
 export const receiveValidationList = createAction(
   types.LOAD_USERVALIDATION_SUCCESS,
-  data => ({ data })
+    (data: any) => ({ data })
 );
 export const receiveMessages = createAction(
     types.LOAD_MESSAGES_SUCCESS,
-    (json, channel) => {
+    (json:any, channel:any) => {
       const date = moment().format("lll");
       return {
         json,
@@ -136,10 +136,10 @@ function receiveMessages(json, channel) {
   };
 }
 */
-export function deleteChannel(channel) {
+export function deleteChannel(channel:any) {
   let channelObj = { channel: channel.id };
 
-  return dispatch => {
+  return (dispatch:Dispatch) => {
     return fetch("/api/delete-channel", {
       method: "post",
       headers: {
@@ -162,10 +162,10 @@ export function deleteChannel(channel) {
   };
 }
 
-export function fetchMyChannels(channels) {
+export function fetchMyChannels(channels:any) {
   let channelObj = { channels: channels };
 
-  return dispatch => {
+  return (dispatch:Dispatch) => {
     dispatch(requestChannels());
     return fetch("/api/my-channels", {
       method: "post",
@@ -184,8 +184,8 @@ export function fetchMyChannels(channels) {
   };
 }
 
-export function fetchMessages(channel) {
-  return dispatch => {
+export function fetchMessages(channel:any) {
+  return (dispatch:Dispatch) => {
     dispatch(requestMessages());
     return fetch(`/api/messages/${channel}`)
       .then(response => response.json())
@@ -199,7 +199,7 @@ export function fetchMessages(channel) {
 
 
 export function usernameValidationList() {
-  return dispatch => {
+  return (dispatch:Dispatch) => {
     dispatch(loadingValidationList());
     return fetch("/api/all_usernames")
       .then(response => {
@@ -207,7 +207,7 @@ export function usernameValidationList() {
       })
       .then(json => {
         return dispatch(
-          receiveValidationList(json.map(item => item.local.username))
+          receiveValidationList(json.map((item:any) => item.local.username))
         );
       })
       .catch(error => {
@@ -216,8 +216,8 @@ export function usernameValidationList() {
   };
 }
 
-export function createMessage(message) {
-  return dispatch => {
+export function createMessage(message:any) {
+  return (dispatch:Dispatch) => {
     dispatch(addMessage(message));
     return fetch("/api/newmessage", {
       method: "post",
@@ -231,8 +231,8 @@ export function createMessage(message) {
   };
 }
 
-export function createChannel(channel) {
-  return dispatch => {
+export function createChannel(channel:any) {
+  return (dispatch:Dispatch) => {
     return fetch("/api/channels/new_channel", {
       method: "post",
       headers: {

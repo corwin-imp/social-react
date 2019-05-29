@@ -1,5 +1,5 @@
 import { ROUTING } from '../constants/Routing'
-import history from './history'
+import {memoryHistory as history} from './history'
 export const redirect = store => next => action => {
   //eslint-disable-line no-unused-vars
 

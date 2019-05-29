@@ -34,7 +34,7 @@ function messages(state = initialState, action) {
                     { lastFetch: action.date, channelName: action.channel },
                 ],
                 data: [
-                    ...state.data.filter(message => message.channelID !== action.channel),
+                    ...state.data.filter((message) => message.channelID !== action.channel),
                     ...action.json,
                 ],
             };

@@ -4,10 +4,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const types = tslib_1.__importStar(require("./AppTypes"));
 const redux_actions_1 = require("redux-actions");
+//import { createSignalAction } from "../typeSettings";
 _a = redux_actions_1.createActions({
-    [types.SAVE_USERNAME]: data => ({ data }),
-    [types.CHANGE_IS_MOBILE]: data => ({ data }),
-    [types.CHANGE_WIDTH_AND_HEIGHT]: data => ({ data }),
+    [types.SAVE_USERNAME]: (data) => ({ data }),
+    [types.CHANGE_IS_MOBILE]: (data) => ({ data }),
+    [types.CHANGE_WIDTH_AND_HEIGHT]: (data) => ({ data }),
 }), exports.welcomePage = _a.welcomePage, exports.changeIsMobile = _a.changeIsMobile, exports.changeWidthAndHeight = _a.changeWidthAndHeight;
 /*
 export function welcomePage(username) {
@@ -32,7 +33,7 @@ function changeWidthAndHeight(screenHeight, screenWidth) {
 }
 */
 function initEnvironment() {
-    return dispatch => {
+    return (dispatch) => {
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         if (isMobile) {
             document.body.style.overflow = 'hidden';

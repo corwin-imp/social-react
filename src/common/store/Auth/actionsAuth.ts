@@ -1,9 +1,10 @@
-import {browserHistory, createActions} from 'redux-actions'
+import { browserHistory } from '../../services/history'
+
 import fetch from 'isomorphic-fetch'
-import cookie from 'react-cookie'
+import Cookies from 'react-cookie'
 import Profile from '../Profile/Profile'
 import io from 'socket.io-client'
-
+import { Dispatch } from 'redux'
 
 import * as actionsD from '../Profile/actionsProfile'
 
@@ -11,22 +12,25 @@ const socket = io('', { path: '/api/chat' })
 
 import * as types from "./types";
 import { createAction } from 'redux-actions';
-import { createSignalAction } from "../typeSettings";
+//import { createSignalAction } from "../typeSettings";
 
-export const requestSignUp = createAction(types.AUTH_SIGNUP, data => ({ data }));
-export const requestSignOut = createAction(types.AUTH_SIGNOUT, data=> ({ data }));
-export const receiveSignOut = createAction(types.AUTH_SIGNOUT_SUCCESS,data => ({ data }));
-export const requestSignIn = createAction(types.AUTH_SIGNIN,data => ({ data }));
+export const requestSignUp = createAction(types.AUTH_SIGNUP, () => ({}));
+export const requestSignOut = createAction(types.AUTH_SIGNOUT, ()=> ({  }));
+export const receiveSignOut = createAction(types.AUTH_SIGNOUT_SUCCESS,() => ({  }));
+export const requestSignIn = createAction(types.AUTH_SIGNIN,() => ({  }));
 
-export const loadUser = createAction(types.AUTH_LOAD_SUCCESS,(data) =>{
+const _Cookies: any = Cookies;
+
+const cookie: any = new _Cookies();
+export const loadUser = createAction(types.AUTH_LOAD_SUCCESS,(data: any) =>{
   const user = new Profile(data)
   return {
     user
   }
 })
 
-export const receiveSocket = createAction(types.RECEIVE_SOCKET,data => ({ data }));
-export const receiveUser = createAction(types.AUTH_SIGNUP_SUCCESS,(dataB) =>{
+export const receiveSocket = createAction(types.RECEIVE_SOCKET,(data: any) => ({ data }));
+export const receiveUser = createAction(types.AUTH_SIGNUP_SUCCESS,(dataB: any) =>{
   const user = new Profile(dataB)
   socket.emit('user come', user)
   return {
@@ -34,7 +38,7 @@ export const receiveUser = createAction(types.AUTH_SIGNUP_SUCCESS,(dataB) =>{
   }
 })
 
-export const receiveSignIn = createAction(types.AUTH_SIGNIN_SUCCESS,(userbase) =>{
+export const receiveSignIn = createAction(types.AUTH_SIGNIN_SUCCESS,(userbase: any) =>{
   const user = new Profile(userbase)
   socket.emit('user come', user)
   return {
@@ -42,19 +46,19 @@ export const receiveSignIn = createAction(types.AUTH_SIGNIN_SUCCESS,(userbase) =
   }
 })
 
-export const setPictureAction = createAction(types.AUTH_CHOOSE_PICTURE,(сhoose) =>{
+export const setPictureAction = createAction(types.AUTH_CHOOSE_PICTURE,(currentPicture: any) =>{
   return {
-    currentPicture: сhoose,
+    currentPicture,
   }
 })
 
-export function receiveAuth(dispatch) {
-  const user = cookie.load('userId')
+export function receiveAuth(dispatch: Dispatch) {
+  const user:any = cookie.load('userId')
 
   if (user) {
     let dataB = { userId: user }
 
-    return dispatch => {
+    return (dispatch: Dispatch ) => {
       return fetch('/api/get_user', {
         method: 'post',
         headers: {
@@ -66,7 +70,7 @@ export function receiveAuth(dispatch) {
         .then(response => response.json())
         .then(json => {
           dispatch(loadUser(json))
-          dispatch(actionsD.onItem(user))
+          //dispatch(actionsD.onItem(user))
         })
         .catch(error => {
           throw error
@@ -90,12 +94,12 @@ export function checkAuth() {
 
 
 export function signOut() {
-  return dispatch => {
+  return (dispatch:Dispatch) => {
     dispatch(requestSignOut())
     return fetch('/api/signout')
       .then(response => {
         if (response.ok) {
-          const user = cookie.load('userId')
+          const user: any = cookie.load('userId')
           cookie.remove('userId')
           dispatch(receiveSignOut())
           dispatch(actionsD.offItem(user))
@@ -108,8 +112,8 @@ export function signOut() {
   }
 }
 
-export function signUp(user) {
-  return dispatch => {
+export function signUp(user:any) {
+  return (dispatch: Dispatch) => {
     dispatch(requestSignUp())
     return fetch('/api/sign_up', {
       method: 'post',
@@ -122,7 +126,7 @@ export function signUp(user) {
       .then(response => response.json())
       .then(json => {
         cookie.save('userId', json._id)
-        dispatch(actionsD.onItem(json._id))
+        //dispatch(actionsD.onItem(json._id))
         dispatch(receiveUser(json))
         browserHistory.push('my-profile')
       })
@@ -133,7 +137,7 @@ export function signUp(user) {
 }
 
 
-export function setPicture(choose, id, dispatch) {
+export function setPicture(choose:any, id: any, dispatch: Dispatch) {
   let data = {
     choose: choose,
     id: id,
@@ -157,8 +161,8 @@ export function setPicture(choose, id, dispatch) {
 
 
 
-export function signIn(user) {
-  return dispatch => {
+export function signIn(user:any) {
+  return (dispatch:Dispatch) => {
     dispatch(requestSignIn())
     return fetch('/api/sign_in', {
       method: 'post',
@@ -171,7 +175,7 @@ export function signIn(user) {
       .then(response => response.json())
       .then(json => {
         cookie.save('userId', json._id)
-        dispatch(actionsD.onItem(json._id))
+        //dispatch(actionsD.onItem(json._id))
         dispatch(receiveSignIn(json))
         browserHistory.push('/my-profile')
       })

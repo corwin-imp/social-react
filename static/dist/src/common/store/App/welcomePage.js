@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const types = tslib_1.__importStar(require("../Auth/actionsAuth"));
+const types = tslib_1.__importStar(require("../Auth/types"));
 const initialState = '';
 function welcomePage(state = initialState, action) {
     switch (action.type) {

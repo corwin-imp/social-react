@@ -25,7 +25,7 @@ const postCSSLoader = {
 };
 const clientConfig = {
 	name: 'client',
-	entry: ['webpack-hot-middleware/client', path.resolve('src', 'client', 'index.js')],
+	entry: ['webpack-hot-middleware/client', path.resolve('src', 'client', 'index.tsx')],
 	mode: 'development',
 	output: {
 		filename: '[name]-bundle.[hash].js',

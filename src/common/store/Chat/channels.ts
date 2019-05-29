@@ -9,12 +9,12 @@ import {
 
 import {  AUTH_SIGNOUT_SUCCESS} from '../Auth/types'
 
-const initialState = {
+const initialState: any = {
   loaded: false,
   data: [],
 }
 
-export default function channels(state = initialState, action) {
+export default function channels(state = initialState, action:any) {
   switch (action.type) {
     case ADD_CHANNEL:
       /*   if (state.data.filter(channel => channel.name === action.channel.name).length !== 0) {
@@ -27,7 +27,7 @@ export default function channels(state = initialState, action) {
       }
     case DELETE_CHANNEL:
       console.log('st', state.data)
-      state.data.forEach(function(item, i, arr) {
+      state.data.forEach(function(item:any, i:number, arr:any) {
         if (item.id == action.channel) {
           arr.splice(arr.indexOf(i), 1)
         }
@@ -40,7 +40,7 @@ export default function channels(state = initialState, action) {
       }
     case RECEIVE_CHANNEL:
       if (
-        state.data.filter(channel => channel.name === action.channel.name)
+        state.data.filter((channel:any) => channel.name === action.channel.name)
           .length !== 0
       ) {
         return state

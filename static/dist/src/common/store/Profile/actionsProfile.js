@@ -1,17 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const types = tslib_1.__importStar(require("../../constants/ActionTypes-items"));
+const Types = tslib_1.__importStar(require("../../constants/ActionTypes-items"));
 const api_1 = tslib_1.__importDefault(require("../../api"));
 const files_1 = tslib_1.__importDefault(require("../../modules/files"));
-//import remote from '../modules/remote'
-const react_cookie_1 = tslib_1.__importDefault(require("react-cookie"));
-const react_router_1 = require("react-router");
+const history_1 = require("../../services/history");
 const socket_io_client_1 = tslib_1.__importDefault(require("socket.io-client"));
+const types = Types;
 const socket = socket_io_client_1.default('', { path: '/api/chat' });
 let request = require('superagent');
 const redux_actions_1 = require("redux-actions");
-exports.addItem = redux_actions_1.createAction(types.ADD, data => {
+const react_cookie_1 = tslib_1.__importDefault(require("react-cookie"));
+const api = api_1.default;
+const _Cookies = react_cookie_1.default;
+const cookie = new _Cookies();
+exports.addItem = redux_actions_1.createAction(types.ADD, (data) => {
     let profile = {
         local: {
             username: data.name,
@@ -45,28 +48,28 @@ exports.removeFileAction = redux_actions_1.createAction(types.REMOVE_FILE, ({ fi
     name: data.name,
   }
 }*/
-exports.setSong = song => dispatch => {
+exports.setSong = (song) => (dispatch) => {
     dispatch(exports.setSongAction(song));
 };
-exports.removeFile = (type, file, index) => dispatch => {
-    api_1.default.removeFile({ type: type, 'file': file }).then(result => {
+exports.removeFile = (type, file, index) => (dispatch) => {
+    api.removeFile({ type: type, 'file': file }).then(() => {
         dispatch(exports.removeFileAction({ file: index,
             typeFile: type }));
-    }, error => {
+    }, (error) => {
         console.log('err');
         console.log(error);
     });
 };
-exports.addFile = (file, type) => dispatch => {
-    api_1.default.add({ type: type, 'file': file }).then(result => {
+exports.addFile = (file, type) => (dispatch) => {
+    api.add({ type: type, 'file': file }).then(() => {
         console.log('done');
         //browserHistory.push(`/profiles/${index}`);
-    }, error => {
+    }, (error) => {
         console.log('err');
         console.log(error);
     });
 };
-exports.getFiles = some => dispatch => {
+exports.getFiles = (some) => (dispatch) => {
     files_1.default(some, (err, files) => {
         if (files.length) {
             var someVar = some.toUpperCase().replace('-', '_');
@@ -78,13 +81,13 @@ exports.getFiles = some => dispatch => {
     });
 };
 exports.getItems = (dispatch) => {
-    const userId = react_cookie_1.default.load('userId');
-    api_1.default.getItems([])
-        .then(result => {
+    const userId = cookie.load('userId');
+    api.getItems([])
+        .then((result) => {
         let itemsBase = result['data'];
         let newItems = new Map();
         let ids = [];
-        itemsBase.forEach(function (item, i, arr) {
+        itemsBase.forEach(function (item) {
             let user = item['local'];
             if (item._id == userId) {
                 return;
@@ -105,11 +108,11 @@ exports.getItems = (dispatch) => {
         });
         let dataTHen = { ids, newItems };
         return dataTHen;
-    }, error => {
+    }, (error) => {
         console.log('err');
         console.log(error);
     })
-        .then(dataTHen => {
+        .then((dataTHen) => {
         let ids = dataTHen.ids;
         socket.emit('get users', ids);
         socket.on('server users', function (message) {
@@ -135,19 +138,19 @@ exports.getItems = (dispatch) => {
         });
     });
 };
-exports.offItem = id => dispatch => {
+exports.offItem = (id) => {
     socket.emit('leave user', id);
     return {
         type: types.LEAVE_ITEM,
         id: id,
     };
 };
-exports.onItem = id => dispatch => {
+exports.onItem = (id) => (dispatch) => {
     //  return {'type': types.IN_ITEM, id: id};
 };
-exports.getItem = index => dispatch => {
+exports.getItem = (index) => (dispatch) => {
     let userId = { userId: index };
-    api_1.default.getItem(userId).then(result => {
+    api.getItem(userId).then((result) => {
         let itemB = result['data'];
         dispatch({
             type: types.GET_ITEM,
@@ -155,26 +158,26 @@ exports.getItem = index => dispatch => {
             id: index,
         });
         //browserHistory.push(`/profiles/${index}`);
-    }, error => {
+    }, (error) => {
         console.log('err');
         console.log(error);
     });
 };
-exports.getVideo = () => dispatch => {
-    api_1.default.getVideo([]).then(result => {
+exports.getVideo = () => (dispatch) => {
+    api.getVideo([]).then((result) => {
         let videoBase = result['data'];
         dispatch({
             type: types.GET_VIDEO,
             video: videoBase,
         });
-    }, error => {
+    }, (error) => {
         console.log('err');
         console.log(error);
     });
 };
 exports.addVideo = (data, dispatch) => {
     let bdata = [data.name, data.src];
-    api_1.default.addVideo(bdata).then(result => {
+    api.addVideo(bdata).then((result) => {
         let id = result.data['_id'];
         dispatch({
             type: types.ADD_VIDEO,
@@ -184,28 +187,28 @@ exports.addVideo = (data, dispatch) => {
         });
     });
 };
-exports.delVideo = idBase => {
+exports.delVideo = (idBase) => {
     let bdata = { id: idBase };
-    return dispatch => {
-        return api_1.default
+    return (dispatch) => {
+        return api
             .delVideo(bdata)
-            .then(response => {
+            .then((response) => {
             console.log('res', response);
             dispatch({
                 type: types.DEL_VIDEO,
                 id: idBase,
             });
         })
-            .catch(error => {
+            .catch((error) => {
             throw error;
         });
     };
 };
-exports.delItem = idBase => {
+exports.delItem = (idBase) => {
     let bdata = { id: idBase };
-    api_1.default.delItem(bdata).then(result => {
-        react_router_1.browserHistory.push('/profiles');
-    }, error => {
+    api.delItem(bdata).then(() => {
+        history_1.browserHistory.push('/profiles');
+    }, (error) => {
         console.log('err');
         console.log(error);
     });
@@ -216,7 +219,7 @@ exports.delItem = idBase => {
 };
 exports.list = (id, list) => {
     let bdata = [id, list];
-    api_1.default.list(bdata);
+    api.list(bdata);
     return {
         type: types.LIST,
         list,
@@ -230,29 +233,29 @@ exports.choose = (id, choose) => {
         choose,
     };
 };
-exports.on = id => {
+exports.on = (id) => {
     return {
         type: types.ON,
         id,
     };
 };
-exports.quickSearch = name => {
-    return api_1.default.getItems(name);
+exports.quickSearch = (name) => {
+    return api.getItems(name);
 };
-exports.clearSearch = name => {
+exports.clearSearch = (name) => {
     return {
         type: types.FULL_SEARCH,
         name: false
     };
 };
-exports.fullSearch = name => {
-    react_router_1.browserHistory.push('/profiles');
+exports.fullSearch = (name) => {
+    history_1.browserHistory.push('/profiles');
     return {
         type: types.FULL_SEARCH,
         name: name
     };
 };
-exports.off = id => {
+exports.off = (id) => {
     return {
         type: types.OFF,
         id,

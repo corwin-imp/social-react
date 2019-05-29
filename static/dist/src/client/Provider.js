@@ -16,7 +16,7 @@ class ProviderWrap extends react_1.default.Component {
     }
     render() {
         return (react_1.default.createElement(react_redux_1.Provider, { store: configureStore_1.default },
-            process.env.NODE_ENV !== "production" && react_1.default.createElement(DevTools_1.default, null),
+            process.env.NODE_ENV !== 'production' && react_1.default.createElement(DevTools_1.default, null),
             react_1.default.createElement(react_router_dom_1.BrowserRouter, null,
                 react_1.default.createElement(Routes_1.default, null))));
     }

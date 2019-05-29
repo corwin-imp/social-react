@@ -20,7 +20,7 @@ const rootElement = document.getElementById('react')
 
 const renderMethod = ReactDOM.hydrate;
 
-function render(Component) {
+function render(Component: any) {
     renderMethod(
         <AppContainer>
             <Component />
@@ -35,8 +35,8 @@ Loadable.preloadReady().then(() => {
 });
 
 if (module.hot) {
-    module.hot.accept('./Provider.js', () => {
-        const { ProviderWrap: Provider } = require('./Provider.js');
+    module.hot.accept('./Provider.tsx', () => {
+        const { ProviderWrap: Provider } = require('./Provider.tsx');
         render(Provider);
     });
 }

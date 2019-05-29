@@ -1,3 +1,5 @@
-import createHistory from 'history/createBrowserHistory'
+import { createMemoryHistory, createBrowserHistory } from 'history';
 
-export default createHistory()
+export const memoryHistory = createMemoryHistory();
+
+export const browserHistory = createBrowserHistory();

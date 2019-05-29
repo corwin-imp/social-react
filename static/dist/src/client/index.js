@@ -25,8 +25,8 @@ react_loadable_1.default.preloadReady().then(() => {
     render(Provider_1.default);
 });
 if (module.hot) {
-    module.hot.accept('./Provider.js', () => {
-        const { ProviderWrap: Provider } = require('./Provider.js');
+    module.hot.accept('./Provider.tsx', () => {
+        const { ProviderWrap: Provider } = require('./Provider.tsx');
         render(Provider);
     });
 }

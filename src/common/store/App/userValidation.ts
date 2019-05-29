@@ -3,13 +3,13 @@ import {
   LOAD_USERVALIDATION_SUCCESS,
   LOAD_USERVALIDATION_FAIL,
 } from '../Chat/TypesChat'
-
-const initialState = {
+import { AnyAction } from 'redux'
+const initialState: any = {
   loaded: false,
   data: [],
 }
 
-export default function userValidation(state = initialState, action) {
+export default function userValidation(state = initialState, action: AnyAction) {
   switch (action.type) {
     case LOAD_USERVALIDATION:
       return {

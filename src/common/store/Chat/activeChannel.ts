@@ -5,7 +5,7 @@ const initialState = {
   id: 0,
 }
 
-export default function activeChannel(state = initialState, action) {
+export default function activeChannel(state = initialState, action:any) {
   switch (action.type) {
     case CHANGE_CHANNEL:
       return {

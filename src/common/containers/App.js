@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { browserHistory } from 'react-router'
+import { browserHistory } from '../services/history'
 
 import { initEnvironment } from '../store/App/actionsApp'
 import { connect } from 'react-redux'

@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions'
 import * as actions from "./actionsAudio";
 
 
-const initialState = {
+const initialState:any = {
     playing: false,
     src: false,
     loaded: false,
@@ -19,7 +19,7 @@ const initialState = {
 }
 const reducerAudio = handleActions(
     {
-        [actions.onPlayerNext]: (state) => {
+        [`${actions.onPlayerNext}`]: (state) => {
             state.history.push(state.src)
             return {
                 ...state,
@@ -28,7 +28,7 @@ const reducerAudio = handleActions(
                 history: state.history,
             }
         },
-        [actions.onPlayerPrev]: (state, action) => {
+        [`${actions.onPlayerPrev}`]: (state, action: any) => {
             let src = state.history.pop()
             return {
                 ...state,
@@ -36,7 +36,7 @@ const reducerAudio = handleActions(
                 src: src,
             }
         },
-        [actions.handleToggle]: (state, action) =>  {
+        [`${actions.handleToggle}`]: (state, action: any) =>  {
 
             return {
                 ...state,
@@ -44,7 +44,7 @@ const reducerAudio = handleActions(
                 keyWord: 'playing',
             }
         },
-        [actions.load]: (state, action) => {
+        [`${actions.load}`]: (state, action: any) => {
 
             if (state.src !== action.data) {
                 var pl = true
@@ -61,7 +61,7 @@ const reducerAudio = handleActions(
                 keyWord: 'playing',
             }
         },
-        [actions.setProgress]: (state, action) => {
+        [`${actions.setProgress}`]: (state, action: any) => {
 
             return {
                 ...state,
@@ -70,28 +70,28 @@ const reducerAudio = handleActions(
                 keyWord: 'progress',
             }
         },
-        [actions.handleOnLoad]: (state, action) => {
+        [`${actions.handleOnLoad}`]: (state, action: any) => {
 
             return {
                 ...state,
                 duration: action.data,
             }
         },
-        [actions.volume]: (state, action) => {
+        [`${actions.volume}`]: (state, action: any) => {
 
             return {
                 ...state,
                 volume: action.data,
             }
         },
-        [actions.renderSeekPos]: (state, action) => {
+        [`${actions.renderSeekPos}`]: (state, action: any) => {
 
             return {
                 ...state,
                 seek: action.data,
             }
         },
-        [actions.trigMount]: (state, action) => {
+        [`${actions.trigMount}`]: (state, action: any) => {
 
             return {
                 ...state,

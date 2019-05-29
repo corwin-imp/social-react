@@ -1,12 +1,12 @@
 import * as types from './AppTypes'
-
-const initialState = {
+import { AnyAction } from 'redux'
+const initialState: any = {
   isMobile: false,
   screenHeight: null,
   screenWidth: null,
 }
 
-export default function environment(state = initialState, action) {
+export default function environment(state = initialState, action: AnyAction) {
   switch (action.type) {
     case types.CHANGE_IS_MOBILE:
       return {

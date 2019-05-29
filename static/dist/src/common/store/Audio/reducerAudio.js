@@ -19,7 +19,7 @@ const initialState = {
     history: [],
 };
 const reducerAudio = redux_actions_1.handleActions({
-    [actions.onPlayerNext]: (state) => {
+    [`${actions.onPlayerNext}`]: (state) => {
         state.history.push(state.src);
         return {
             ...state,
@@ -28,7 +28,7 @@ const reducerAudio = redux_actions_1.handleActions({
             history: state.history,
         };
     },
-    [actions.onPlayerPrev]: (state, action) => {
+    [`${actions.onPlayerPrev}`]: (state, action) => {
         let src = state.history.pop();
         return {
             ...state,
@@ -36,14 +36,14 @@ const reducerAudio = redux_actions_1.handleActions({
             src: src,
         };
     },
-    [actions.handleToggle]: (state, action) => {
+    [`${actions.handleToggle}`]: (state, action) => {
         return {
             ...state,
             playing: !state.playing,
             keyWord: 'playing',
         };
     },
-    [actions.load]: (state, action) => {
+    [`${actions.load}`]: (state, action) => {
         if (state.src !== action.data) {
             var pl = true;
         }
@@ -61,7 +61,7 @@ const reducerAudio = redux_actions_1.handleActions({
             keyWord: 'playing',
         };
     },
-    [actions.setProgress]: (state, action) => {
+    [`${actions.setProgress}`]: (state, action) => {
         return {
             ...state,
             progress: action.progress,
@@ -69,25 +69,25 @@ const reducerAudio = redux_actions_1.handleActions({
             keyWord: 'progress',
         };
     },
-    [actions.handleOnLoad]: (state, action) => {
+    [`${actions.handleOnLoad}`]: (state, action) => {
         return {
             ...state,
             duration: action.data,
         };
     },
-    [actions.volume]: (state, action) => {
+    [`${actions.volume}`]: (state, action) => {
         return {
             ...state,
             volume: action.data,
         };
     },
-    [actions.renderSeekPos]: (state, action) => {
+    [`${actions.renderSeekPos}`]: (state, action) => {
         return {
             ...state,
             seek: action.data,
         };
     },
-    [actions.trigMount]: (state, action) => {
+    [`${actions.trigMount}`]: (state, action) => {
         return {
             ...state,
             mount: !state.mount,

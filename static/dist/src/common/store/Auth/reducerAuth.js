@@ -12,19 +12,19 @@ const initialState = {
     },
 };
 const reducerAuth = redux_actions_1.handleActions({
-    [actions.requestSignUp]: (state) => {
+    [`${actions.requestSignUp}`]: (state) => {
         return {
             ...state,
             signingUp: true,
         };
     },
-    [actions.requestSignOut]: (state, action) => {
+    [`${actions.requestSignOut}`]: (state, action) => {
         return {
             ...state,
             signingOut: true,
         };
     },
-    [actions.receiveSignOut]: (state, action) => {
+    [`actions.receiveSignOut`]: (state, action) => {
         return {
             ...state,
             signingOut: false,
@@ -34,13 +34,13 @@ const reducerAuth = redux_actions_1.handleActions({
             },
         };
     },
-    [actions.requestSignIn]: (state, action) => {
+    [`${actions.requestSignIn}`]: (state, action) => {
         return {
             ...state,
             signingIn: true,
         };
     },
-    [actions.loadUser]: (state, action) => {
+    [`${actions.loadUser}`]: (state, action) => {
         return {
             ...state,
             loading: false,
@@ -48,7 +48,7 @@ const reducerAuth = redux_actions_1.handleActions({
             user: action.user,
         };
     },
-    [actions.receiveSocket]: (state, action) => {
+    [`${actions.receiveSocket}`]: (state, action) => {
         return {
             ...state,
             user: {
@@ -57,7 +57,7 @@ const reducerAuth = redux_actions_1.handleActions({
             },
         };
     },
-    [actions.receiveUser]: (state, action) => {
+    [`${actions.receiveUser}`]: (state, action) => {
         return {
             ...state,
             signingUp: false,
@@ -65,14 +65,14 @@ const reducerAuth = redux_actions_1.handleActions({
             user: action.user,
         };
     },
-    [actions.receiveSignIn]: (state, action) => {
+    [`${actions.receiveSignIn}`]: (state, action) => {
         return {
             ...state,
             signingIn: false,
             user: action.user,
         };
     },
-    [actions.setPictureAction]: (state, action) => {
+    [`${actions.setPictureAction}`]: (state, action) => {
         return {
             ...state,
             user: {

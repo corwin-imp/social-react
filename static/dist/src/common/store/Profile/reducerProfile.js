@@ -4,7 +4,7 @@ const tslib_1 = require("tslib");
 const Profile_1 = tslib_1.__importDefault(require("./Profile"));
 const types = tslib_1.__importStar(require("../../constants/ActionTypes-items"));
 const api_1 = tslib_1.__importDefault(require("../../api"));
-const react_router_1 = require("react-router");
+const history_1 = require("../../services/history");
 let newItems = new Map();
 const initialState = {
     items: newItems,
@@ -50,7 +50,7 @@ const reducerProfile = (state = initialState, action) => {
             for (let item of state.items.keys()) {
                 newItems.set(item, state.items.get(item));
             }
-            newItems.get(action.name).list = list;
+            newItems.get(action.name).list = action.list;
             return {
                 ...state,
                 items: newItems,
@@ -104,7 +104,7 @@ const reducerProfile = (state = initialState, action) => {
             for (let item of state.items.keys()) {
                 newItems.set(item, state.items.get(item));
             }
-            newItems.get(action.id).choose = choose;
+            newItems.get(action.id).choose = action.choose;
             return {
                 ...state,
                 items: newItems,
@@ -136,7 +136,7 @@ const reducerProfile = (state = initialState, action) => {
             let bdata = { data: updateItem, id: action.idBase };
             let promice = new Promise(function (resolve, reject) {
                 api_1.default.updateItem(bdata).then(result => {
-                    react_router_1.browserHistory.push(`/profiles/${action.idBase}`);
+                    history_1.browserHistory.push(`/profiles/${action.idBase}`);
                 }, error => {
                     console.log('err');
                     console.log(error);
@@ -154,7 +154,7 @@ const reducerProfile = (state = initialState, action) => {
             return newState;
             break;
         case types.GET_ITEM:
-            var baseS = {
+            let baseS = {
                 ...state,
             };
             if (typeof action.item != 'string') {
@@ -185,7 +185,7 @@ const reducerProfile = (state = initialState, action) => {
             break;
         default:
             if (state.items == []) {
-                reducerProfile({ type: types.GET_ITEMS });
+                reducerProfile(initialState, { type: types.GET_ITEMS });
             }
             return state;
     }

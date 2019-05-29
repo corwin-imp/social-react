@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const react_1 = tslib_1.__importDefault(require("react"));
 const react_router_dom_1 = require("react-router-dom");
-const react_router_1 = require("react-router");
+const history_1 = require("../services/history");
 const actionsApp_1 = require("../store/App/actionsApp");
 const react_redux_1 = require("react-redux");
 const actionsAuth_1 = require("../store/Auth/actionsAuth");
@@ -32,7 +32,7 @@ class App extends react_1.default.Component {
         }
         else {
             if (location.pathname == '/') {
-                react_router_1.browserHistory.push('/my-profile');
+                history_1.browserHistory.push('/my-profile');
             }
         }
         if (!this.props.music.length) {
