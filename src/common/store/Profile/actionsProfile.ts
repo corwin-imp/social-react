@@ -6,7 +6,7 @@ import load_files from '../../modules/files'
 
 import {Dispatch} from 'redux'
 import { push } from 'react-router-redux'
-import { browserHistory } from '../../services/history'
+import browserHistory from '../../services/history'
 
 import io from 'socket.io-client'
 const types:any = Types
@@ -16,7 +16,7 @@ let request = require('superagent')
 import { createAction } from 'redux-actions';
 //import { createSignalAction } from "../typeSettings";
 import Profile from "./Profile";
-import Cookies from "react-cookie";
+import Cookies from "universal-cookie";
 
 const api: any = Api
 const _Cookies: any = Cookies;

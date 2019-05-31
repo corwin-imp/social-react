@@ -1,5 +1,4 @@
-import { createMemoryHistory, createBrowserHistory } from 'history';
+import createBrowserHistory from 'history/createBrowserHistory';
+import createMemoryHistory from 'history/createMemoryHistory';
 
-export const memoryHistory = createMemoryHistory();
-
-export const browserHistory = createBrowserHistory();
+export default process.env.BROWSER ? createBrowserHistory() : createMemoryHistory();

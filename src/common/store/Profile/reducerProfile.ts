@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import AppItems from '../../containers/ItemsContainer'
 import * as actions from './actionsProfile'
 import url from 'url'
-import { browserHistory } from '../../services/history'
+import browserHistory from '../../services/history'
 
 let newItems: any = new Map()
 const initialState = {

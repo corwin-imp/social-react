@@ -1,42 +1,51 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { browserHistory } from '../services/history'
+import browserHistory from '../services/history'
 
 import { initEnvironment } from '../store/App/actionsApp'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
 
 import { receiveAuth } from '../store/Auth/actionsAuth'
 import * as authActions from '../store/Auth/actionsAuth'
 import * as actionsD from '../store/Profile/actionsProfile'
 import Search from '../components/Search'
+import {AppState} from '../store/RootReducer'
 import { css } from 'aphrodite'
 import {
-  Modal,
   DropdownButton,
   Dropdown,
-MenuItem,
-  Button,
-  Navbar,
-  NavDropdown,
-  Nav,
-  NavItem,
 } from 'react-bootstrap'
 import Audio from '../components/Audio'
-import styles from '../css/AppStyles'
+//import styles from '../css/AppStyles'
 import FontAwesome from 'react-fontawesome'
-class App extends React.Component {
-  constructor(props) {
+
+type Props = {
+  dispatch: Dispatch,
+  user: any,
+  location: any,
+  music: any,
+  audio: any,
+  items: any,
+  environment: any,
+}
+type stateProps = {
+  search:string
+}
+
+class App extends React.Component<Props,stateProps> {
+  constructor(props: Props) {
     super(props)
     this.state = {
       search: '',
     }
   }
 
-  onSearch(event) {
+ /* onSearch(event:React.MouseEvent<HTMLInputElement>) {
     this.setState({
       gender: event.target.value,
     })
-  }
+  }*/
 
   componentDidMount() {
     const { dispatch, user, location } = this.props
@@ -183,7 +192,7 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: AppState) {
   return {
     environment: state.environment,
     user: state.auth.user,

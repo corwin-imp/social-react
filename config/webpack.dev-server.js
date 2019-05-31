@@ -143,6 +143,7 @@ const serverConfig = {
 			'process.env': {
 				NODE_ENV: JSON.stringify('development'),
 			},
+			'process.env.BROWSER': false,
 		}),
 		new CheckerPlugin(),
 	],

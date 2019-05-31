@@ -157,7 +157,9 @@ const clientConfig = {
 			chunkFilename: '[name].css',
 		}),
 		new webpack.DefinePlugin({
-			favicon: 'src/common/FondueComponents/FondueAssets/img/favicon.ico'}),
+			favicon: 'src/common/FondueComponents/FondueAssets/img/favicon.ico',
+			'process.env.BROWSER': true,
+		}),
 		new Dotenv(),
 		new CheckerPlugin(),
 		new ReactLoadablePlugin({

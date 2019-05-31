@@ -1,7 +1,7 @@
-import { browserHistory } from '../../services/history'
+import browserHistory from '../../services/history'
 
 import fetch from 'isomorphic-fetch'
-import Cookies from 'react-cookie'
+import Cookies from 'universal-cookie'
 import Profile from '../Profile/Profile'
 import io from 'socket.io-client'
 import { Dispatch } from 'redux'

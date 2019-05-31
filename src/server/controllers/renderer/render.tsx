@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 //import Routes from '../common/routes';
 import Loadable from 'react-loadable';
-import Routes from '../../../common/containers/Routes';
+import Routes from '../../../common/Router';
 import { Provider } from 'react-redux';
 
 import extractLocalesFromReq from '../../client-locale/extractLocalesFromReq';

@@ -28,5 +28,5 @@ const rootReducer = combineReducers({
   environment,
   formReducer,
 })
-
+export type AppState = ReturnType<typeof rootReducer>
 export default rootReducer

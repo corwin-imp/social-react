@@ -1,52 +1,47 @@
 import React, { Fragment } from 'react';
-import universal from 'react-universal-component';
 import GoogleTagManager from '../FondueComponents/GoogleTagManager';
 import {Head} from '../FondueComponents/Head';
 import Nav from '../FondueComponents/Nav';
 import {Footer} from '../FondueComponents/Footer';
-import Loadable from "react-loadable";
+
 import { hot } from "react-hot-loader";
 import { Route, Switch, RouteComponentProps } from 'react-router';
 import { RedirectWithStatus } from '../FondueComponents/RedirectStatus';
-import { Loading } from '../FondueComponents/Layout';
+import routesList from './routesList';
 import '../FondueComponents/FondueAssets/css/styles.css';
-
 const isProd = process.env.NODE_ENV === 'production';
 
 interface interfaceProp extends RouteComponentProps<{
-	todoListId: string
+    todoListId: string
 }> {}
 
-const AsyncHomePage = Loadable({
-	loader: () => import("../Views/Home"),
-	loading: Loading,
-	modules: ['../Views/Home'],
-
-});
 const Routes = (props:any) => {
 
-	const {lang} = props
+    const {lang} = props
 
-	return (
-		<Fragment>
-			{isProd ? <GoogleTagManager gtmId="GTM-WFTXGC8" /> : ''}
-			<Head />
-			<Nav lang={lang} />
-			<Switch>
-				<Route
-					exact
-					path="/en"
-					component={AsyncHomePage}
-				/>
+    return (
+        <Fragment>
+            {isProd ? <GoogleTagManager gtmId="GTM-WFTXGC8" /> : ''}
+            <Head />
+            <Nav lang={lang} />
+            <Switch>
+                {routesList.map(item =>
+                <Route
+                    exact={item.exact}
+                    path={item.path}
+                    component={item.component}
+                />
+                )}
 
-				<RedirectWithStatus status={301} exact from="/" to={`/${lang}`} />
 
-			</Switch>
-			<Footer />
-		</Fragment>
-	);
+
+            </Switch>
+            <Footer />
+        </Fragment>
+    );
 }
 /*
+   <RedirectWithStatus status={301} exact from="/" to={`/${lang}`} />
 <Route
 	exact
 	path="/:lang"
@@ -64,6 +59,10 @@ render={(routeProps: interfaceProp) => <UniversalComponent page="About" {...rout
 />
 <Route render={(routeProps: interfaceProp) => <UniversalComponent page="NotFound" {...routeProps} />} />
 
+
+<Route exact path="/" component={LoadableTop} />
+<Route path="/orgs/:org" component={LoadableOrgs} />
+<Route component={LoadableNotFound} />
 */
 
 export default hot(module)(Routes);
